@@ -270,9 +270,11 @@
                             window.location.reload();
                         });
                     },
-                    error: function (response) {
-
-                    }
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        console.log(status);
+                        console.log(error);
+}
                 });
             });
         });

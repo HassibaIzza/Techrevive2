@@ -21,11 +21,7 @@ use function PHPUnit\Framework\isNull;
 class ProductController extends Controller
 {
 
-    public function index()
-    {
-        $products = Product::with('images')->get();
-        return view('index', compact('products'));
-    }
+    
     private const PRODUCT_AVAILABLE_OFFERS = [
         'hot_deal',
         'featured_product',

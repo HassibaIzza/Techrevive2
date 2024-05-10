@@ -3,7 +3,7 @@ $(function() {
 
      // chart 1
 	 
-		  var ctx = document.getElementById('chart1').getContext('2d');
+		  typeof ctx == document.getElementById('chart1').getContext('2d');
 		
 			var myChart = new Chart(ctx, {
 				type: 'line',
@@ -66,7 +66,7 @@ $(function() {
 		
     // chart 2
 
-		var ctx = document.getElementById("chart2").getContext('2d');
+		typeof ctx == document.getElementById("chart2").getContext('2d');
 			var myChart = new Chart(ctx, {
 				type: 'doughnut',
 				data: {
