@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,8 +17,21 @@ class RendezVous extends Model
         'problème',
         'nom',
         'sujet',
-        'client_id'
+        'client_id',
+        'user_id',
+        'date_rendezvous',
+        'short_description',
+
     ];
 
-    // Define any relationships or custom methods here if needed
+    // Spécifiez la colonne utilisée pour la relation avec la marque
+    public function marque()
+    {
+        return $this->belongsTo(Marque::class, 'marque', 'name');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

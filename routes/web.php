@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
  
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReparateurController;
+use App\Http\Controllers\RendezvousController;
+use App\Http\Controllers\PanneController;
+use App\Http\Controllers\ChatbotController;
 
 
 /*
@@ -16,6 +20,31 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/*chatbot*/
+Route::get('/chatbot1', function () {
+    return view('chatbot.chatbot');
+  });
+  Route::post('/get-message', [ChatbotController::class, 'getMessage'])->name('get-message');
+  
+  
+  Route::get('/liste-des-pannes', [PanneController::class, 'index'])->name('listepannes');
+/*fin_chatbot */
+
+/*réparateurs*/
+Route::get('/reparateur-product', 'ProductController@reparateurProduct')->name('reparateur-product');
+
+Route::post('/profile/info/update', 'ProfileController@updateInfo')->name('reparateur-profile-info-update');
+
+
+
+Route::post('/reparateur/profile/image/update', [ReparateurController::class, 'updateProfileImage'])->name('reparateur-profile-image-update');
+
+Route::post('/reparateur/update-info', 'App\Http\Controllers\User\ReparateurController@updateInfo')->name('reparateur.updateInfo');
+
+
+Route::get('/reparateurs', [ReparateurController::class, 'index'])->name('reparateurs.index');
+/*fin_réparateurs*/
 Route::get('/email', [App\Http\Controllers\EmailController::class, 'create']);
 Route::post('/email', [App\Http\Controllers\EmailController::class, 'sendEmail'])->name('send.email');
 
@@ -53,7 +82,11 @@ Route::get('/rendez_vous', function () {
     return view('bookings.create');
 })->name('rendez_vous');
 
+ /*Routes_rendez-vous*/
+Route::get('/rendezvous', [RendezvousController::class, 'rendezvous'])->name('rendezvous');
+Route::post('/rendezvous', [RendezvousController::class, 'store'])->name('rendezvous.store');
 
+/*fin*/
 Route::get('/products', [ProductController::class, 'index']);
 
 require_once __DIR__.'/auth.php';

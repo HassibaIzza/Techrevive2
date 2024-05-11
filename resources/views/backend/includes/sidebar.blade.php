@@ -143,23 +143,60 @@
             </ul>
 
         </li>
-        <li>
-            <a class="has-arrow" style="cursor: pointer">
-                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
-                </div>
-                <div class="menu-title">Pannes Fréquents</div>
-            </a>
-            <ul>
-                <li> <a href="{{route('marques.show')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
-                </li>
-                <li> <a href="{{route('pannes-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter panne</a>
-                </li>
-            </ul>
-
-        </li>
-
         @endif
 
+        <li>
+          <a class="has-arrow" style="cursor: pointer">
+            
+          </a>
+          <ul>
+              @if($role === 'Fabricant')
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('listepannes') }}">
+                      <i class="lni lni-list"></i> Liste des Pannes
+                  </a>
+              </li>
+              @endif
+          </ul>
+      </li>
     </ul>
+    
     <!--end navigation-->
 </div>
+
+<script>
+    const submenuItems = document.querySelectorAll('.has-submenu');
+    submenuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            item.classList.toggle('submenu-open');
+            const submenu = item.querySelector('.submenu');
+            const submenuArrow = item.querySelector('.submenu-arrow i');
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+                submenuArrow.classList.remove('bx-chevron-down');
+                submenuArrow.classList.add('bx-chevron-right');
+            } else {
+                submenu.style.display = 'block';
+                submenuArrow.classList.remove('bx-chevron-right');
+                submenuArrow.classList.add('bx-chevron-down');
+            }
+        });
+    });
+</script>
+<script>
+  const submenuItems = document.querySelectorAll('.has-submenu');
+  submenuItems.forEach(item => {
+      const submenu = item.querySelector('.submenu');
+      const submenuArrow = item.querySelector('.submenu-arrow i');
+      
+      item.addEventListener('click', () => {
+          submenu.classList.toggle('submenu-open');
+          submenuArrow.classList.toggle('bx-chevron-down');
+          submenuArrow.classList.toggle('bx-chevron-right');
+      });
+      
+      // Masquer les sous-menus par défaut
+      submenu.style.display = 'none';
+  });
+</script>
+
