@@ -11,8 +11,8 @@
     @include('auth.login')
 @endif --}}
 @php 
-use App\Models\Product;
-$products = Product::with('images')->get();
+use App\Models\Product\ProductModel;
+$products = ProductModel::with('images')->get();
 @endphp
 @extends('Layout.master')
 
@@ -136,11 +136,9 @@ $products = Product::with('images')->get();
                     </div>
                     <div class="featured__controls">
                         <ul>
-                            <li class="active" data-filter="*">All</li>
-                            <li data-filter=".iris">IRIS</li>
-                            <li data-filter=".condor">Condor</li>
-                            <li data-filter=".brandt">Brandt</li>
-                            <li data-filter=".géant">Géant</li>
+                        @foreach($products->unique('brand') as $product)
+                            <li data-filter=".{{ strtolower($product->brand) }}">{{ $product->brand }}</li>
+                        @endforeach
                         </ul>
                     </div>
                 </div>
@@ -150,7 +148,7 @@ $products = Product::with('images')->get();
                 @foreach($product->images as $image)
                 <div class="col-lg-3 col-md-4 col-sm-6 mix oranges iris">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/images.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="{{ asset($product->product_thumbnail) }}">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -158,7 +156,7 @@ $products = Product::with('images')->get();
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Iris TV LED 32 FULL HD Noir -32E30</a></h6>
+                            <h6><a href="#">{{ $product->product_name }}</a></h6>
                             <h5>24 700,00 din DZD</h5>
                         </div>
                     </div>

@@ -12,4 +12,15 @@ class ProductImagesModel extends Model
     protected $table = 'product_images';
     protected $primaryKey = 'image_id';
     public $timestamps = false;
+
+    public function product()
+    {
+        return $this->belongsTo(ProductModel::class);
+    }
+
+    public function offers()
+    {
+        return $this->belongsTo(ProductOffersModel::class);
+        
+    }
 }

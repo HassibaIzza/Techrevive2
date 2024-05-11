@@ -12,4 +12,9 @@ class ProductModel extends Model
     protected $primaryKey = 'product_id';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function images()
+    {
+        return $this->hasMany(ProductImagesModel::class, 'image_product_id');
+    }
 }

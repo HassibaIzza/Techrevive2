@@ -12,4 +12,5 @@ class ProductOffersModel extends Model
     protected $table = 'product_offers';
     protected $primaryKey = 'offer_id';
     public $timestamps = false;
+    
 }
