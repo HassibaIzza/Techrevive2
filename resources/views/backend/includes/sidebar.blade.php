@@ -8,11 +8,10 @@
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
-            <img src="{{asset('backend_assets')}}/images/laptop-1928.png" class="logo-icon" alt="logo icon">
+            <img src="{{asset('backend_assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
         </div>
-        
-        <div class="header__logo">
-            <a href="{{url('/')}}"class="logo-text" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span></a>
+        <div>
+            <a href="http://127.0.0.1:8000"><h4 class="logo-text">TeckRevive</h4></a>
         </div>
         <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
         </div>

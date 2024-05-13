@@ -2,6 +2,7 @@
 
 namespace App\Models\product;
 
+use App\Models\BrandModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +17,10 @@ class ProductModel extends Model
     public function images()
     {
         return $this->hasMany(ProductImagesModel::class, 'image_product_id');
+    }
+
+    public function brand()
+    {
+        return $this->hasMany(BrandModel::class, 'brand_id');
     }
 }
