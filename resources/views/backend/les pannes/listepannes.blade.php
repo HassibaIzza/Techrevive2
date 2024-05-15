@@ -66,8 +66,8 @@ if ($userMarque) {
                                 <td>{{ $panne->nom }}</td>
                                 <td>{{ $panne->panne }}</td>
                                 <td>{{ $panne->catégorie }}</td>
-                                <td>{{ $panne->client_id }}</td>
-                                <td>{{ $panne->id }}</td>
+                                 
+                                
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                             data-bs-toggle="modal"
