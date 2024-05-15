@@ -51,8 +51,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <div class="card">
       <div class="card-body">
         <h4 class="d-flex align-items-center mb-3">Ajouter un rendez-vous</h4>
-
+         
         <form id="brand_form" action="{{ route('rendezvous.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="client_id" value="{{ $clientId }}">
+
 
             @csrf
 

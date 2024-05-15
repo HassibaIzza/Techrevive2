@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rendez_vouses', function (Blueprint $table) {
-            
-            $table->text('short_desc')->nullable();
+            //
+            Schema::table('rendez_vouses', function (Blueprint $table) {
+                $table->dateTime('date_rendez_vous')->nullable();
+            });
         });
     }
 

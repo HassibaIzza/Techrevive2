@@ -62,17 +62,20 @@ if ($userMarque) {
                     <tbody>
                         @foreach($rendezvous as $panne)
                             <tr>
+                             
                                 <td>{{ $panne->nom }}</td>
                                 <td>{{ $panne->panne }}</td>
                                 <td>{{ $panne->catégorie }}</td>
+                                <td>{{ $panne->client_id }}</td>
+                                <td>{{ $panne->id }}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#exampleVerticallycenteredModal-{{$panne->id}}">voir les détailles
+                                            data-bs-target="#exampleVerticallycenteredModal-{{$panne->client_id}}">voir les détailles
 
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->id}}"
+                                    <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->client_id}}"
                                          tabindex="-1"
                                          aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -102,11 +105,13 @@ if ($userMarque) {
 
 
 
-             <td>
-                <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="window.location='{{ route('rendezvous') }}'" data-bs-toggle="modal" data-bs-target="#rendezvousModal-{{$panne->id}}" >
-                Rendez-vous
-                </button>
-            </td>
+                          <td>
+                          <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->client_id }})" data-bs-toggle="modal" data-bs-target="rendezvousModal-{{ $panne->client_id }}">
+    Rendez-vous
+</button>
+
+</td>
+
         </tr>
                         @endforeach
                     </tbody>
@@ -126,4 +131,10 @@ if ($userMarque) {
 
 @section('js')
     <!-- Ajoutez ici vos scripts JavaScript personnalisés -->
+    <script>
+    function redirectToRendezvous(client_id) {
+        window.location = "{{ route('rendezvous') }}?client_id=" + client_id;
+    }
+</script>
+
 @endsection
