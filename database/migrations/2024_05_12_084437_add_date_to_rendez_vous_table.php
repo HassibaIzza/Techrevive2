@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::table('rendez_vouses', function (Blueprint $table) {
-        $table->unsignedBigInteger('id_owner')->nullable()->after('id');
-    });
-      
+        Schema::table('rendez_vouses', function (Blueprint $table) {
+            //
+            Schema::table('rendez_vouses', function (Blueprint $table) {
+                $table->dateTime('date_rendez_vous')->nullable();
+            });
+        });
     }
 
     /**
@@ -27,7 +29,6 @@ return new class extends Migration
     public function down()
     {
         Schema::table('rendez_vouses', function (Blueprint $table) {
-          $table->dropColumn('id_owner');
             //
         });
     }

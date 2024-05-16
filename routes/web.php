@@ -8,6 +8,11 @@ use App\Http\Controllers\ReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\demandeController;
+
+
+use App\Http\Controllers\cvController;
+
 
 
 /*
@@ -22,6 +27,13 @@ use App\Http\Controllers\ChatbotController;
 */
 
 /*chatbot*/
+Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
+
+
+Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('demandes.recentes');
+
+
+
 Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
   });
@@ -44,6 +56,11 @@ Route::post('/reparateur/update-info', 'App\Http\Controllers\User\ReparateurCont
 
 
 Route::get('/reparateurs', [ReparateurController::class, 'index'])->name('reparateurs.index');
+Route::post('/rendezvous/create/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
+Route::get('/bookings/create', [RendezvousController::class, 'rendezvous'])->name('bookings.create');
+//Route::put('/rendezvous/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
+
+
 /*fin_réparateurs*/
 Route::get('/email', [App\Http\Controllers\EmailController::class, 'create']);
 Route::post('/email', [App\Http\Controllers\EmailController::class, 'sendEmail'])->name('send.email');
