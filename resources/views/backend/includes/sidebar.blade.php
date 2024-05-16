@@ -168,21 +168,8 @@
           </ul>
       </li>
 
-      <li>
-          <a class="has-arrow" style="cursor: pointer">
-            
-          </a>
-          <ul>
-              @if($role === 'client')
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('listepannes') }}">
-                      <i class="lni lni-list"></i> Suivre ma réparation
-                  </a>
-              </li>
-              @endif
-          </ul>
-      </li>
-    </ul>
+      
+     
     
     <!--end navigation-->
 </div>

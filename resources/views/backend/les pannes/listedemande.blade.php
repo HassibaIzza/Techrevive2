@@ -17,6 +17,11 @@
                           <th>Catégorie</th>
                           <th>Détails de la panne</th>
                           <th>Actions</th>
+                          <th>Actions</th>
+                          <th>Actions</th>
+                          <th>Actions</th>
+                          <th>Actions</th>
+                          <th>Actions</th>
                       </tr>
                   </thead>
                     <tbody>
@@ -26,6 +31,10 @@
                                 <td>{{ $rdv->Marque }}</td>
                                 <td>{{ $rdv->catégorie }}</td>
                                 <td>{{ $rdv->panne }}</td>
+                                <td>{{ $rdv->problème }}</td>
+                                <td>{{ $rdv->problème }}</td>
+                                <td>{{ $rdv->problème }}</td>
+                                <td>{{ $rdv->problème }}</td>
                                 <td>{{ $rdv->problème }}</td>
                                 <td>
                                   <div class="d-flex order-actions">
