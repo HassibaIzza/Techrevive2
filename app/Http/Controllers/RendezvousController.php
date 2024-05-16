@@ -13,7 +13,6 @@ class RendezvousController extends Controller
     $clientId = request()->query('client_id'); // Récupérer l'ID du client de la requête
     return view('bookings.create', compact('clientId'));
 }
-
 public function store(Request $request)
 {
     $validatedData = $request->validate([

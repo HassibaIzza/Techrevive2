@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
- 
+
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReparateurController;

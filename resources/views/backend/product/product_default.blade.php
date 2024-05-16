@@ -187,13 +187,13 @@
                                 <div class="d-flex order-actions">
                                     @if(Auth::user()->role == "vendor")
                                         <a href="edit_product/{{$item->product_id}}"><i class='bx
-                                       bxs-edit'></i>
+                                    bxs-edit'></i>
                                         </a>
                                     @endif
 
 
                                     <a href="" class="ms-3" data-bs-toggle="modal"
-                                       data-bs-target="#exampleDangerModal-{{$item->product_id}}">
+                                    data-bs-target="#exampleDangerModal-{{$item->product_id}}">
 
                                         <i class='bx bxs-trash'></i>
                                         <!-- Modal -->

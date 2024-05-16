@@ -84,7 +84,8 @@ if ($userMarque) {
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title"> Détails de la panne</h5>
+                                                    <h5 class="modal-title">Détails de la panne</h5>
+                                                    <h5 class="modal-title">Détails de la panne</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                 </div>
@@ -110,14 +111,14 @@ if ($userMarque) {
 
              <td>
                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="window.location='{{ route('rendezvous') }}'" data-bs-toggle="modal" data-bs-target="#rendezvousModal-{{$panne->client_id}}" >
-                Rendez-vous
+                    Rendez-vous
                 </button>
             </td>
         </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        @endforeach
+        </tbody>
+        </table>
+        </div>
         </div>
     </div>
 @endsection

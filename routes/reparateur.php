@@ -27,7 +27,7 @@ Route::middleware(['auth', 'auth.role:reparateur'])
 
         // profile
         Route::view('profile', 'backend.profile.reparateur_profile')->name('profile');
-       
+    
 
       // fallback
         Route::fallback(function (){

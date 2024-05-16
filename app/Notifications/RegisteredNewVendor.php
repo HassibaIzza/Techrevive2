@@ -16,9 +16,11 @@ class RegisteredNewVendor extends Notification
      *
      * @return void
      */
-    public function __construct()
+
+    protected $url ; 
+    public function __construct($url)
     {
-        //
+        $this->url = $url; 
     }
 
     /**
@@ -57,6 +59,7 @@ class RegisteredNewVendor extends Notification
         return [
             'title' => 'New User Registered',
             'message' => 'New user account need to be activated.',
+            'url' => $this->url, 
             'icon' => 'bx-group'
         ];
     }

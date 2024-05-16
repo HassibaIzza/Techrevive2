@@ -135,7 +135,7 @@
       </li>
       @endif
         
-        @if($role === 'Fabricant')
+        @if($status && $role === 'Fabricant')
         <li>
             <a class="has-arrow" style="cursor: pointer">
                 <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
@@ -153,34 +153,28 @@
         @endif
 
         <li>
-          <a class="has-arrow" style="cursor: pointer">
             
-          </a>
-          <ul>
-              @if($role === 'Fabricant')
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('listepannes') }}">
-                      <i class="lni lni-list"></i> Liste des Pannes
-                  </a>
-              </li>
-              @endif
-          </ul>
-      </li>
-
-      <li>
-          <a class="has-arrow" style="cursor: pointer">
+        </a>
+        <ul>
+            @if($status && $role === 'Fabricant')
+            <li>
+                <a class="has-arrow" style="cursor: pointer">
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                    </div>
+                    <div class="menu-title">Pannes Fréquents</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('listepannes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                    </li>
+                    <li> <a href="{{route('pannes-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter panne</a>
+                    </li>
+                </ul>
+    
+            </li>
             
-          </a>
-          <ul>
-              @if($role === 'client')
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ route('listepannes') }}">
-                      <i class="lni lni-list"></i> Suivre ma réparation
-                  </a>
-              </li>
-              @endif
-          </ul>
-      </li>
+            @endif
+        </ul>
+    </li>
     </ul>
     
     <!--end navigation-->

@@ -117,8 +117,9 @@ class EmailController extends Controller
       if ($marque && $marque->owner_id) {
           $owner = User::find($marque->owner_id);
           if ($owner) {
-            $details = "Une nouvelle demande de service a été soumise ";              
-            $owner->notify(new BrandOwnerNotification($details));
+            $details = "Une nouvelle demande de service a été soumise ";
+            $url = route('listepannes', ['id' => $marque->id]);              
+            $owner->notify(new BrandOwnerNotification($details, $url));
           }
       }
 
