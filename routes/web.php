@@ -8,6 +8,11 @@ use App\Http\Controllers\ReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\demandeController;
+
+
+use App\Http\Controllers\cvController;
+
 
 
 /*
@@ -22,6 +27,13 @@ use App\Http\Controllers\ChatbotController;
 */
 
 /*chatbot*/
+Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
+
+
+Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('demandes.recentes');
+
+
+
 Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
   });

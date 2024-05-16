@@ -6,6 +6,8 @@ $role = Auth::user()->role;
 @section('PageTitle', 'rendez vous')
 
 
+
+
  <!-- Load CSS first -->
  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.3.7/jquery.datetimepicker.min.css"/>
 
@@ -107,5 +109,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 @endsection
+
 
 

@@ -29,6 +29,9 @@ class PanneController extends Controller
             
             // Récupérer le nom de la marque
             $marque = Marque::where('id', $userId)->value('name');
+          
+
+          
         } else {
             // Si l'utilisateur n'est pas un fournisseur ou n'est pas associé à une marque, afficher tous les rendez-vous
             $rendezvous = RendezVous::all();
