@@ -56,6 +56,11 @@ Route::post('/reparateur/update-info', 'App\Http\Controllers\User\ReparateurCont
 
 
 Route::get('/reparateurs', [ReparateurController::class, 'index'])->name('reparateurs.index');
+Route::post('/rendezvous/create/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
+Route::get('/bookings/create', [RendezvousController::class, 'rendezvous'])->name('bookings.create');
+//Route::put('/rendezvous/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
+
+
 /*fin_réparateurs*/
 Route::get('/email', [App\Http\Controllers\EmailController::class, 'create']);
 Route::post('/email', [App\Http\Controllers\EmailController::class, 'sendEmail'])->name('send.email');
