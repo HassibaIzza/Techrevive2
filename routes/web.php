@@ -27,6 +27,14 @@ use App\Http\Controllers\cvController;
 */
 
 /*chatbot*/
+
+
+Route::get('/cv/{id}', 'App\Http\Controllers\cvController@showProfile')->name('cv');
+
+Route::get('/cv', function () {
+  return view('cv');
+});   
+
 Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
 
 
