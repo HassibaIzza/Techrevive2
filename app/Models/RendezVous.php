@@ -20,7 +20,7 @@ class RendezVous extends Model
         'client_id',
         'user_id',
         'date_rendezvous',
-        'short_description',
+        'short_desc'
 
     ];
 

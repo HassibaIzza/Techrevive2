@@ -14,10 +14,12 @@ class BrandOwnerNotification extends Notification
     use Queueable;
 
     protected $details;
+    public $url;
 
-    public function __construct($details)
+    public function __construct($details, $url)
     {
         $this->details = $details;
+        $this->url = $url;
     }
 
     public function via($notifiable)
@@ -31,6 +33,7 @@ class BrandOwnerNotification extends Notification
             'title' => 'Nouveau Panne', 
             'text' => $this->details,
             'message' => $this->details,
+            'url' => $this->url,
             'icon' => 'bx-send',
            
         ];

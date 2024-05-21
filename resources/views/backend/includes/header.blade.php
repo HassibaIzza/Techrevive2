@@ -52,18 +52,22 @@ use Illuminate\Support\Facades\Auth;
                             </a>
                             <div class="header-notifications-list">
                                 @forelse($authData->notifications as $notification)
-                                    <a class="dropdown-item" href="javascript:;">
+                                    <a class="dropdown-item" href="{{ $notification->data['url'] ?? '#'}}">
                                         <div class="d-flex align-items-center">
                                             <div class="notify bg-light-primary text-primary"><i
                                                     class="bx {{$notification->data['icon']}}"></i>
                                             </div>
+                                            
                                             <div class="flex-grow-1">
+                                                
                                                 <h6 class="msg-name">{{ $notification->data['title']  }}<span
                                                         class="msg-time
                                                 float-end">{{MyHelpers::getDiffOfDate($notification->created_at)
                                                 }}</span></h6>
                                                 <p class="msg-info">{{$notification->data['message']}}</p>
+                                                
                                             </div>
+                                            
                                         </div>
                                     </a>
 

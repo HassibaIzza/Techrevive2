@@ -37,6 +37,12 @@ class ProductController extends Controller
        return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
     }
 
+    public function show($product_id)
+    {
+        $product = ProductModel::with('images')->findOrFail($product_id);
+        return view('backend.boutique.view-details', compact('product'));
+    }
+
     /**
      * @return View
      */

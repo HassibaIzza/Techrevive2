@@ -16,9 +16,11 @@ class VendorActivated extends Notification
      *
      * @return void
      */
-    public function __construct()
+
+    protected $url;
+    public function __construct($url)
     {
-        //
+        $this->url = $url; 
     }
 
     /**
@@ -57,6 +59,7 @@ class VendorActivated extends Notification
         return [
             'title' => 'Activation',
             'message' => 'Admin has activated your account.',
+            'url' => $this->url, 
             'icon' => 'bx-send'
         ];
     }

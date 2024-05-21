@@ -16,8 +16,8 @@
                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0 text-white">Your account is not activated</h6>
-                    <div class="text-white">Wait for admin to activate your account</div>
+                    <h6 class="mb-0 text-white">Votre compte n'est pas Activer </h6>
+                    <div class="text-white">Attendez Un Admin Active Votre Compte</div>
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">shop Name</h6>
+                                        <h6 class="mb-0">Nome de Boutique</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="shop_name" type="text" class="form-control"
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">shop Description</h6>
+                                        <h6 class="mb-0">Description de Boutique</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <textarea id="mytextarea"
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Phone</h6>
+                                        <h6 class="mb-0">Téléphone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="phone_number" type="text" class="form-control"

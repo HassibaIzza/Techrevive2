@@ -59,7 +59,8 @@ class AdminController extends UserController
             $vendor->update(['status' => 1]);
 
             // notify the vendor
-            Notification::send($vendor, new VendorActivated());
+            $url = route('/');
+            Notification::send($vendor, new VendorActivated($url));
 
             return response(['msg' => 'user now is activated.'], 200);
         }catch (ModelNotFoundException $exception){

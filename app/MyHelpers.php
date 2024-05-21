@@ -50,7 +50,7 @@ class MyHelpers
         $image = public_path($relativePath) . $imageName;
         try {
             unlink($image);
-        }catch (\Exception $exception){
+        }catch (Exception $exception){
             // log that exception
         }
     }

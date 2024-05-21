@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{asset('backend_assets')}}/images/laptop-1928.png" type="image/png" />
+    <link rel="icon" href="{{asset('backend_assets')}}/images/favicon-32x32.png" type="image/png" />
 
     <title>@yield('title', 'Unknown Page')</title>
 
@@ -77,7 +77,7 @@
                     <ul class="header__menu__dropdown">
                         <li><a href="./shop-details.html">Réparer</a></li>
                         <li><a href="./shoping-cart.html">Contacter Réparateur</a></li>
-                        <li><a href="./checkout.html">Contacter SAV</a></li>
+                        <li><a href="/email">Contacter SAV</a></li>
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
@@ -154,7 +154,7 @@
                             <li><a href="#">Réparer</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Réparer</a></li>
-                                    <li><a href="./shoping-cart.html">Contacter Répateur</a></li>
+                                    <li><a href="">Contacter Répateur</a></li>
                                     <li><a href="{{route('send.email')}}">Contacter SAV</a></li>
                                 </ul>
                             </li>
@@ -202,10 +202,10 @@
                     <div class="footer__widget">
                         <h6>liens utiles</h6>
                         <ul>
-                            <li><a href="#">Boutique</a></li>
+                            <li><a href="{{route('boutique')}}">Boutique</a></li>
                             <li><a href="#">Réparer</a></li>
-                            <li><a href="#">SAV</a></li>
-                            <li><a href="#">List Réparateurs</a></li>
+                            <li><a href="{{route('send.email')}}">SAV</a></li>
+                            <li><a href="{{route('reparateurs.index')}}">List Réparateurs</a></li>
                             <li><a href="#">Blog</a></li>
                             <li><a href="#">Contact</a></li>
                         </ul>
