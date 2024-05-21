@@ -55,45 +55,46 @@ class ProductController extends Controller
     /**
      * @param ProductRequest $request
      */
-    public function productCreate(ProductRequest $request){
+    public function productCreate(ProductRequest $request) {
         $data = $request->validated();
-
-        // handling the product thumbnail
-        $data['product_thumbnail'] =
-            MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
-
-
-        // handling the vendor id
+        \Log::info('Product data validated', $data);
+    
+        // Handling the product thumbnail
+        $data['product_thumbnail'] = MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
+        \Log::info('Product thumbnail uploaded', ['thumbnail' => $data['product_thumbnail']]);
+    
+        // Handling the vendor id
         $data['vendor_id'] = $this->getVendorId();
-
-        // handling the product slug
+    
+        // Handling the product slug
         $data['product_slug'] = $this->getProductSlug($data['product_name']);
-
-        // status of the product
+    
+        // Status of the product
         $data['product_status'] = $request->get('product_status') ? 1 : 0;
-
-
-        // inserting the product
-        if ($data['product_images'])
-            unset($data['product_images']);
-
-        try{
+    
+        // Inserting the product
+        if ($data['product_images']) unset($data['product_images']);
+    
+        try {
             $insertedProductId = ProductModel::insertGetId($data);
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
             return redirect('add_product')->with('error', 'Failed to add this product: ' . $e->getMessage());
         }
-        
-        if ($insertedProductId){
-            // handling the product images
-            if ($request->file('product_images'))
+    
+        if ($insertedProductId) {
+            // Handling the product images
+            if ($request->file('product_images')) {
+                \Log::info('Handling multiple product images', $request->file('product_images'));
                 $this->handleProductMultiImages($request->file('product_images'), $insertedProductId);
-
-            // handling the product offers
+            }
+    
+            // Handling the product offers
             $this->handleProductOffers($request, $insertedProductId);
-
+    
             return response(['msg' => 'Product is added successfully.'], 200);
-        }else return redirect('add_product')->with('error', 'Failed to add this product, try again.');
-
+        } else {
+            return redirect('add_product')->with('error', 'Failed to add this product, try again.');
+        }
     }
 
     /**
@@ -109,11 +110,13 @@ class ProductController extends Controller
      * @param int $productId
      * @return void
      */
-    private function handleProductMultiImages(array $images, int $productId): void{
+    private function handleProductMultiImages(array $images, int $productId): void {
         $data['image_product_id'] = $productId;
-        foreach ($images as $image){
-            $data['product_image'] = MyHelpers::uploadImage($image, self::PRODUCT_IMAGES_PATH );
-            ProductImagesModel::insert($data);
+        foreach ($images as $image) {
+            $data['product_image'] = MyHelpers::uploadImage($image, self::PRODUCT_IMAGES_PATH);
+            // Log image data for debugging
+            \Log::info('Inserting product image:', ['product_id' => $productId, 'image' => $data['product_image']]);
+            ProductImagesModel::create($data); // Use create instead of insert for Eloquent
         }
     }
 

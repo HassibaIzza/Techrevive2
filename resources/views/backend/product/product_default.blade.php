@@ -46,17 +46,17 @@
                             <td>{{$item->product_quantity}}</td>
                             <td>{{$item->product_price}}</td>
                             <td>
-                                <form method="POST" action="{{route('vendor-product-activate')}}" class="activate_form">
+                                <form method="POST" action="{{route($role .'-product-activate')}}" class="activate_form">
                                     @csrf
                                     <input name="product_id" value="{{$item->product_id}}" hidden/>
                                     <input name="current_status" value="{{$item->product_status}}" hidden/>
                                     <div class="form-check form-switch">
                                         @if($item->product_status)
                                             <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                                   value="De-Active" @if(Auth::user()->role == 'admin') disabled @endif>
+                                                   value="De-Active" >
                                         @else
                                             <input name="activate" class="btn btn-outline-success" type="submit"
-                                                   value=" Activate " @if(Auth::user()->role == 'admin') disabled @endif>
+                                                   value=" Activate ">
                                         @endif
 
                                     </div>
@@ -130,13 +130,10 @@
 
                                                                     <dt class="col-sm-3">Colors</dt>
                                                                     <dd class="col-sm-9">
-                                                                        <div
-                                                                            class="color-indigators d-flex align-items-center gap-2">
-                                                                            @foreach(ProductController::getProductSeparatedColors
-                                                                        ($item->product_colors) as $color)
-                                                                                <div class="color-indigator-item"
-                                                                                     style="background-color:
-                                                                             {{$color}}"></div>
+                                                                        <div class="color-indigators d-flex align-items-center gap-2">
+                                                                            @foreach(ProductController::getProductSeparatedColors($item->product_colors) as $color)
+                                                                                <div class="color-indigator-item" style="background-color:{{$color}}">
+                                                                                </div>
                                                                             @endforeach
                                                                         </div>
 

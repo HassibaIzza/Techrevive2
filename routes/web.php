@@ -95,7 +95,6 @@ Route::get('/boutique', function () {
     return view('backend.boutique.boutique');
 })->name('boutique');
 
-Route::get('product/{product_id}', [ProductController::class, 'show'])->name('view-details');
 
 
 

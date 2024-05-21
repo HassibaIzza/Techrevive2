@@ -27,12 +27,14 @@ use App\Models\product\ProductImagesModel;
                             src="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        @php $images = ProductImagesModel::where('image_product_id', '=', $product->product_id)->get('product_image') @endphp
-
-                        @foreach($images as $image)
-                            <img data-imgbigurl="{{url('uploads/images/product/'.$image->product_image)}}"
-                                src="{{url('uploads/images/product/'.$image->product_image)}}" alt="Image">
-                        @endforeach
+                        {{--  @php $images = ProductImagesModel::where('image_product_id', '=', $product->product_id)->get('product_image') @endphp--}}
+                            @php $productid = $product->product_id ;
+                            $images = ProductController::getProductImages($productid);
+                            //dd($images);
+                            @endphp
+                                @foreach ($images as $image)
+                                    <img  data-imgbigurl="{{url('uploads/images/product/'.$image->product_image)}}"  src="{{url('uploads/images/product/'.$image->product_image)}}" width="70"class="border rounded cursor-pointer" alt="">
+                            @endforeach
                     </div>
                 </div>
             </div>
@@ -59,9 +61,18 @@ use App\Models\product\ProductImagesModel;
                     <a href="#" class="primary-btn">ADD TO CARD</a>
                     <a href="#" class="heart-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
                     <ul>
-                        <li><b>Availability</b> <span>In Stock</span></li>
-                        <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                        <li><b>Weight</b> <span>0.5 kg</span></li>
+                        <li><b>Disponibilité</b> <span> {{$product->product_quantity}}</span></li>
+                        <li><b>Code produit</b> <span> {{$product->product_code}}</span></li>
+                        <li><b>Couleurs</b> 
+                            <div class="color-indigators d-flex align-items-center gap-2">
+                                @php $colors = ProductController::getProductSeparatedColors($product->product_colors) @endphp
+                                @foreach($colors as $color)
+                                    <div class="color-indigator-item" style="background-color:{{$color}}">
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </li>
                         <li><b>Share on</b>
                             <div class="share">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -99,7 +110,7 @@ use App\Models\product\ProductImagesModel;
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <div class="product__details__tab__desc">
                                 <h6>Products Infomation</h6>
-                                <p>.</p>
+                                <p>{{$product->product_short_description}}.</p>
                                 <p></p>
                             </div>
                         </div>
@@ -118,19 +129,4 @@ use App\Models\product\ProductImagesModel;
 
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ asset('js/all.js') }}"></script>
-<script>
-$(document).ready(function(){
-    $(".owl-carousel").owlCarousel({
-        items: 1,
-        loop: true,
-        margin: 10,
-        nav: true,
-        dots: true,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true
-    });
-});
-</script>
+

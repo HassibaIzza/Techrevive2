@@ -44,8 +44,10 @@ $brands = BrandModel::all();
             </div>
         </div>
     </div>
+    
     <div class="row featured__filter">
         @foreach($products as $product)
+            @if($product->product_status)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges {{ strtolower($product->$brand->brand_name ?? '') }}">
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg" data-setbg="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}">
@@ -57,12 +59,14 @@ $brands = BrandModel::all();
                     </div>
                     <div class="featured__item__text">
                         <h6><a href="#">{{ $product->product_name }}</a></h6>
-                        <h5>{{ $product->product_price }} DZD</h5>
+                        <h5>{{ $product->product_price }} DA</h5>
                     </div>
                 </div>
             </div>
+            @endif
         @endforeach
     </div>
+    
 </div>
 
 

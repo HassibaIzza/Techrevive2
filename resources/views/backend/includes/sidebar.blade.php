@@ -102,12 +102,13 @@
                 <a class="has-arrow" style="cursor: pointer">
                     <div class="parent-icon"><i class='lni lni-graph'></i>
                     </div>
-                    <div class="menu-title">Produits</div>
+                    <div class="menu-title">Annonces</div>
                 </a>
                 <ul>
-                    <li> <a href="{{route('vendor-product')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                    <li> <a href="{{route($role . '-product')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
-                    <li> <a href="{{route('vendor-product-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter
+                    
+                    <li> <a href="{{route($role . '-product-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter
                             Produit</a>
                     </li>
                 </ul>
@@ -121,8 +122,7 @@
                 <ul>
                     <li> <a href="{{route('vendor-coupon')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
-                    <li> <a href="{{route('vendor-coupon-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter
-                            Coupon</a>
+                    <li> <a href="{{route('vendor-coupon-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Coupon</a>
                     </li>
                 </ul>
             </li>
