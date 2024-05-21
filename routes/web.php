@@ -90,16 +90,21 @@ Route::get('/login', function () {
 Route::fallback(function (){
     return redirect()->route('login');
 });
-
+/*****************************Boutique*********************************** */
 Route::get('/boutique', function () {
     return view('backend.boutique.boutique');
 })->name('boutique');
 
+Route::get('product/{product_id}', [ProductController::class, 'show'])->name('view-details');
+
+
+
+/*Routes_rendez-vous*/
 Route::get('/rendez_vous', function () {
     return view('bookings.create');
 })->name('rendez_vous');
 
- /*Routes_rendez-vous*/
+
 Route::get('/rendezvous', [RendezvousController::class, 'rendezvous'])->name('rendezvous');
 Route::post('/rendezvous', [RendezvousController::class, 'store'])->name('rendezvous.store');
 

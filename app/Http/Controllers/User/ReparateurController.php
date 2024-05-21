@@ -7,6 +7,7 @@ use App\MyHelpers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Reparateurcontroller extends UserController
 {
@@ -18,37 +19,23 @@ class Reparateurcontroller extends UserController
     
     
 
-    public function updateInfo(ReparateurInfoRequest $request)
-    {
-        $data = $request->validated();
- 
-         // Assuming you want to update the authenticated user's info
-
-         // preparing some needed data
-        $userId = Auth::id();
-        $userData = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'phone_number' => $data['phone_number'],
-            'address' => $data['address']
-        ];
-
-
-        if ($this->updateUserData($userId, $userData) )
-            return response(['msg' => "Your Info is updated successfully"], 200);
-        else{
-            toastr()->error('Failed to save changes, try again.');
-            return redirect()->route('reparateur-profile');
-        }
-    }
-
-    private function updateUserData(int $userId, Array $data): bool{
-        return User::findOrFail($userId)->update($data);
-    }
-
-
-    
-
-
+     public function updateInfo(ReparateurInfoRequest $request)
+     {
+       $validatedData = $request->validated();
+     
+       $userId = Auth::user(); // Assuming you're using Auth::user() to get the logged-in user
+     
+       $user = User::findOrFail($userId);
+       $user->fill($validatedData);
+  // Fill user model with validated data
+     
+       if ($user->save()) {
+         Log::info('User updated successfully.');
+         return redirect()->route('reparateur-profile')->with('success', 'Your info is updated successfully.');
+       } else {
+         // Handle saving errors (e.g., log specific errors)
+         Log::error('Failed to save user data: ' . $user->getErrors());
+         return redirect()->route('reparateur-profile')->with('error', 'Failed to save changes, try again.');
+       }
+     }
 }

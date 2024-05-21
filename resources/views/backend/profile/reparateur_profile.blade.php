@@ -14,8 +14,8 @@
                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0 text-white">Your account is not activated</h6>
-                    <div class="text-white">Wait for admin to activate your account</div>
+                    <h6 class="mb-0 text-white">Votre compte N'est pas  Activer </h6>
+                    <div class="text-white">Attendez Un Admin Active Votre compte </div>
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -25,7 +25,7 @@
 
    <!--breadcrumb -->
    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">User</div>
+    <div class="breadcrumb-title pe-3">utilisateur</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -45,7 +45,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <form id="profile_image" method="POST" action="{{route('client-profile-image-update')
+                            <form id="profile_image" method="POST" action="{{route('reparateur-profile-image-update')
                             }}" enctype="multipart/form-data">
                                 @csrf
                                 <img id="show_image" src="{{!empty($data->photo) ?
@@ -65,6 +65,7 @@
                                         <small style="color: #e20000" class="error" id="image-error"></small>
                                     </div>
                                 </div>
+                                
                             </form>
                         </div>
                     </div>
@@ -73,9 +74,9 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="d-flex align-items-center mb-3">User Info</h4>
+                        <h4 class="d-flex align-items-center mb-3">Info Utilisateur</h4>
                         <br>
-                        <form id="info_form" action="{{route('client-profile-info-update')}}" method="POST"
+                        <form id="info_form" action="{{route('reparateur-profile-info-update')}}" method="POST"
                               enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
@@ -149,6 +150,17 @@
                                     />
                                 </div>
                             </div>
+                            @if(session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                         </form>
                     </div>
                 </div>
@@ -158,7 +170,7 @@
                             <div class="card-body">
                                 <h4 class="d-flex align-items-center mb-3">Change Password</h4>
                                 <br>
-                                <form id="password_form" action="{{route('client-profile-password-update')}}"
+                                <form id="password_form" action="{{route('reparateur-profile-password-update')}}"
                                       method="POST">
                                     @csrf
                                     <div class="row mb-3">
@@ -275,7 +287,7 @@
                     this.innerHTML = '';
                 });
                 $.ajax({
-                    url: "{{route('client-profile-password-update')}}",
+                    url: "{{route('reparateur-profile-password-update')}}",
                     method: 'POST',
                     data: new FormData(this),
                     dataType: 'JSON',
@@ -321,7 +333,7 @@
                     this.innerHTML = '';
                 });
                 $.ajax({
-                    url: "{{route('client-profile-image-update')}}",
+                    url: "{{route('reparateur-profile-image-update')}}",
                     method: 'POST',
                     data: new FormData(this),
                     dataType: 'JSON',

@@ -1,33 +1,32 @@
-<?php 
+<?php
 
 namespace App\Notifications;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PanneNotification extends Notification{
+class RendezVousNotification extends Notification
+{
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
+    protected $details;
+    public $url;
 
-     public function __construct()
+    public function __construct( $details, $url)
     {
-        //
+        $this->details = $details;
+        $this->url = $url;
     }
 
-     /**
+    /**
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
      * @return array
      */
-
-     public function via($notifiable)
+    public function via($notifiable)
     {
         return ['database'];
     }
@@ -38,8 +37,7 @@ class PanneNotification extends Notification{
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-
-     public function toMail($notifiable)
+    public function toMail($notifiable)
     {
         return (new MailMessage)
                     ->line('The introduction to the notification.')
@@ -53,15 +51,15 @@ class PanneNotification extends Notification{
      * @param  mixed  $notifiable
      * @return array
      */
-
-     public function toArray($notifiable)
+    public function toArray($notifiable)
     {
         return [
-            'title' => 'une panne utilisateur',
-            'message' => 'Nouveau utilisateur besion de réparation.',
-            'icon' => 'bx-group'
+            'title' => 'Rendez-vous', 
+            'text' => $this->details,
+            'message' => $this->details,
+            'url' => $this->url,
+            'icon' => 'bx-send',
+           
         ];
     }
 }
-
-?>

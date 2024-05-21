@@ -27,7 +27,6 @@ if ($userMarque) {
 
 @endphp
 
-
 @extends('backend.layouts.app')
 
 @section('PageTitle', " $marque ")
@@ -73,11 +72,9 @@ if ($userMarque) {
                                     <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                             data-bs-toggle="modal"
                                             data-bs-target="#exampleVerticallycenteredModal-{{$panne->client_id}}">voir les détailles
-                                            data-bs-target="#exampleVerticallycenteredModal-{{$panne->client_id}}">voir les détailles
 
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->client_id}}"
                                     <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->client_id}}"
                                          tabindex="-1"
                                          aria-hidden="true">
@@ -109,11 +106,13 @@ if ($userMarque) {
 
 
 
-             <td>
-                <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="window.location='{{ route('rendezvous') }}'" data-bs-toggle="modal" data-bs-target="#rendezvousModal-{{$panne->client_id}}" >
-                    Rendez-vous
-                </button>
-            </td>
+                          <td>
+                          <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->client_id }})" data-bs-toggle="modal" data-bs-target="rendezvousModal-{{ $panne->client_id }}">
+        Rendez-vous
+</button>
+
+</td>
+
         </tr>
         @endforeach
         </tbody>

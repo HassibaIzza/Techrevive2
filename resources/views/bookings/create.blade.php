@@ -53,17 +53,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <div class="card">
       <div class="card-body">
         <h4 class="d-flex align-items-center mb-3">Ajouter un rendez-vous</h4>
+
+      
          
         <form id="brand_form" action="{{ route('rendezvous.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" name="client_id" value="{{ $clientId }}">
-
-
-            @csrf
-
-
-
-
+        <input type="hidden" name="client_id" value="{{ $clientId }}">
+        @csrf
             <div class="row mb-3">
               <div class="col-sm-3">
                 <h6 class="mb-0">Date</h6>
@@ -96,13 +92,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 <input type="submit" class="btn btn-primary px-4" value="Envoyer">
               </div>
             </div>
-             @if($errors->any())
-            <ul>
-              @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-              @endforeach
-            </ul>
-          @endif
+            @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class="error" style="color: red; ">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         </form>
       </div>
     </div>

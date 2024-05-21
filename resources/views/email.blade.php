@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\DB;
 							<i class="fa fa-user" aria-hidden="true"></i>
                         </span>
                         @error('name')
-                            <span class="text-danger"> {{ $message }} </span>
+                            <span class="text-danger" style="color: red;"> {{ $message }} </span>
                         @enderror
                     </div>
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -79,7 +79,7 @@ use Illuminate\Support\Facades\DB;
 							<i class="fa fa-home" aria-hidden="true"></i>
                         </span>
                         @error('adresse')
-                        <span color="red" class="text-danger"> {{ $message }} </span>
+                        <span color="red" class="text-danger" style="color: red;"> {{ $message }} </span>
                         @enderror
                     </div>
 
@@ -123,7 +123,7 @@ use Illuminate\Support\Facades\DB;
 						<textarea class="input100" name="content" placeholder="Description du problème"></textarea>
                         <span class="focus-input100"></span>
                         @error('content')
-                        <span color="red"class="text-danger"> {{ $message }} </span>
+                        <span color="red"class="text-danger" style="color: red;"> {{ $message }} </span>
                         @enderror
                     </div>
 

@@ -186,8 +186,7 @@
                             <td>
                                 <div class="d-flex order-actions">
                                     @if(Auth::user()->role == "vendor")
-                                        <a href="edit_product/{{$item->product_id}}"><i class='bx
-                                    bxs-edit'></i>
+                                        <a href="edit_product/{{$item->product_id}}"><i class='bx bxs-edit'></i>
                                         </a>
                                     @endif
 

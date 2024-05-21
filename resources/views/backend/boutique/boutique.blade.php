@@ -12,7 +12,7 @@ $brands = BrandModel::all();
 @endsection
 
 @section('content')
-    
+
 <section class="breadcrumb-section set-bg" data-setbg="img/bg-breadcrumb.jpg">
     <div class="container">
         <div class="row">
@@ -51,7 +51,7 @@ $brands = BrandModel::all();
                     <div class="featured__item__pic set-bg" data-setbg="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}">
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                            <li><a href="{{ route('view-details', ['product_id' => $product->product_id]) }}"><i class="fa fa-info-circle"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
@@ -64,6 +64,7 @@ $brands = BrandModel::all();
         @endforeach
     </div>
 </div>
+
 
 
 @endsection
