@@ -15,7 +15,7 @@
                           <th>marque </th>
                           <th>Nom de la panne</th>
                           <th>Catégorie</th>
-                          <th>Détails de la panne</th>
+                          <th>Détails de rendez vous</th>
                           <th>Actions</th>
                           <
                       </tr>
@@ -24,14 +24,14 @@
                         @foreach($rendezvous as $rdv)
                             <tr>
                               
-                                <td>{{ $rdv->Marque}}</td>
+                                <td>{{ $rdv->nom_marque}}</td>
                                 <td>{{ $rdv->catégorie }}</td>
                                 <td>{{ $rdv->panne }}</td>
                                 
                                 <td>
                                   <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                           data-bs-toggle="modal"
-                                          data-bs-target="#exampleVerticallycenteredModal-{{$rdv->id}}">voir les détailles
+                                          data-bs-target="#exampleVerticallycenteredModal-{{$rdv->id}}">voir rend_vous
 
                                   </button>
                                   <!-- Modal -->
@@ -41,13 +41,13 @@
                                       <div class="modal-dialog modal-dialog-centered">
                                           <div class="modal-content">
                                               <div class="modal-header">
-                                                  <h5 class="modal-title"> Détails de la panne</h5>
+                                                  <h5 class="modal-title">date de rend vous</h5>
                                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                           aria-label="Close"></button>
                                               </div>
                                               <div class="card-body">
-                                                  <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{$rdv->panne}}</span></h5>
-                                                  <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{$rdv->problème}}</span></h5>
+                                                  <h5 class="card-title">date de rendez vous : <span style="font-weight: lighter">{{$rdv->date_rendez_vous}}</span></h5>
+                                                  <h5 class="card-title"> note: <span style="font-weight: lighter">{{$rdv->short_desc}}</span></h5>
                                               </div>
                                           </div>
                                           <div class="modal-footer">
@@ -59,23 +59,21 @@
                                   </div>
 
 
-                        </td>
-                                <td>
-                                  <div class="d-flex order-actions">
-                                    <!-- Bouton avec icône de suppression -->
-                                  
-                                        <i class='bx bxs-trash'></i>
-                                    </a>
-                                
-                                    <!-- Bouton avec icône de mise à jour -->
-                                    
-                                        <i class='bx bxs-edit'></i>
-                                    </a>
-                                </div>
-                                
-                                
-                                
-                                  
+                                  <td>
+                                    <div class="d-flex order-actions">
+                                        <a href="{{ route('demandes.edit', $rdv->id) }}" class="btn btn-primary btn-sm">
+                                            <i class='bx bxs-edit'></i>
+                                        </a>
+                                        <!-- Formulaire de confirmation de suppression -->
+                                        <form action="{{ route('demandes.destroy', $rdv->id) }}" method="POST" class="ml-2" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <i class='bx bxs-trash'></i>
+                                            </button>
+                                        </form>
+                                        <!-- Fin du formulaire de confirmation de suppression -->
+                                    </div>
                                 </td>
                                 
                                 <!-- Ajoutez d'autres colonnes si nécessaire -->
