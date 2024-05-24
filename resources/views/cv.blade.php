@@ -31,7 +31,7 @@ html {
   --f2-color: #000;
   --f3-color: rgba(0, 0, 0, 0.8);
   --f4-color: rgba(0, 0, 0, 0.6);
-  --f5-color: #0099cc;
+  --f5-color: #000000;
   --f6-color: #88cee6;
 
   /* =====>>  Background Color  <<===== */
@@ -471,68 +471,55 @@ header {
 </head>
 
 <body>
-    <!-- Contenu de la page -->
-    <div class="container">
-        <!-- Entête -->
-        <header>
-            <!-- Logo -->
-            <div class="brandLogo">
-                <figure><img src="{{ asset('/public/images/logo.jpg') }}" alt="logo" width="200px" height="200px"></figure>
-            </div>
-        </header>
+  <!-- Contenu de la page -->
+  <div class="container">
+      <!-- Entête -->
+      <header>
+          <!-- Logo -->
+          <div class="brandLogo">
+              <figure><img src="{{ asset('public\img\logo.png') }}" alt="logo" width="200px" height="200px"></figure>
+          </div>
+      </header>
 
-        <section class="userProfile card">
+      <section class="userProfile card">
           <div class="profile">
               <figure>
-                  <img src="{{ asset($reparateur->profile_image) }}" alt="profile" width="250px" height="250px">
+                <img src="{{ asset('uploads/images/profile/' . $user->photo) }}" alt="profile" width="250px" height="250px">
               </figure>
               <!-- Image de profil -->
           </div>
       </section>
-          
 
-        <!-- Section des compétences et des services -->
-        <section class="work_skills card">
-            <div class="skills">
-                <h1 class="heading">Services proposés</h1>
-                <ul>
-                    <li style="--i:0">Réparation de smartphones</li>
-                    <li style="--i:1">Réparation de tablettes</li>
-                    <li style="--i:2">Réparation d'ordinateurs portables</li>
-                    <li style="--i:3">Réparation d'appareils électroménagers</li>
-                </ul>
-            </div>
-        </section>
+      <!-- Section des compétences et des services -->
+      <section class="work_skills card">
+          <div class="skills">
+              <h1 class="heading">Services proposés</h1>
+              <ul>
+                  <li style="--i:0">Réparation de smartphones</li>
+                  <li style="--i:1">Réparation de tablettes</li>
+                  <li style="--i:2">Réparation d'ordinateurs portables</li>
+                  <li style="--i:3">Réparation d'appareils électroménagers</li>
+              </ul>
+          </div>
+      </section>
 
-        
-        <section class="userDetails card">
+      <section class="userDetails card">
           <div class="userName">
               <!-- Affichage des détails du réparateur -->
-            
-                  
-              <p>Nom</p>
+              <p> C.V de Réparateur </p>
               <h1>{{ $reparateur->name }}</h1>
               <p>Rôle: Réparateur</p>
-              <p>Email: {{$reparateur->email }}</p>
+              <p>Email: {{ $reparateur->email }}</p>
+              <p>Adresse: {{ $reparateur->address }}</p>
+              <p>Numéro de téléphone: {{ $reparateur->phone_number }}</p>
+              <p>type de service: {{ $reparateur->service_type }}
+                <p>  information +: {{ $reparateur->short_description }}
               
-              <p>Aderesse: {{$reparateur->address}}</p>
-              <p>numero de télephone: {{$reparateur->phone_number}}</p>
-              
+
               <!-- Ajoutez d'autres détails si nécessaire -->
           </div>
       </section>
-      
-              <!-- Ajoutez d'autres détails si nécessaire -->
-          </div>
-      </section>
-                
-                <!-- Ajoute d'autres détails si nécessaire -->
-            </div>
-        </section>
-
-        <!-- Ajoute d'autres sections si nécessaire -->
-
-    </div>
+  </div>
 </body>
 
 </html>

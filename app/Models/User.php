@@ -54,4 +54,8 @@ class User extends Authenticatable
 {
     return $this->hasMany(Marque::class, 'owner_id');
 }
+public function reparateur()
+{
+    return $this->hasOne(Reparateur::class);
+}
 }

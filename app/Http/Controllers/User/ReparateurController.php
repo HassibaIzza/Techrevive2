@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\User;
+use Illuminate\Http\Request;
+use App\Models\Reparateur;
 use App\Http\Requests\User\ReparateurInfoRequest;
 use App\Models\User;
 use App\MyHelpers;
@@ -38,4 +40,27 @@ class Reparateurcontroller extends UserController
          return redirect()->route('reparateur-profile')->with('error', 'Failed to save changes, try again.');
        }
      }
+
+     public function store(Request $request)
+    {
+        $request->validate([
+            'phone_number' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'service_type' => 'required|string|max:255',
+            'short_description' => 'required|string',
+            'id' => 'id|int',
+
+        ]);
+
+        Reparateur::create([
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'service_type' => $request->service_type,
+            'short_description' => $request->short_description,
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Reparateur profile created successfully.');
+    }
+
 }

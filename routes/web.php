@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReparateurController;
+use App\Http\Controllers\listeReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
+use App\Http\Controllers\User\ReparateurController;
+
 
 
 use App\Http\Controllers\cvController;
@@ -29,11 +31,18 @@ use App\Http\Controllers\cvController;
 /*chatbot*/
 
 
-Route::get('/cv/{id}', 'App\Http\Controllers\cvController@showProfile')->name('cv');
 
-Route::get('/cv', function () {
-  return view('cv');
-});   
+
+
+
+
+
+
+Route::get('/reparateur1/{id}', [CvController::class, 'showProfile'])->name('reparateur.showProfile');
+
+
+Route::post('/reparateur1', [ReparateurController::class, 'store'])->name('reparateurs.store');
+Route::get('/reparateurs', [listeReparateurController::class, 'index'])->name('reparateurs.index');  
 
 Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
 
@@ -76,7 +85,7 @@ Route::post('/reparateur/profile/image/update', [ReparateurController::class, 'u
 Route::post('/reparateur/update-info', 'App\Http\Controllers\User\ReparateurController@updateInfo')->name('reparateur.updateInfo');
 
 
-Route::get('/reparateurs', [ReparateurController::class, 'index'])->name('reparateurs.index');
+
 Route::post('/rendezvous/create/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
 Route::get('/bookings/create', [RendezvousController::class, 'rendezvous'])->name('bookings.create');
 //Route::put('/rendezvous/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');

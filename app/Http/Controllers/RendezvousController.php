@@ -11,8 +11,8 @@ class RendezvousController extends Controller
 {
     public function rendezvous()
 {
-    $clientId = request()->query('client_id'); // Récupérer l'ID du client de la requête
-    return view('bookings.create', compact('clientId'));
+    $Id = request()->query('id'); // Récupérer l'ID du client de la requête
+    return view('bookings.create', compact('Id'));
 }
 
 
@@ -32,18 +32,18 @@ public function store(Request $request)
     ]);
 
     // Récupérer l'ID du client depuis le formulaire
-    $clientId = $request->input('client_id');
+    $Id = $request->input('id');
 
-    if ($clientId) {
+    if ($Id) {
         // Récupérer le rendez-vous existant basé sur l'ID du client
-        $rendezVous = RendezVous::where('client_id', $clientId)->first();
+        $rendezVous = RendezVous::where('id', $Id)->first();
 
         if (!$rendezVous) {
             return redirect()->back()->with('error', 'Rendez-vous introuvable.');
         }
 
         // Récupérer le client par son ID
-        $client = User::find($clientId);
+        $client = User::find($Id);
 
 
         // Mettre à jour les champs du rendez-vous
@@ -57,7 +57,7 @@ public function store(Request $request)
         $client->notify(new RendezVousNotification($details, $url));
         return redirect()->route('bookings.create')->with('success', 'Rendez-vous mis à jour avec succès.');
     } else {
-        return redirect()->back()->with('error', 'ID de client manquant.');
+        return redirect()->back()->with('error', 'ID de rendez vous manquant.');
     }
 }
 
