@@ -21,8 +21,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js?v=20240321"></script>
 
-   
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <style>
         /* Styles pour le logo */
@@ -81,7 +81,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="{{route('contactUs')}}">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -159,7 +159,7 @@
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="{{route('contactUs')}}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -240,8 +240,9 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Our Group</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Our Group</a>
+                        
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="img/payment-item." alt=""></div>
                     </div>
                 </div>
@@ -252,8 +253,69 @@
 
     <!-- Js Plugins -->
     <script src="{{ asset('js/all.js') }}"></script>
+    @yield('ajaxsection')
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
+    <script>
 
-
+        $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+        });
+        
+        function toggleFavorite(productId) {
+            $.ajax({
+                url: "{{ route('product.favorite') }}", 
+                method: 'POST',
+                data: { product_id: productId },
+                dataType: 'JSON',
+                success: function(response) {
+                    console.log('Success:', response);
+                    if(response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
+                        });
+    
+                        // Mise à jour de l'icône du favori en temps réel
+                        const icon = $('#favorite-icon-' + productId);
+                        if (icon.hasClass('fa-heart')) {
+                        icon.removeClass('fa-heart').removeClass('favorite').addClass('fa-heart-o');
+                        } else {
+                            icon.removeClass('fa-heart-o').addClass('fa-heart').addClass('favorite');
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to mark product as favorite'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                console.error('Error:', xhr);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Vous devez connectez pour ajouter cette article dans vos favoris !  ' 
+                });
+                console.error('Status:', status);
+                console.error('Response Text:', xhr.responseText);
+                }
+            });
+        }
+    </script>
+        
 
     
 

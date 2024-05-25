@@ -39,7 +39,7 @@ class CouponController extends Controller
             // notify the admins
             $admins = User::where('role', 'admin')->get();
             $shopName = DB::table('vendor_shop')->where('user_id', Auth::id())->get('shop_name')[0]->shop_name;
-            $url = route('/');
+            $url = route('coupon');
             Notification::send($admins, new CouponInsertedNotification($shopName,$url));
             return response(['msg' => 'Coupon is created successfully.'], 200);
         }

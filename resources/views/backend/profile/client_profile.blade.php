@@ -14,8 +14,8 @@
                 <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0 text-white">Your account is not activated</h6>
-                    <div class="text-white">Wait for admin to activate your account</div>
+                    <h6 class="mb-0 text-white">Votre compte N'est pas  Activer </h6>
+                    <div class="text-white">Attendez Un Admin Active Votre compte </div>
                 </div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -80,7 +80,7 @@
                             @csrf
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Full Name</h6>
+                                    <h6 class="mb-0">Nom Complet</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input name="name" type="text" class="form-control" value="{{$data->name}}"
@@ -147,8 +147,22 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="submit" class="btn btn-primary px-4" value="Save Changes"
                                     />
+                                    <div>
+                                        <small style="color: #e20000" class="error" id="image-error"></small>
+                                    </div>
                                 </div>
                             </div>
+                                @if(session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                         </form>
                     </div>
                 </div>

@@ -233,10 +233,10 @@
     <link href="{{asset('backend_assets')}}/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
 @section('AjaxScript')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 @endsection
 
 @section('js')
@@ -245,33 +245,40 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('form.activate_form').click('submit', function (event) {
+            $('form.activate_form').on('submit', function (event) {
                 event.preventDefault();
-                $.ajax({
-                    url: "{{route('vendor-product-activate')}}",
-                    method: 'POST',
-                    data: new FormData(this),
-                    dataType: 'JSON',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.msg,
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            window.location.reload();
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                        console.log(status);
-                        console.log(error);
-}
+    
+                console.log('Form submitted');  // Ajoutez ceci pour déboguer
+    
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
+    
+                $.ajax({
+                        url: "{{route('vendor-product-activate')}}",
+                        method: 'POST',
+                        data: new FormData(this),
+                        dataType: 'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showDenyButton: false,
+                                showCancelButton: false,
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                window.location.reload();
+                            });
+                        },
+                        error: function (response) {
+
+                        }
+                    });
             });
         });
     </script>

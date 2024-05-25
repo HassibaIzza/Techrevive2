@@ -62,6 +62,11 @@ Route::get('/bookings/create', [RendezvousController::class, 'rendezvous'])->nam
 
 
 /*fin_réparateurs*/
+
+
+/*emails sending ..*/
+Route::post('/contact', [App\Http\Controllers\EmailController::class, 'sendContact'])->name('send.contact');
+
 Route::get('/email', [App\Http\Controllers\EmailController::class, 'create']);
 Route::post('/email', [App\Http\Controllers\EmailController::class, 'sendEmail'])->name('send.email');
 
@@ -94,6 +99,10 @@ Route::fallback(function (){
 Route::get('/boutique', function () {
     return view('backend.boutique.boutique');
 })->name('boutique');
+
+Route::get('/contactUs', function () {
+    return view('contactUs');
+})->name('contactUs');
 
 
 

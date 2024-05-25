@@ -18,9 +18,9 @@ class RegisteredNewVendor extends Notification
      */
 
     protected $url ; 
-    public function __construct($url)
+    public function __construct()
     {
-        $this->url = $url; 
+         
     }
 
     /**

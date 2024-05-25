@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('rendez_vouses', function (Blueprint $table) {
-            //
-            $table->text('short_desc')->nullable();
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('product_id');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,10 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('rendez_vouses', function (Blueprint $table) {
-            if (!Schema::hasColumn('rendez_vouses', 'short_desc')) {
-                $table->text('short_desc')->nullable();
-            }
-        });
+        Schema::dropIfExists('favorites');
     }
 };

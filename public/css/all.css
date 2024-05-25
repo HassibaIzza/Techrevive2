@@ -1359,6 +1359,16 @@ text-shadow: none;
 /* Template default CSS
 /*----------------------------------------*/
 
+
+
+.color-indigator-item {
+	width: 1.2rem;
+	height: 1.2rem;
+	background-color: #e6e0e0;
+	border-radius: 50%;
+	cursor: pointer
+}
+
 html,
 body {
 	height: 100%;
@@ -1462,7 +1472,7 @@ ol {
 }
 
 #logo span:hover {
-    color: #FFA500; /* Couleur des spans au survol */
+    color: #ff0000; /* Couleur des spans au survol */
 }
 
 
@@ -3006,8 +3016,8 @@ ol {
 
 .product__pagination a:hover,
 .blog__pagination a:hover {
-	background: #7fad39;
-	border-color: #7fad39;
+	background: #87CEEB;
+	border-color: #87CEEB;
 	color: #ffffff;
 }
 
@@ -3445,7 +3455,7 @@ ol {
 
 .checkout h6 span {
 	font-size: 16px;
-	color: #6AB963;
+	color: #87CEEB;
 	margin-right: 5px;
 }
 
@@ -4119,7 +4129,7 @@ ol {
 
 .contact__widget span {
 	font-size: 36px;
-	color: #7fad39;
+	color: #87CEEB;
 }
 
 .contact__widget h4 {
@@ -4137,10 +4147,14 @@ ol {
 /*---------------------
   Map
 -----------------------*/
+.favorite {
+    color: red;
+}
 
 .map {
 	height: 500px;
 	position: relative;
+	margin-bottom: 10px;
 }
 
 .map iframe {
@@ -4158,7 +4172,7 @@ ol {
 
 .map .map-inside i {
 	font-size: 48px;
-	color: #7fad39;
+	color: #87CEEB;
 	position: absolute;
 	bottom: -75px;
 	left: 50%;

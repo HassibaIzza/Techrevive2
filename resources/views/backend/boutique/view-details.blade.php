@@ -58,16 +58,16 @@ use App\Models\product\ProductImagesModel;
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">ADD TO CARD</a>
-                    <a href="#" class="heart-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                    <a href="#" class="primary-btn">ADD TO CARD</a>                
+                    <a href="#" class="heart-icon"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a>
                     <ul>
                         <li><b>Disponibilité</b> <span> {{$product->product_quantity}}</span></li>
                         <li><b>Code produit</b> <span> {{$product->product_code}}</span></li>
-                        <li><b>Couleurs</b> 
-                            <div class="color-indigators d-flex align-items-center gap-2">
+                        <li><b>Couleurs</b>        
+                            <div class="color-indigators d-flex align-items-center gap-2" >
                                 @php $colors = ProductController::getProductSeparatedColors($product->product_colors) @endphp
                                 @foreach($colors as $color)
-                                    <div class="color-indigator-item" style="background-color:{{$color}}">
+                                    <div class="color-indigator-item" style="background-color:{{$color}}" >
                                     </div>
                                 @endforeach
                             </div>
