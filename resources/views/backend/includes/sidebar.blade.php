@@ -11,8 +11,8 @@
             <img src="{{asset('backend_assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
         </div>
         <div>
-            <a href="http://127.0.0.1:8000"><h4 class="logo-text">TeckRevive</h4></a>
-        </div>
+            <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
+            </div>
         <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
         </div>
     </div>
@@ -44,13 +44,13 @@
                 <a  href="{{route('admin-vendor-list')}}" style="cursor: pointer">
                     <div class="parent-icon"><i class='lni lni-world'></i>
                     </div>
-                    <div class="menu-title">Users</div>
+                    <div class="menu-title">Utilisateurs</div>
                 </a>
 
             </li>
         @endif
     
-        @if($status && $role != 'Fabricant' && $role != 'client')
+        @if($status && $role != 'Fabricant' && $role != 'client' && $role != 'reparateur')
             <li>
                 <a class="has-arrow" style="cursor: pointer">
                     <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
@@ -129,11 +129,11 @@
         @endif
         @if($role === 'client')
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('demandes.recentes') }}">
-              <i class="fas fa-list-alt"></i> Demandes récentes
-          </a>
-      </li>
-      @endif
+            <a class="nav-link" href="{{ route('demandes.recentes') }}">
+                <i class="fas fa-list-alt"></i> Demandes récentes
+            </a>
+        </li>
+        @endif
         
         @if($status && $role === 'Fabricant')
         <li>
@@ -153,8 +153,6 @@
         @endif
 
         <li>
-            
-        </a>
         <ul>
             @if($status && $role === 'Fabricant')
             <li>
@@ -174,7 +172,27 @@
             
             @endif
         </ul>
-    </li>
+        </li>
+        <li>
+            <ul>
+                @if($status)
+                <li>
+                    <a class="has-arrow" style="cursor: pointer">
+                        <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                        </div>
+                        <div class="menu-title">Mes Favoris</div>
+                    </a>
+                    <ul>
+                        <li> <a href="{{ route('show.favorite') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                        </li>
+                        
+                    </ul>
+        
+                </li>
+                
+                @endif
+            </ul>
+        </li>
     </ul>
     
     <!--end navigation-->

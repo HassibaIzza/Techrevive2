@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReparateurController;
+use App\Http\Controllers\listeReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
+use App\Http\Controllers\User\ReparateurController;
+
 
 
 use App\Http\Controllers\cvController;
@@ -27,10 +29,38 @@ use App\Http\Controllers\cvController;
 */
 
 /*chatbot*/
+
+
+
+
+
+
+
+
+
+Route::get('/reparateur1/{id}', [CvController::class, 'showProfile'])->name('reparateur.showProfile');
+
+
+Route::post('/reparateur1', [ReparateurController::class, 'store'])->name('reparateurs.store');
+Route::get('/reparateurs', [listeReparateurController::class, 'index'])->name('reparateurs.index');  
+
 Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
 
 
 Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('demandes.recentes');
+
+
+/*demande des clients*/
+
+Route::get('/demandes', [DemandeController::class, 'index'])->name('demandes.index');
+Route::get('/demandes/{id}/edit', [DemandeController::class, 'edit'])->name('demandes.edit');
+Route::put('/demandes/{id}', [DemandeController::class, 'update'])->name('demandes.update');
+Route::get('fetch-states/{marque_id}', [DemandeController::class, 'fetchStates']);
+Route::get('/fetch-cities/{typep_id}', [DemandeController::class, 'fetchCities']);
+ // Nouvelle route pour les pannes
+Route::delete('/demandes/{id}', [DemandeController::class, 'destroy'])->name('demandes.destroy');
+Route::resource('demandes', DemandeController::class);
+/*fin demandes des clients*/
 
 
 
@@ -55,7 +85,7 @@ Route::post('/reparateur/profile/image/update', [ReparateurController::class, 'u
 Route::post('/reparateur/update-info', 'App\Http\Controllers\User\ReparateurController@updateInfo')->name('reparateur.updateInfo');
 
 
-Route::get('/reparateurs', [ReparateurController::class, 'index'])->name('reparateurs.index');
+
 Route::post('/rendezvous/create/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');
 Route::get('/bookings/create', [RendezvousController::class, 'rendezvous'])->name('bookings.create');
 //Route::put('/rendezvous/{id}', [RendezvousController::class, 'store'])->name('rendezvous.store');

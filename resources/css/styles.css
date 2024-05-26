@@ -448,7 +448,20 @@ ol {
 }
 
 .header__logo {
-	padding: 15px 0;
+	width: 250px;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 0 15px;
+	z-index: 5;
+	
+	background-clip: padding-box;
+	
+	/*padding: 15px 0;*/
+
 }
 
 .header__logo a {
@@ -2818,6 +2831,10 @@ ol {
 /*---------------------
   Map
 -----------------------*/
+.logo-icon {
+	width: 30px
+
+}
 .favorite {
     color: red;
 }
@@ -3059,6 +3076,18 @@ ol {
 		left: 0;
 	}
 	.humberger__menu__logo {
+		width: 250px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		padding: 0 15px;
+		z-index: 5;
+		background: #fff;
+		background-clip: padding-box;
+		border-bottom: 1px solid #e4e4e4;
 		margin-bottom: 30px;
 	}
 	.humberger__menu__logo a {

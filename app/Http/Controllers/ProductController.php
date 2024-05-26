@@ -38,6 +38,22 @@ class ProductController extends Controller
        return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
     }
 
+    public function showFavorite(){
+        
+        $user = Auth::user();
+        $favoriteProducts = User::favorites()->with('product.images')->get();
+
+        $products = ProductModel::with('images')->get();
+
+        // Ajouter la propriété is_favorite à chaque produit
+        $products->each(function ($product) use ($user) {
+            $product->is_favorite = $product->isFavorite();
+        });
+
+
+    return view('backend.product.favoris', compact('favoris'));
+    }
+
     public function toggleFavorite(Request $request)
     {
         Log::info('toggleFavorite called', ['request' => $request->all()]);
@@ -57,6 +73,7 @@ class ProductController extends Controller
                 'user_id' => $user->id,
                 'product_id' => $productId,
             ]);
+            
             Log::info('Product added to favorites', ['user_id' => $user->id, 'product_id' => $productId]);
             return response()->json(['success' => true, 'message' => 'Produit ajouter aux Favoris']);        }
     }

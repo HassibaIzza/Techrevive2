@@ -1,3 +1,9 @@
+@if(Auth::user())
+@php
+$user = Auth::user();
+        $favoriteCount = $user->favorites()->count();
+@endphp
+@endif
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -24,16 +30,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <style>
-        /* Styles pour le logo */
-
-
-/* Styles pour le conteneur */
-
-
-
-
-    </style>
+    @yield('style')
+    
 </head>
 
 <body>
@@ -142,6 +140,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
+                        <img src="{{asset('backend_assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
+
                         <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
                     </a>
                     </div>
@@ -163,10 +163,10 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+                            <li><a href="fff"><i class="fa fa-heart"></i> <span>@if(Auth::user()) {{$favoriteCount}} @endif</span></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>0</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -190,11 +190,11 @@
                         <div class="header__logo">
                             <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
                         </a>
-                        </div>
+                        </div><br><br>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: Chemin des crètes ex INES Mostaganem </li>
+                            <li>Phone: +213783195323</li>
+                            <li>Email: TechRevive@gmail.com</li>
                         </ul>
                     </div>
                 </div>

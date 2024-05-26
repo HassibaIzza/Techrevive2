@@ -50,6 +50,8 @@ Route::middleware(['auth', 'auth.role:vendor'])
 
     Route::get('product/{product_id}', [ProductController::class, 'show'])->name('view-details');
     Route::post('/favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
+    Route::post('/mesfavorite', [ProductController::class, 'showFavorite'])->name('show.favorite');
+
 
 
 

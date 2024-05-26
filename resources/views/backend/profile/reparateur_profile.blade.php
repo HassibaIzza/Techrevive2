@@ -122,34 +122,7 @@
                                 </div>
                             </div>
                             
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Phone</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input name="phone_number" type="text" class="form-control"
-                                           value="{{$data->phone_number}}" placeholder="Your phone number"/>
-                                    <small style="color: #e20000" class="error" id="phone_number-error"></small>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Address</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input name="address" type="text"
-                                           class="form-control"
-                                           value="{{$data->address}}" placeholder="Your address"/>
-                                    <small style="color: #e20000" class="error" id="address-error"></small>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="submit" class="btn btn-primary px-4" value="Save Changes"
-                                    />
-                                </div>
-                            </div>
+                          
                             @if(session('success'))
                                     <div class="alert alert-success">
                                         {{ session('success') }}
@@ -164,6 +137,70 @@
                         </form>
                     </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="d-flex align-items-center mb-3">Profile</h4>
+                              <br>
+                              <form method="POST" action="{{ route('reparateurs.store') }}">
+                                  @csrf
+                                  <div class="row mb-3">
+                                      <div class="col-sm-3">
+                                          <h6 class="mb-0">Numéro de Téléphone</h6>
+                                      </div>
+                                      <div class="col-sm-9 text-secondary">
+                                          <input name="phone_number" type="text" class="form-control" required/>
+                                          <small style="color: #e20000" class="error" id="phone_number-error"></small>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                      <div class="col-sm-3">
+                                          <h6 class="mb-0">Adresse</h6>
+                                      </div>
+                                      <div class="col-sm-9 text-secondary">
+                                          <input name="address" type="text" class="form-control" required/>
+                                          <small style="color: #e20000" class="error" id="address-error"></small>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                      <div class="col-sm-3">
+                                          <h6 class="mb-0">Type de Service</h6>
+                                      </div>
+                                      <div class="col-sm-9 text-secondary">
+                                          <select name="service_type" class="form-control" required>
+                                              <option value="">Type de Service</option>
+                                              <option value="Réparation de smartphones">Réparation de smartphones</option>
+                                              <option value="Réparation de tablettes">Réparation de tablettes</option>
+                                              <option value="Réparation d'ordinateurs portables">Réparation d'ordinateurs portables</option>
+                                              <option value="Réparation d'appareils électroménagers">Réparation d'appareils électroménagers</option>
+                                              <!-- Add more options as needed -->
+                                          </select>
+                                          <small style="color: #e20000" class="error" id="service_type-error"></small>
+                                      </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                      <div class="col-sm-3">
+                                          <h6 class="mb-0">Plus d'information</h6>
+                                      </div>
+                                      <div class="col-sm-9 text-secondary">
+                                          <textarea name="short_description" class="form-control" required></textarea>
+                                          <small style="color: #e20000" class="error" id="short_description-error"></small>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-sm-3"></div>
+                                      <div class="col-sm-9 text-secondary">
+                                          <input type="submit" class="btn btn-primary px-4" value="Save"/>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">

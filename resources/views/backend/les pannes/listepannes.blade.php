@@ -69,45 +69,43 @@ if ($userMarque) {
                                  
                                 
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exampleVerticallycenteredModal-{{$panne->client_id}}">voir les détailles
+                                  <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#exampleVerticallycenteredModal-{{$panne->id}}">voir les détailles
 
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->client_id}}"
-                                         tabindex="-1"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Détails de la panne</h5>
-                                                    <h5 class="modal-title">Détails de la panne</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
-                                                <div class="card-body">
-                                                    <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{$panne->panne}}</span></h5>
-                                                    <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{$panne->problème}}</span></h5>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  </button>
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->id}}"
+                                       tabindex="-1"
+                                       aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                                  <h5 class="modal-title"> Détails de la panne</h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                          aria-label="Close"></button>
+                                              </div>
+                                              <div class="card-body">
+                                                  <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{$panne->panne}}</span></h5>
+                                                  <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{$panne->problème}}</span></h5>
+                                              </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                  Close
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </div>
 
 
-                          </td>
-
+                        </td>
 
 
 
 
                           <td>
-                          <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->client_id }})" data-bs-toggle="modal" data-bs-target="rendezvousModal-{{ $panne->client_id }}">
+                          <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})" data-bs-toggle="modal" data-bs-target="rendezvousModal-{{ $panne->id }}">
         Rendez-vous
 </button>
 
@@ -133,8 +131,8 @@ if ($userMarque) {
 @section('js')
     <!-- Ajoutez ici vos scripts JavaScript personnalisés -->
     <script>
-    function redirectToRendezvous(client_id) {
-        window.location = "{{ route('rendezvous') }}?client_id=" + client_id;
+    function redirectToRendezvous(id) {
+        window.location = "{{ route('rendezvous') }}?id=" + id;
     }
 </script>
 
