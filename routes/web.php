@@ -56,8 +56,14 @@ Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('dem
 Route::get('/demandes', [DemandeController::class, 'index'])->name('demandes.index');
 Route::get('/demandes/{id}/edit', [DemandeController::class, 'edit'])->name('demandes.edit');
 Route::put('/demandes/{id}', [DemandeController::class, 'update'])->name('demandes.update');
-Route::get('fetch-states/{marque_id}', [DemandeController::class, 'fetchStates']);
-Route::get('/fetch-cities/{typep_id}', [DemandeController::class, 'fetchCities']);
+ 
+
+ 
+ 
+
+Route::get('/fetch-states/{marqueID}', [DemandeController::class, 'fetchStates']);
+Route::get('/fetch-cities/{typepID}', [DemandeController::class, 'fetchCities']);
+
  // Nouvelle route pour les pannes
 Route::delete('/demandes/{id}', [DemandeController::class, 'destroy'])->name('demandes.destroy');
 Route::resource('demandes', DemandeController::class);

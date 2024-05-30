@@ -59,6 +59,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <form id="brand_form" action="{{ route('rendezvous.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
         <input type="hidden" name="id" value="{{ $Id }}">
+         
         @csrf
             <div class="row mb-3">
               <div class="col-sm-3">

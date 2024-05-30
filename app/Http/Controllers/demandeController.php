@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\RendezVous;
 use App\Models\Marque;
 use App\Models\Typep;
-use App\Models\TypePanne;
+use App\Models\Typepanne;
 
 class demandeController extends Controller
 {
@@ -26,7 +26,9 @@ class demandeController extends Controller
           $marque = Marque::find($rdv->marque);
           $rdv->nom_marque = $marque ? $marque->name : 'Marque inconnue';
           $typep = Typep::find($rdv->catégorie);
-          $rdv->nom_catégorie = $typep ? $typep->name : 'catégorie inconnue';
+          $rdv->nom_catégorie = $typep ? $typep->name : $rdv->catégorie;
+          $typepanne = Typepanne::find($rdv->panne);
+          $rdv->nom_panne = $typepanne ? $typepanne->name : $rdv->panne;
       }
 
         // Retourner les rendez-vous récupérés à une vue
@@ -40,8 +42,8 @@ class demandeController extends Controller
     {
         $rendezvous = RendezVous::findOrFail($id);
         $marques = Marque::all();
-        $categories = Typep::where('marque_id', $rendezvous->Marque)->get();
-        $pannes = TypePanne::where('typep_id', $rendezvous->catégorie)->get(); // Assurez-vous de filtrer par catégorie
+        $categories = Typep::where('marque_id', $rendezvous->marque)->get();
+        $pannes = Typepanne::where('typep_id', $rendezvous->catégorie)->get(); // Assurez-vous de filtrer par catégorie
 
         return view('backend.Les pannes.editdemande', compact('rendezvous', 'marques', 'categories', 'pannes'));
     }
@@ -51,11 +53,13 @@ class demandeController extends Controller
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
             'marque' => 'required|string|max:255',
+             
             'catégorie' => 'required|string|max:255',
             'panne' => 'required|string|max:255',
             'problème' => 'required|string|max:255',
+           
         ]);
-
+echo"jjjj";
         $rendezvous = RendezVous::findOrFail($id);
         $rendezvous->update($validatedData);
 
@@ -70,24 +74,16 @@ class demandeController extends Controller
         return redirect()->route('demandes.index')->with('success', 'Demande supprimée avec succès.');
     }
 
-    public function fetchStates($marque_id)
+    public function fetchStates($marqueID)
     {
-        $typep = Typep::where('marque_id', $marque_id)->get();
-
-        return response()->json([
-            'status' => 1,
-            'typep' => $typep->pluck('name')
-        ]);
+        $categories = Typep::where('marque_id', $marqueID)->get();
+        return response()->json(['categories' => $categories]);
     }
 
-    public function fetchCities($typep_id)
+    public function fetchCities($typepID)
     {
-        $typepannes = TypePanne::where('typep_id', $typep_id)->get();
-
-        return response()->json([
-            'status' => 1,
-            'typepannes' => $typepannes->pluck('name')
-        ]);
+        $pannes = Typepanne::where('typep_id', $typepID)->get();
+        return response()->json(['pannes' => $pannes]);
     }
 }
 
