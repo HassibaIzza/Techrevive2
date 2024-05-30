@@ -1,3 +1,9 @@
+@if(Auth::user())
+@php
+$user = Auth::user();
+        $favoriteCount = $user->favorites()->count();
+@endphp
+@endif
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -21,19 +27,11 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js?v=20240321"></script>
 
-   
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <style>
-        /* Styles pour le logo */
-
-
-/* Styles pour le conteneur */
-
-
-
-
-    </style>
+    @yield('style')
+    
 </head>
 
 <body>
@@ -81,7 +79,7 @@
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="{{route('contactUs')}}">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -142,6 +140,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
+                        <img src="{{asset('backend_assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
+
                         <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
                     </a>
                     </div>
@@ -159,14 +159,14 @@
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="{{route('contactUs')}}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 ">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
+                            <li><a href="fff"><i class="fa fa-heart"></i> <span>@if(Auth::user()) {{$favoriteCount}} @endif</span></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>0</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -190,11 +190,11 @@
                         <div class="header__logo">
                             <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
                         </a>
-                        </div>
+                        </div><br><br>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: Chemin des crètes ex INES Mostaganem </li>
+                            <li>Phone: +213783195323</li>
+                            <li>Email: TechRevive@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -240,8 +240,9 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Our Group</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Our Group</a>
+                        
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="img/payment-item." alt=""></div>
                     </div>
                 </div>
@@ -252,8 +253,69 @@
 
     <!-- Js Plugins -->
     <script src="{{ asset('js/all.js') }}"></script>
+    @yield('ajaxsection')
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
+    <script>
 
-
+        $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+        });
+        
+        function toggleFavorite(productId) {
+            $.ajax({
+                url: "{{ route('product.favorite') }}", 
+                method: 'POST',
+                data: { product_id: productId },
+                dataType: 'JSON',
+                success: function(response) {
+                    console.log('Success:', response);
+                    if(response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
+                        });
+    
+                        // Mise à jour de l'icône du favori en temps réel
+                        const icon = $('#favorite-icon-' + productId);
+                        if (icon.hasClass('fa-heart')) {
+                        icon.removeClass('fa-heart').removeClass('favorite').addClass('fa-heart-o');
+                        } else {
+                            icon.removeClass('fa-heart-o').addClass('fa-heart').addClass('favorite');
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to mark product as favorite'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                console.error('Error:', xhr);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Vous devez connectez pour ajouter cette article dans vos favoris !  ' 
+                });
+                console.error('Status:', status);
+                console.error('Response Text:', xhr.responseText);
+                }
+            });
+        }
+    </script>
+        
 
     
 

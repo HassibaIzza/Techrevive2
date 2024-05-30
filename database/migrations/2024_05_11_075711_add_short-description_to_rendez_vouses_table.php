@@ -27,7 +27,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('rendez_vouses', function (Blueprint $table) {
-            //
+            if (!Schema::hasColumn('rendez_vouses', 'short_desc')) {
+                $table->text('short_desc')->nullable();
+            }
         });
     }
 };

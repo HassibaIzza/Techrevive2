@@ -131,5 +131,29 @@ class EmailController extends Controller
          
     
     }
+
+
+    public function sendContact(Request $request) 
+    {
+      $request->validate([
+        'name' => 'required',
+        'email' => 'required|email',
+        'content' => 'required',
+      ]);
+
+      $data = [
+        'name' => $request->name,
+        'email' => $request->email,
+        'content' => $request->content,
+      ];
+      $gmail = 'hassibaizza827@gmail.com' ;
+      Mail::send('EmailContact-Template', $data, function ($message) use ($data, $gmail) {
+        $message->to($gmail) 
+          ->subject('Nouveau Contact');
+      });
+
+      return back()->with(['message' => 'Email envoyer avec succées !']);
+
+    }
     
 }

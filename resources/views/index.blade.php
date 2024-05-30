@@ -15,6 +15,9 @@ use App\Models\Product\ProductModel;
 use App\Http\Controllers\ProductController;
 use App\Models\BrandModel;
 $products = ProductModel::with('images')->get();
+$products->each(function ($product) {
+            $product->is_favorite = $product->isFavorite();
+        });
 $brands = BrandModel::all();
 @endphp
 @extends('Layout.master')
@@ -31,10 +34,10 @@ $brands = BrandModel::all();
     <section class="hero">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-md-12">
                     <div class="hero__categories">
                         <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
+                            <i class="fa fa-bars" aria-hidden="true"></i>
                             <span>Marques</span>
                         </div>
                         <ul>
@@ -54,8 +57,8 @@ $brands = BrandModel::all();
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
+                <div class="col-lg-9 ">
+                    <div class="hero__search ">
                         <div class="hero__search__form">
                             <form action="#">
                                 <div class="hero__search__categories">
@@ -66,7 +69,7 @@ $brands = BrandModel::all();
                                 <button type="submit" class="site-btn">Recherche</button>
                             </form>
                         </div>
-                        <div class="hero__search__phone">
+                        <div class="hero__search__phone ">
                             <div class="hero__search__phone__icon">
                                 <i class="fa fa-phone"></i>
                             </div>
@@ -157,12 +160,13 @@ $brands = BrandModel::all();
             </div>
             <div class="row featured__filter">
                 @foreach($products as $product)
+                @if($product->product_status)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges {{ strtolower($product->$brand->brand_name ?? '') }}">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg" data-setbg="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}">
                                 <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-info-circle"></i></a></li>
+                                    <li><a href="#"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a></li>                            
+                                    <li><a href="{{ route('view-details', ['product_id' => $product->product_id]) }}"><i class="fa fa-info-circle"></i></a></li>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                 </ul>
                             </div>
@@ -172,6 +176,7 @@ $brands = BrandModel::all();
                             </div>
                         </div>
                     </div>
+                    @endif
                 @endforeach
             </div>
         </div>

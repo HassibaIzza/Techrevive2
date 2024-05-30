@@ -24,6 +24,7 @@ Route::middleware(['auth', 'auth.role:admin'])
             ->name('product-remove');
         Route::get('add_product', 'productAdd')->name('product-add');
         Route::post('create_product', 'productCreate')->name('product-create');
+        Route::post('activate_product', 'productActivate')->name('product-activate');
 
     });
 
@@ -46,6 +47,13 @@ Route::middleware(['auth', 'auth.role:vendor'])
         Route::post('activate_product', 'productActivate')->name('product-activate');
 
     });
+
+    Route::get('product/{product_id}', [ProductController::class, 'show'])->name('view-details');
+    Route::post('/favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
+    Route::post('/mesfavorite', [ProductController::class, 'showFavorite'])->name('show.favorite');
+
+
+
 
 
     

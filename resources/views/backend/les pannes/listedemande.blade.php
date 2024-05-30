@@ -31,7 +31,7 @@
                                 <td>
                                   <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                           data-bs-toggle="modal"
-                                          data-bs-target="#exampleVerticallycenteredModal-{{$rdv->id}}">voir rend_vous
+                                          data-bs-target="#exampleVerticallycenteredModal-{{$rdv->id}}">voir rendez_vous
 
                                   </button>
                                   <!-- Modal -->

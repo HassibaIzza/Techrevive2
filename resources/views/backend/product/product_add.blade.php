@@ -11,14 +11,14 @@
 
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Product</div>
+        <div class="breadcrumb-title pe-3">Produit</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Product</li>
-                    <li class="breadcrumb-item active" aria-current="page">Add new product</li>
+                    <li class="breadcrumb-item active" aria-current="page">Produit</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter nouveau produit</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +26,7 @@
     <!--end breadcrumb -->
     <div class="card">
         <div class="card-body p-4">
-            <h5 class="card-title">Add New Product</h5>
+            <h5 class="card-title">Ajouter nouveau produit</h5>
             <hr/>
             <form action="{{route('vendor-product-create')}}" method="POST" id="product_form" enctype="multipart/form-data">
                 @csrf
@@ -35,19 +35,19 @@
                         <div class="col-lg-8">
                             <div class="border border-3 p-4 rounded">
                                 <div class="mb-3">
-                                    <label for="inputProductTitle" class="form-label">Product Name/Title</label>
+                                    <label for="inputProductTitle" class="form-label">Produit Nom/Titre</label>
                                     <input name="product_name" type="text" class="form-control" id="inputProductTitle" placeholder="Enter product title" required>
                                     <small style="color: #e20000" class="error" id="product_name-error"></small>
 
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputProductTitle" class="form-label">Product Code</label>
+                                    <label for="inputProductTitle" class="form-label">Code Produit</label>
                                     <input name="product_code" type="text" class="form-control" id="inputProductTitle" placeholder="Enter product code" required>
                                     <small style="color: #e20000" class="error" id="product_code-error"></small>
 
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputProductDescription" class="form-label">Short Description</label>
+                                    <label for="inputProductDescription" class="form-label">Court Description</label>
                                     <textarea name="product_short_description" class="form-control" id="inputProductDescription"
                                               rows="3" required></textarea>
                                     <small style="color: #e20000" class="error"
@@ -55,7 +55,7 @@
 
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputProductLongDescription" class="form-label">Detailed Description</label>
+                                    <label for="inputProductLongDescription" class="form-label">Description Détailler</label>
                                     <textarea id="mytextarea"
                                               name="product_long_description"> </textarea>
                                     <small style="color: #e20000" class="error"
@@ -72,19 +72,19 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Product Tags</label>
+                                    <label class="form-label">Tags Produit</label>
                                     <input name="product_tags" type="text" class="form-control
                                 visually-hidden" data-role="tagsinput" >
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">Product Colors</label>
+                                    <label class="form-label">Couleurs Produit</label>
                                     <input name="product_colors" type="text" class="form-control
                                 visually-hidden" data-role="tagsinput" >
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label class="form-label">Product Thumbnail</label>
+                                    <label class="form-label">Vignette du Produit</label>
                                     <div class="col-sm-12 text-secondary">
                                         <input name="product_thumbnail" id="product_thumbnail" class="form-control"
                                                type="file" required>
@@ -97,16 +97,11 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="mb-3">
-                                    <label  class="form-label">Product Images</label>
-                                    <input name="product_images[]" class="form-control" type="file"
-                                           id="multi_image"
-                                           multiple="">
+                                    <label class="form-label">Images de Produit</label>
+                                    <input name="product_images[]" class="form-control" type="file" id="multi_image" multiple>
                                     <div class="row" id="preview_img" style="padding: 20px"></div>
                                     <small style="color: #e20000" class="error" id="product_images-error"></small>
-
                                 </div>
                             </div>
                         </div>
@@ -114,16 +109,16 @@
                             <div class="border border-3 p-4 rounded">
                                 <div class="row g-3">
                                     <div class="col-md-12">
-                                        <label for="inputPrice" class="form-label">Price</label>
+                                        <label for="inputPrice" class="form-label">Prix</label>
                                         <input name="product_price" type="text" class="form-control" id="inputPrice"
                                                placeholder="00.00">
                                         <small style="color: #e20000" class="error" id="product_price-error"></small>
 
                                     </div>
                                     <div class="col-12">
-                                        <label for="inputProductType" class="form-label">Product Brand</label>
+                                        <label for="inputProductType" class="form-label">Marque de Produit</label>
                                         <select name="brand_id" class="form-select" id="inputProductType">
-                                            <option>Choose a brand</option>
+                                            <option>Choisir une Marque</option>
                                             @foreach($brands as $item)
                                                 <option value="{{$item->brand_id}}">{{$item->brand_name}}</option>
                                             @endforeach
@@ -132,9 +127,9 @@
 
                                     </div>
                                     <div class="col-12">
-                                        <label for="inputVendor" class="form-label">Product Category</label>
+                                        <label for="inputVendor" class="form-label">Categorie du Produit </label>
                                         <select class="form-select" id="inputVendor" name="sub_category_id">
-                                            <option>Choose a category</option>
+                                            <option>Choisir un categorie</option>
 
                                             @foreach($subCategories as $item)
 
@@ -148,27 +143,27 @@
                                     <div class="form-check">
                                         <input name="product_status" class="form-check-input" type="checkbox"
                                                id="gridCheck" checked>
-                                        <label class="form-check-label" for="gridCheck">Available</label>
+                                        <label class="form-check-label" for="gridCheck">Disponible</label>
                                     </div>
                                     <div class="form-check">
                                         <input name="hot_deal" class="form-check-input" type="checkbox"
                                                id="gridCheck2">
-                                        <label class="form-check-label" for="gridCheck2">Hot Deal</label>
+                                        <label class="form-check-label" for="gridCheck2">Bon deal</label>
                                     </div>
                                     <div class="form-check">
                                         <input name="featured_product" class="form-check-input" type="checkbox"
                                                id="gridCheck3">
-                                        <label class="form-check-label" for="gridCheck3">Featured Product</label>
+                                        <label class="form-check-label" for="gridCheck3">Produit Vedette </label>
                                     </div>
-                                    <div class="form-check">
+                                    {{--  <div class="form-check">
                                         <input name="special_offer" class="form-check-input" type="checkbox"
                                                id="gridCheck4">
                                         <label class="form-check-label" for="gridCheck4">Special Offer</label>
-                                    </div>
+                                    </div>--}}
                                     <div class="form-check">
                                         <input name="special_deal" class="form-check-input" type="checkbox"
                                                id="gridCheck5">
-                                        <label class="form-check-label" for="gridCheck5">Special Deal</label>
+                                        <label class="form-check-label" for="gridCheck5">Offre Special</label>
                                     </div>
 
                                     <div class="col-12">

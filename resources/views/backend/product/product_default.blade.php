@@ -46,17 +46,17 @@
                             <td>{{$item->product_quantity}}</td>
                             <td>{{$item->product_price}}</td>
                             <td>
-                                <form method="POST" action="{{route('vendor-product-activate')}}" class="activate_form">
+                                <form method="POST" action="{{route($role .'-product-activate')}}" class="activate_form">
                                     @csrf
                                     <input name="product_id" value="{{$item->product_id}}" hidden/>
                                     <input name="current_status" value="{{$item->product_status}}" hidden/>
                                     <div class="form-check form-switch">
                                         @if($item->product_status)
                                             <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                                   value="De-Active" @if(Auth::user()->role == 'admin') disabled @endif>
+                                                   value="De-Active" >
                                         @else
                                             <input name="activate" class="btn btn-outline-success" type="submit"
-                                                   value=" Activate " @if(Auth::user()->role == 'admin') disabled @endif>
+                                                   value=" Activate ">
                                         @endif
 
                                     </div>
@@ -130,13 +130,10 @@
 
                                                                     <dt class="col-sm-3">Colors</dt>
                                                                     <dd class="col-sm-9">
-                                                                        <div
-                                                                            class="color-indigators d-flex align-items-center gap-2">
-                                                                            @foreach(ProductController::getProductSeparatedColors
-                                                                        ($item->product_colors) as $color)
-                                                                                <div class="color-indigator-item"
-                                                                                     style="background-color:
-                                                                             {{$color}}"></div>
+                                                                        <div class="color-indigators d-flex align-items-center gap-2">
+                                                                            @foreach(ProductController::getProductSeparatedColors($item->product_colors) as $color)
+                                                                                <div class="color-indigator-item" style="background-color:{{$color}}">
+                                                                                </div>
                                                                             @endforeach
                                                                         </div>
 
@@ -236,10 +233,10 @@
     <link href="{{asset('backend_assets')}}/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
 @endsection
 @section('AjaxScript')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 @endsection
 
 @section('js')
@@ -248,33 +245,40 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('form.activate_form').click('submit', function (event) {
+            $('form.activate_form').on('submit', function (event) {
                 event.preventDefault();
-                $.ajax({
-                    url: "{{route('vendor-product-activate')}}",
-                    method: 'POST',
-                    data: new FormData(this),
-                    dataType: 'JSON',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.msg,
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            window.location.reload();
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(xhr.responseText);
-                        console.log(status);
-                        console.log(error);
-}
+    
+                console.log('Form submitted');  // Ajoutez ceci pour déboguer
+    
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
+    
+                $.ajax({
+                        url: "{{route('vendor-product-activate')}}",
+                        method: 'POST',
+                        data: new FormData(this),
+                        dataType: 'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: response.message,
+                                showDenyButton: false,
+                                showCancelButton: false,
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                window.location.reload();
+                            });
+                        },
+                        error: function (response) {
+
+                        }
+                    });
             });
         });
     </script>

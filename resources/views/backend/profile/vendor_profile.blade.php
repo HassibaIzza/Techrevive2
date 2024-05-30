@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Nome de Boutique</h6>
+                                        <h6 class="mb-0">Shop Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="shop_name" type="text" class="form-control"
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Description de Boutique</h6>
+                                        <h6 class="mb-0">Shop Description</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <textarea id="mytextarea"
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Téléphone</h6>
+                                        <h6 class="mb-0">Phone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="phone_number" type="text" class="form-control"

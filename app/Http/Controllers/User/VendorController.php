@@ -37,7 +37,6 @@ class VendorController extends UserController
             ->where('user_id', '=', $userId)
             ->get(['vendor_id'])[0];
 
-
         if ($this->updateUserData($userId, $userData) && $this->updateShopData((int)$vendor_id->vendor_id, $shopData))
             return response(['msg' => "Your Info is updated successfully"], 200);
         else{

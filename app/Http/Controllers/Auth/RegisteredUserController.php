@@ -78,8 +78,13 @@ class RegisteredUserController extends Controller
 
         // notify the admin
         $admins = User::where('role', 'admin')->get();
+<<<<<<< HEAD
+        
+        Notification::send($admins, new RegisteredNewVendor());
+=======
       
       
+>>>>>>> 15fd57e3e8baeee24ea1e2fd72bacca79279b5cb
         return redirect(self::redirectTo());
         
     }

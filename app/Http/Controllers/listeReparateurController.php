@@ -14,7 +14,6 @@ class ListeReparateurController extends Controller
                             ->where('users.role', 'reparateur')
                             ->get();
 
-                          
 
         // Passer les réparateurs récupérés à la vue
         return view('backend.reparateur.reparateurs', compact('reparateurs'));

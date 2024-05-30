@@ -17,7 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isNull;
-
+use App\Models\Favorite;
+use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
 
@@ -37,11 +38,57 @@ class ProductController extends Controller
        return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
     }
 
+    public function showFavorite(){
+        
+        $user = Auth::user();
+        $favoriteProducts = User::favorites()->with('product.images')->get();
+
+        $products = ProductModel::with('images')->get();
+
+        // Ajouter la propriété is_favorite à chaque produit
+        $products->each(function ($product) use ($user) {
+            $product->is_favorite = $product->isFavorite();
+        });
+
+
+    return view('backend.product.favoris', compact('favoris'));
+    }
+
+    public function toggleFavorite(Request $request)
+    {
+        Log::info('toggleFavorite called', ['request' => $request->all()]);
+        $user = Auth::user();
+        $productId = $request->input('product_id');
+
+        // Vérifiez si le produit est déjà favori
+        $favorite = Favorite::where('user_id', $user->id)->where('product_id', $productId)->first();
+
+        if ($favorite) {
+            // Si le produit est déjà favori, supprimez-le
+            $favorite->delete();
+            Log::info('Product removed from favorites', ['user_id' => $user->id, 'product_id' => $productId]);
+            return response()->json(['success' => true, 'message' => 'Produit Retirer aux favoris ']);        } else {
+            // Sinon, ajoutez-le comme favori
+            Favorite::create([
+                'user_id' => $user->id,
+                'product_id' => $productId,
+            ]);
+            
+            Log::info('Product added to favorites', ['user_id' => $user->id, 'product_id' => $productId]);
+            return response()->json(['success' => true, 'message' => 'Produit ajouter aux Favoris']);        }
+    }
+
+
     public function show($product_id)
     {
         $product = ProductModel::with('images')->findOrFail($product_id);
+        $product->each(function ($product) {
+            $product->is_favorite = $product->isFavorite();
+        });
         return view('backend.boutique.view-details', compact('product'));
     }
+
+    
 
     /**
      * @return View
@@ -55,45 +102,46 @@ class ProductController extends Controller
     /**
      * @param ProductRequest $request
      */
-    public function productCreate(ProductRequest $request){
+    public function productCreate(ProductRequest $request) {
         $data = $request->validated();
-
-        // handling the product thumbnail
-        $data['product_thumbnail'] =
-            MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
-
-
-        // handling the vendor id
+        \Log::info('Product data validated', $data);
+    
+        // Handling the product thumbnail
+        $data['product_thumbnail'] = MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
+        \Log::info('Product thumbnail uploaded', ['thumbnail' => $data['product_thumbnail']]);
+    
+        // Handling the vendor id
         $data['vendor_id'] = $this->getVendorId();
-
-        // handling the product slug
+    
+        // Handling the product slug
         $data['product_slug'] = $this->getProductSlug($data['product_name']);
-
-        // status of the product
+    
+        // Status of the product
         $data['product_status'] = $request->get('product_status') ? 1 : 0;
-
-
-        // inserting the product
-        if ($data['product_images'])
-            unset($data['product_images']);
-
-        try{
+    
+        // Inserting the product
+        if ($data['product_images']) unset($data['product_images']);
+    
+        try {
             $insertedProductId = ProductModel::insertGetId($data);
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
             return redirect('add_product')->with('error', 'Failed to add this product: ' . $e->getMessage());
         }
-        
-        if ($insertedProductId){
-            // handling the product images
-            if ($request->file('product_images'))
+    
+        if ($insertedProductId) {
+            // Handling the product images
+            if ($request->file('product_images')) {
+                \Log::info('Handling multiple product images', $request->file('product_images'));
                 $this->handleProductMultiImages($request->file('product_images'), $insertedProductId);
-
-            // handling the product offers
+            }
+    
+            // Handling the product offers
             $this->handleProductOffers($request, $insertedProductId);
-
-            return response(['msg' => 'Product is added successfully.'], 200);
-        }else return redirect('add_product')->with('error', 'Failed to add this product, try again.');
-
+    
+            return response(['msg' => 'Produit Ajouter Avec Succées.'], 200);
+        } else {
+            return redirect('add_product')->with('error', 'Un Probléme lors de l\'ajout de cette produit , Reésseyer.');
+        }
     }
 
     /**
@@ -109,11 +157,13 @@ class ProductController extends Controller
      * @param int $productId
      * @return void
      */
-    private function handleProductMultiImages(array $images, int $productId): void{
+    private function handleProductMultiImages(array $images, int $productId): void {
         $data['image_product_id'] = $productId;
-        foreach ($images as $image){
-            $data['product_image'] = MyHelpers::uploadImage($image, self::PRODUCT_IMAGES_PATH );
-            ProductImagesModel::insert($data);
+        foreach ($images as $image) {
+            $data['product_image'] = MyHelpers::uploadImage($image, self::PRODUCT_IMAGES_PATH);
+            // Log image data for debugging
+            \Log::info('Inserting product image:', ['product_id' => $productId, 'image' => $data['product_image']]);
+            ProductImagesModel::create($data); // Use create instead of insert for Eloquent
         }
     }
 
@@ -268,8 +318,8 @@ class ProductController extends Controller
             // handling the product offers
             $this->handleProductOffers($request, $product_id, true);
 
-            return response(['msg' => 'Product is updated successfully.'], 200);
-        }else return redirect('update_product')->with('error', 'Failed to update this product, try again.');
+            return response(['msg' => 'Produit Modifier Avec Succées.'], 200);
+        }else return redirect('update_product')->with('error', 'Produit Non Modifier, Réesseyer.');
     }
 
     /**
@@ -285,7 +335,7 @@ class ProductController extends Controller
 
         try {
             ProductModel::findOrFail($product_id)->update(['product_status' => 1]);
-            return response(['msg' => 'Product now is active.'], 200);
+            return response()->json(['success' => true, 'message' => 'produit activer avec succées ']);       
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }
@@ -297,7 +347,7 @@ class ProductController extends Controller
     public function productDeActivate(int $productId){
         try {
             ProductModel::findOrFail($productId)->update(['product_status' => 0]);
-            return response(['msg' => 'Product now is disabled.'], 200);
+            return response()->json(['success' => true, 'message' => 'produit deactiver avec succées ']);       
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }

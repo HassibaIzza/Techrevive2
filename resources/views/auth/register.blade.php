@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 @php
 $errList = [];
 $errList['name'] = $errors->get('name') ? $errors->get('name')[0] : null;;
@@ -8,12 +8,12 @@ $errList['username'] = $errors->get('username') ? $errors->get('username')[0] : 
 $errList['passwordErr'] = $errors->get('password') ? $errors->get('password')[0] : null;
 @endphp
 <head>
-    <!-- Required meta tags -->
+    <!-- Balises méta requises -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('backend.includes.favicon')
     @include('backend.includes.css')
-    <title>Sign up</title>
+    <title>Inscription</title>
 </head>
 
 <body class="bg-login">
@@ -30,20 +30,19 @@ $errList['passwordErr'] = $errors->get('password') ? $errors->get('password')[0]
                         <div class="card-body">
                             <div class="border p-4 rounded">
                                 <div class="text-center">
-                                    <h3 class="">Sign Up</h3>
-                                    <p>Already have an account? <a href="{{ url('/login') }}">Sign in here</a>
-                                    </p>
+                                    <h3 class="">Inscription</h3>
+                                    <p>Vous avez déjà un compte ? <a href="{{ url('/login') }}">Connectez-vous ici</a></p>
                                 </div>
                                 <div class="d-grid">
-                                    <a class="btn my-4 shadow-sm btn-white" href="social_auth/google"> <span class="d-flex justify-content-center align-items-center">
-                          <img class="me-2" src="{{asset('backend_assets')}}/images/icons/search.svg" width="16"
-                               alt="Image
-                          Description">
-                          <span>Sign Up with Google</span>
-											</span>
+                                    <a class="btn my-4 shadow-sm btn-white" href="social_auth/google"> 
+                                        <span class="d-flex justify-content-center align-items-center">
+                                            <img class="me-2" src="{{asset('backend_assets')}}/images/icons/search.svg" width="16" alt="Description de l'image">
+                                            <span>Inscription avec Google</span>
+                                        </span>
                                     </a>
                                 </div>
-                                <div class="login-separater text-center mb-4"> <span>OR SIGN UP WITH EMAIL</span>
+                                <div class="login-separater text-center mb-4"> 
+                                    <span>OU INSCRIVEZ-VOUS AVEC VOTRE EMAIL</span>
                                     <hr/>
                                 </div>
                                 <div class="form-body">
@@ -51,69 +50,47 @@ $errList['passwordErr'] = $errors->get('password') ? $errors->get('password')[0]
                                         @csrf
                                         <input type="text" name="role" value="vendor" hidden/>
                                         <div class="col-sm-12">
-                                            <label for="inputName" class="form-label">Name</label>
-                                            <input name="name" type="text" class="form-control" id="inputName"
-                                                   placeholder="Your name" autocomplete="name" value="{{old('name')}}"
-                                                   autofocus
-                                                   required>
+                                            <label for="inputName" class="form-label">Nom</label>
+                                            <input name="name" type="text" class="form-control" id="inputName" placeholder="Votre nom" autocomplete="name" value="{{old('name')}}" autofocus required>
                                             <small style="color: #e20000" class="error">{{$errList['name']}}</small>
                                         </div>
                                         <div class="col-12">
-                                            <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                            <input name="email" type="email" class="form-control"
-                                                   id="inputEmailAddress"  autocomplete="username" required
-                                                   placeholder="example@user.com" value="{{old('email')}}">
+                                            <label for="inputEmailAddress" class="form-label">Adresse Email</label>
+                                            <input name="email" type="email" class="form-control" id="inputEmailAddress" autocomplete="username" required placeholder="exemple@utilisateur.com" value="{{old('email')}}">
                                             <small style="color: #e20000" class="error">{{$errList['email']}}</small>
-
                                         </div>
                                         <div class="col-sm-12">
-                                            <label for="inputUserName" class="form-label">Username</label>
-                                            <input name="username" type="text" class="form-control" id="inputUserName"
-                                                   placeholder="Choose a unique username" autocomplete="username"
-                                                   autofocus
-                                                   required value="{{old('username')}}">
+                                            <label for="inputUserName" class="form-label">Nom d'utilisateur</label>
+                                            <input name="username" type="text" class="form-control" id="inputUserName" placeholder="Choisissez un nom d'utilisateur unique" autocomplete="username" autofocus required value="{{old('username')}}">
                                             <small style="color: #e20000" class="error">{{$errList['username']}}</small>
-
                                         </div>
                                         <div class="col-12">
-                                            <label for="inputChoosePassword" class="form-label">Password</label>
+                                            <label for="inputChoosePassword" class="form-label">Mot de passe</label>
                                             <div class="input-group" id="show_hide_password">
-                                                <input name="password" type="password"
-                                                       class="form-control border-end-0"
-                                                       autocomplete="new-password" required
-                                                       id="inputChoosePassword" placeholder="Enter Password">
-
+                                                <input name="password" type="password" class="form-control border-end-0" autocomplete="new-password" required id="inputChoosePassword" placeholder="Entrez le mot de passe">
                                                 <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                             </div>
-                                            <small style="color: #e20000"
-                                                   class="error">{{$errList['passwordErr']}}</small>
+                                            <small style="color: #e20000" class="error">{{$errList['passwordErr']}}</small>
                                         </div>
                                         <div class="col-12">
-                                            <label for="inputChoosePassword" class="form-label">Confirm Password
-                                            </label>
+                                            <label for="inputChoosePassword" class="form-label">Confirmer le mot de passe</label>
                                             <div class="input-group" id="show_hide_password_2">
-                                                <input name="password_confirmation" type="password"
-                                                       class="form-control border-end-0"
-                                                       autocomplete="new-password" required
-                                                       id="password_confirmation" placeholder="Confirm Password">
+                                                <input name="password_confirmation" type="password" class="form-control border-end-0" autocomplete="new-password" required id="password_confirmation" placeholder="Confirmez le mot de passe">
                                                 <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-
-
                                             </div>
-                                            <div class="col-sm-12">
-                                                <label for="inputRole" class="form-label">User Role</label>
-                                                <select name="role" class="form-select" id="inputRole" required>
-                                                    <option value="vendor">Vendor</option>
-                                                    <option value="client">Client</option>
-                                                    <option value="reparateur">Réparateur</option>
-                                                    <option value="Fabricant">Fabricant</option>
-                                                </select>
-                                            </div>
-                                            
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label for="inputRole" class="form-label">Rôle de l'utilisateur</label>
+                                            <select name="role" class="form-select" id="inputRole" required>
+                                                <option value="vendor">Vendeur</option>
+                                                <option value="client">Client</option>
+                                                <option value="reparateur">Réparateur</option>
+                                                <option value="Fabricant">Fabricant</option>
+                                            </select>
                                         </div>
                                         <div class="col-12">
                                             <div class="d-grid">
-                                                <button type="submit" class="btn btn-primary"><i class='bx bx-user'></i>Sign up</button>
+                                                <button type="submit" class="btn btn-primary"><i class='bx bx-user'></i>Inscription</button>
                                             </div>
                                         </div>
                                     </form>
@@ -123,13 +100,13 @@ $errList['passwordErr'] = $errors->get('password') ? $errors->get('password')[0]
                     </div>
                 </div>
             </div>
-            <!--end row-->
+            <!--fin de la rangée-->
         </div>
     </div>
 </div>
-<!--end wrapper-->
+<!--fin du wrapper-->
 @include('backend.includes.js')
-<!--Password show & hide js -->
+<!--Afficher et masquer le mot de passe js -->
 <script>
     $(document).ready(function () {
         $("#show_hide_password a").on('click', function (event) {
