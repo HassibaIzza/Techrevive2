@@ -1,4 +1,4 @@
-@php 
+@php
 use App\Models\Product\ProductModel;
 use App\Http\Controllers\ProductController;
 use App\Models\BrandModel;
@@ -23,7 +23,7 @@ $brands = BrandModel::all();
                 <div class="breadcrumb__text">
                     <h2>TEchRevive achats</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">Home</a>
+                        <a href="./index.html">Accueil</a>
                         <span>Boutique</span>
                     </div>
                 </div>
@@ -31,23 +31,23 @@ $brands = BrandModel::all();
         </div>
     </div>
 
-   
+
 </section>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            
+
             <div class="featured__controls">
                 <ul>
                     @foreach($brands as $brand)
-                    
+
                     @endforeach
                 </ul>
             </div>
         </div>
     </div>
-    
+
     <div class="row featured__filter">
         @foreach($products as $product)
             @if($product->product_status)
@@ -55,7 +55,7 @@ $brands = BrandModel::all();
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg" data-setbg="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}">
                         <ul class="featured__item__pic__hover">
-                            <li><a href="#"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a></li>                            
+                            <li><a href="#"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a></li>
                             <li><a href="{{ route('view-details', ['product_id' => $product->product_id]) }}"><i class="fa fa-info-circle"></i></a></li>
                             <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
@@ -69,7 +69,7 @@ $brands = BrandModel::all();
             @endif
         @endforeach
     </div>
-    
+
 </div>
 
 

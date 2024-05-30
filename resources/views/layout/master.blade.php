@@ -29,9 +29,9 @@ $user = Auth::user();
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     @yield('style')
-    
+
 </head>
 
 <body>
@@ -213,7 +213,7 @@ $user = Auth::user();
                             <li><a href="#">qui nous sommes</a></li>
                             <li><a href="#">Notre Services</a></li>
                             <li><a href="#">Projets</a></li>
-                            
+
                             <li><a href="#">Innovation</a></li>
                             <li><a href="#">témoignages</a></li>
                         </ul>
@@ -240,8 +240,8 @@ $user = Auth::user();
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Our Group</a>
-                        
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Tous droits réservés | Ce site est réalisé avec <i class="fa fa-heart" aria-hidden="true"></i> par <a href="" target="_blank">Notre Groupe</a>
+
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="img/payment-item." alt=""></div>
                     </div>
@@ -254,12 +254,12 @@ $user = Auth::user();
     <!-- Js Plugins -->
     <script src="{{ asset('js/all.js') }}"></script>
     @yield('ajaxsection')
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    
+
     <script>
 
         $(document).ready(function() {
@@ -269,10 +269,10 @@ $user = Auth::user();
                     }
                 });
         });
-        
+
         function toggleFavorite(productId) {
             $.ajax({
-                url: "{{ route('product.favorite') }}", 
+                url: "{{ route('product.favorite') }}",
                 method: 'POST',
                 data: { product_id: productId },
                 dataType: 'JSON',
@@ -286,7 +286,7 @@ $user = Auth::user();
                             showCancelButton: false,
                             confirmButtonText: 'OK'
                         });
-    
+
                         // Mise à jour de l'icône du favori en temps réel
                         const icon = $('#favorite-icon-' + productId);
                         if (icon.hasClass('fa-heart')) {
@@ -307,7 +307,7 @@ $user = Auth::user();
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Vous devez connectez pour ajouter cette article dans vos favoris !  ' 
+                    text: 'Vous devez connectez pour ajouter cette article dans vos favoris !  '
                 });
                 console.error('Status:', status);
                 console.error('Response Text:', xhr.responseText);
@@ -315,9 +315,9 @@ $user = Auth::user();
             });
         }
     </script>
-        
 
-    
+
+
 
 </body>
 

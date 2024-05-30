@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\listeReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
+
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
 use App\Http\Controllers\User\ReparateurController;
@@ -42,7 +43,7 @@ Route::get('/reparateur1/{id}', [CvController::class, 'showProfile'])->name('rep
 
 
 Route::post('/reparateur1', [ReparateurController::class, 'store'])->name('reparateurs.store');
-Route::get('/reparateurs', [listeReparateurController::class, 'index'])->name('reparateurs.index');  
+Route::get('/reparateurs', [listeReparateurController::class, 'index'])->name('reparateurs.index');
 
 Route::get('/demandes-recentes', 'App\Http\Controllers\demandeControllrs@demandesRecentes')->name('demandes.recentes');
 
@@ -68,8 +69,8 @@ Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
   });
   Route::post('/get-message', [ChatbotController::class, 'getMessage'])->name('get-message');
-  
-  
+
+
   Route::get('/liste-des-pannes', [PanneController::class, 'index'])->name('listepannes');
 /*fin_chatbot */
 
@@ -148,6 +149,12 @@ Route::post('/rendezvous', [RendezvousController::class, 'store'])->name('rendez
 
 /*fin*/
 Route::get('/products', [ProductController::class, 'index']);
+
+
+
+
+
+
 
 require_once __DIR__.'/auth.php';
 require_once __DIR__.'/admin.php';

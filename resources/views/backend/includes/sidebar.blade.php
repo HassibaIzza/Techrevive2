@@ -23,7 +23,7 @@
             <a href="{{route( $role . '-profile')}}" aria-expanded="false">
                 <div class="parent-icon"><i class="bx bx-user-circle"></i>
                 </div>
-                <div class="menu-title">Profile</div>
+                <div class="menu-title">Profil</div>
             </a>
         </li>
         <li>
@@ -49,7 +49,7 @@
 
             </li>
         @endif
-    
+
         @if($status && $role != 'Fabricant' && $role != 'client' && $role != 'reparateur')
             <li>
                 <a class="has-arrow" style="cursor: pointer">
@@ -68,25 +68,25 @@
 
             </li>
             <li>
-                <a class="has-arrow" style="cursor: pointer">
+                <a >
                     <div class="parent-icon"><i class='lni lni-folder'></i>
                     </div>
-                    <div class="menu-title">Categories</div>
+                    <div class="menu-title">Catégories</div>
                 </a>
                 <ul>
                     @if($role === 'admin')
                     <li> <a href="{{route('category')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
                     @endif
-                    <li> <a href="{{route('category-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Categorie</a>
+                    <li> <a href="{{route('category-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Catégorie</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="has-arrow" style="cursor: pointer">
-                    <div class="parent-icon"><i class='lni lni-dinner'></i>
+                <a >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                     </div>
-                    <div class="menu-title">Sous Categories</div>
+                    <div class="menu-title">Sous Catégories</div>
                 </a>
                 <ul>
                     @if($role === 'admin')
@@ -94,12 +94,12 @@
                     </li>
                     @endif
                     <li> <a href="{{route('sub-category-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter sous
-                            Categorie</a>
+                            Catégorie</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="has-arrow" style="cursor: pointer">
+                <a >
                     <div class="parent-icon"><i class='lni lni-graph'></i>
                     </div>
                     <div class="menu-title">Annonces</div>
@@ -107,14 +107,14 @@
                 <ul>
                     <li> <a href="{{route($role . '-product')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
-                    
+
                     <li> <a href="{{route($role . '-product-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter
-                            Produit</a>
+                            annonce</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a class="has-arrow" style="cursor: pointer">
+                <a >
                     <div class="parent-icon"><i class='lni lni-wallet'></i>
                     </div>
                     <div class="menu-title">Coupons</div>
@@ -134,13 +134,13 @@
             </a>
         </li>
         @endif
-        
+
         @if($status && $role === 'Fabricant')
         <li>
-            <a class="has-arrow" style="cursor: pointer">
+            <a >
                 <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                 </div>
-                <div class="menu-title">Créer Marque</div>
+                <div class="menu-title">Marque</div>
             </a>
             <ul>
                 <li> <a href="{{route('marques.show')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
@@ -156,20 +156,20 @@
         <ul>
             @if($status && $role === 'Fabricant')
             <li>
-                <a class="has-arrow" style="cursor: pointer">
+                <a >
                     <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                     </div>
-                    <div class="menu-title">Pannes Fréquents</div>
+                    <div class="menu-title">Liste des pannes</div>
                 </a>
                 <ul>
                     <li> <a href="{{ route('listepannes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
-                    <li> <a href="{{route('pannes-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter panne</a>
+                    <li> <a href="{{route('pannes-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter panne fréquente</a>
                     </li>
                 </ul>
-    
+
             </li>
-            
+
             @endif
         </ul>
         </li>
@@ -177,7 +177,7 @@
             <ul>
                 @if($status)
                 <li>
-                    <a class="has-arrow" style="cursor: pointer">
+                    <a >
                         <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                         </div>
                         <div class="menu-title">Mes Favoris</div>
@@ -185,16 +185,16 @@
                     <ul>
                         <li> <a href="{{ route('show.favorite') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                         </li>
-                        
+
                     </ul>
-        
+
                 </li>
-                
+
                 @endif
             </ul>
         </li>
     </ul>
-    
+
     <!--end navigation-->
 </div>
 
@@ -222,13 +222,13 @@
   submenuItems.forEach(item => {
       const submenu = item.querySelector('.submenu');
       const submenuArrow = item.querySelector('.submenu-arrow i');
-      
+
       item.addEventListener('click', () => {
           submenu.classList.toggle('submenu-open');
           submenuArrow.classList.toggle('bx-chevron-down');
           submenuArrow.classList.toggle('bx-chevron-right');
       });
-      
+
       // Masquer les sous-menus par défaut
       submenu.style.display = 'none';
   });

@@ -5,13 +5,13 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Products</div>
+        <div class="breadcrumb-title pe-3">Annonces</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Product List</li>
+                    <li class="breadcrumb-item active" aria-current="page"> Liste des annonces </li>
                 </ol>
             </nav>
         </div>
@@ -24,17 +24,17 @@
                 <div class="ms-auto" style="margin-bottom: 20px">
                     @if(Auth::user()->role == "vendor || client")
                         <a href="add_product" class="btn btn-primary radius-30 mt-2 mt-lg-0">
-                            <i class="bx bxs-plus-square"></i>Add New Product</a></div>
+                            <i class="bx bxs-plus-square"></i>Ajouter une annonce</a></div>
                 @endif
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Product Code</th>
-                        <th>Product Quantity</th>
-                        <th>Product Price</th>
-                        <th>Product Status</th>
-                        <th>Product Details</th>
+                        <th>Nom</th>
+                        <th>Code produit</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Statut de l'annonce</th>
+                        <th> Détails de l'annonce</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -53,10 +53,10 @@
                                     <div class="form-check form-switch">
                                         @if($item->product_status)
                                             <input name="de_activate" class="btn btn-outline-danger" type="submit"
-                                                   value="De-Active" >
+                                                   value="Désactiver" >
                                         @else
                                             <input name="activate" class="btn btn-outline-success" type="submit"
-                                                   value=" Activate ">
+                                                   value=" Activer " style=" width: 110px";>
                                         @endif
 
                                     </div>
@@ -65,8 +65,8 @@
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#exampleFullScreenModal-{{$item->product_id}}">View
-                                    Details
+                                        data-bs-target="#exampleFullScreenModal-{{$item->product_id}}">Voir les
+                                    Détails
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleFullScreenModal-{{$item->product_id}}"
@@ -75,7 +75,7 @@
                                     <div class="modal-dialog modal-fullscreen">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Product Details</h5>
+                                                <h5 class="modal-title"> Détails de l'annonce</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
@@ -128,7 +128,7 @@
                                                                     <dt class="col-sm-3">Code</dt>
                                                                     <dd class="col-sm-9">{{$item->product_code}}</dd>
 
-                                                                    <dt class="col-sm-3">Colors</dt>
+                                                                    <dt class="col-sm-3">Couleurs</dt>
                                                                     <dd class="col-sm-9">
                                                                         <div class="color-indigators d-flex align-items-center gap-2">
                                                                             @foreach(ProductController::getProductSeparatedColors($item->product_colors) as $color)
@@ -140,7 +140,7 @@
 
                                                                     </dd>
 
-                                                                    <dt class="col-sm-3">Quantity</dt>
+                                                                    <dt class="col-sm-3">Quantité</dt>
                                                                     <dd class="col-sm-9">{{$item->product_quantity}}
 
                                                                     <dt class="col-sm-3">Tags</dt>
@@ -156,10 +156,10 @@
                                                                     <dd class="col-sm-9">
                                                                         @if($item->product_status)
                                                                             <span class="badge rounded-pill
-                                                                            bg-success">Active</span>
+                                                                            bg-success">Activer</span>
                                                                         @else
                                                                             <span class="badge rounded-pill
-                                                                            bg-danger">De-Active</span>
+                                                                            bg-danger">Désactiver</span>
                                                                         @endif
                                                                     </dd>
                                                                 </dl>
@@ -173,7 +173,7 @@
 
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
+                                                    Fermer
                                                 </button>
                                             </div>
                                         </div>
@@ -247,15 +247,15 @@
         $(document).ready(function () {
             $('form.activate_form').on('submit', function (event) {
                 event.preventDefault();
-    
+
                 console.log('Form submitted');  // Ajoutez ceci pour déboguer
-    
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-    
+
                 $.ajax({
                         url: "{{route('vendor-product-activate')}}",
                         method: 'POST',

@@ -5,7 +5,7 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Products</div>
+        <div class="breadcrumb-title pe-3">Produits</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -21,14 +21,14 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                
+
                 @endif
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
-                        
+                        <th>Nom de produit</th>
+                        <th> Prix</th>
+
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -37,8 +37,8 @@
                         <tr>
                             <td>{{$item->product_name}}</td>
                             <td>{{$item->product_price}}</td>
-                           
-                            
+
+
                             <td>
                                 <div class="d-flex order-actions">
                                     @if(Auth::user()->role == "vendor")
@@ -57,14 +57,15 @@
                                              style="display: none;" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
-                                                    
+
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel
+                                                                data-bs-dismiss="modal">Annuler
                                                         </button>
                                                         <button onclick="window.location.replace
                                                         ('remove_product/{{$item->product_id}}');"
-                                                                class="btn btn-dark">Confirm
+                                                                class="btn btn-dark">Confirmer
+
                                                         </button>
                                                     </div>
                                                 </div>
@@ -102,15 +103,15 @@
         $(document).ready(function () {
             $('form.activate_form').on('submit', function (event) {
                 event.preventDefault();
-    
+
                 console.log('Form submitted');  // Ajoutez ceci pour déboguer
-    
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-    
+
                 $.ajax({
                         url: "{{route('vendor-product-activate')}}",
                         method: 'POST',

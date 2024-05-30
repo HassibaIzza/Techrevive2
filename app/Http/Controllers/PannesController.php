@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PannesController extends Controller
 {
+
     public function pannesAdd(){
         $pannes = Typep::all();
         return view('backend.pannes.pannes_add', compact('pannes'));
@@ -22,13 +23,13 @@ class PannesController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'typep_id' => 'required|numeric|exists:typeps,id', // Assuming this is not a foreign key but still needs validation
-           
+
         ]);
 
         if (!Auth::check()) {
             return redirect('login')->withErrors('Vous devez être connecté pour effectuer cette action.');
         }
-    
+
         try{
             $panne = new Typepanne([
                 'name' => $request->name,

@@ -12,7 +12,7 @@
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Add new coupon</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter un nouveau coupon</li>
                 </ol>
             </nav>
         </div>
@@ -20,13 +20,13 @@
     <!--end breadcrumb -->
     <div class="card">
         <div class="card-body">
-            <h4 class="d-flex align-items-center mb-3">Add coupon</h4>
+            <h4 class="d-flex align-items-center mb-3">Ajouter un coupon</h4>
             <br>
             <form id="coupon_form" action="create_coupon" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Coupon Code</h6>
+                        <h6 class="mb-0">Code du coupon</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="coupon_code" type="text" class="form-control"
@@ -36,7 +36,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Discount(%)</h6>
+                        <h6 class="mb-0">Réduction(%)</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="discount_amount" type="text" class="form-control"
@@ -46,7 +46,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Expiration Date</h6>
+                        <h6 class="mb-0">Date d'expiration</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="datetime-local" class="form-control" name="expiration_date" required>
@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-secondary">
-                        <input type="submit" class="btn btn-primary px-4" value="Save Changes"
+                        <input type="submit" class="btn btn-primary px-4" value="Sauvegarder"
                         />
                     </div>
                 </div>

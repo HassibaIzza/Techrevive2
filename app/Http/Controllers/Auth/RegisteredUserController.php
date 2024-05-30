@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    
+
     public function store(Request $request): RedirectResponse
     {
 
@@ -68,9 +68,9 @@ class RegisteredUserController extends Controller
         if ($request->role == 'vendor'){
             self::completeVendorRegistration($user);
         }
-        
-        
-        
+
+
+
 
         event(new Registered($user));
 
@@ -78,19 +78,14 @@ class RegisteredUserController extends Controller
 
         // notify the admin
         $admins = User::where('role', 'admin')->get();
-<<<<<<< HEAD
-        
+
         Notification::send($admins, new RegisteredNewVendor());
-=======
-      
-      
->>>>>>> 15fd57e3e8baeee24ea1e2fd72bacca79279b5cb
         return redirect(self::redirectTo());
-        
+
     }
 
-    
- 
+
+
     public static function completeVendorRegistration($user){
         DB::table('vendor_shop')->insert([
             'shop_description' => null,
@@ -114,10 +109,10 @@ class RegisteredUserController extends Controller
             break; // Ajout du break ici
         case 'client' :
             $url = 'client/profile';
-            break; 
+            break;
         case 'Fabricant':
             $url= 'Fabricant/profile';
-            break; 
+            break;
         default:
             $url = '/profile';
             break; // Ajout du break ici

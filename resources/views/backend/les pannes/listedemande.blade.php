@@ -3,31 +3,38 @@
 @section('PageTitle', 'Demandes de Panne')
 
 @section('content')
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Demandes récentes</div>
+</div>
+
+
     <!-- Afficher les demandes de panne du client connecté -->
-    
+
     <div class="card">
       <div class="card-body">
+
           <div class="table-responsive">
+            <div class="ms-auto" style="margin-bottom: 20px">
               <table id="data_table" class="table table-striped table-bordered">
                   <thead>
                       <tr>
-                        
+
                           <th>marque </th>
                           <th>Nom de la panne</th>
                           <th>Catégorie</th>
                           <th>Détails de rendez vous</th>
                           <th>Actions</th>
-                          <
+
                       </tr>
                   </thead>
                     <tbody>
                         @foreach($rendezvous as $rdv)
                             <tr>
-                              
+
                                 <td>{{ $rdv->nom_marque}}</td>
                                 <td>{{ $rdv->catégorie }}</td>
                                 <td>{{ $rdv->panne }}</td>
-                                
+
                                 <td>
                                   <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                           data-bs-toggle="modal"
@@ -75,7 +82,7 @@
                                         <!-- Fin du formulaire de confirmation de suppression -->
                                     </div>
                                 </td>
-                                
+
                                 <!-- Ajoutez d'autres colonnes si nécessaire -->
                             </tr>
                         @endforeach
@@ -85,7 +92,7 @@
         </div>
     </div>
 
-    
+
 @endsection
 @section('js')
     <!-- Ajoutez ici vos scripts JavaScript personnalisés -->

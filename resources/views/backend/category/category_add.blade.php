@@ -7,13 +7,13 @@
 
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Category</div>
+        <div class="breadcrumb-title pe-3">Catégories</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Add new category</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter une catégorie</li>
                 </ol>
             </nav>
         </div>
@@ -21,13 +21,13 @@
     <!--end breadcrumb -->
     <div class="card">
         <div class="card-body">
-            <h4 class="d-flex align-items-center mb-3">Add category</h4>
+            <h4 class="d-flex align-items-center mb-3">Ajouter une catégorie</h4>
             <br>
             <form id="category_form" action="category_create" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Category Name</h6>
+                        <h6 class="mb-0">Nom de la catégorie</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="category_name" type="text" class="form-control"
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Category Image</h6>
+                        <h6 class="mb-0">Image de la catégorie</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="category_image" id="category_image" class="form-control" type="file" >
@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9 text-secondary">
-                        <input type="submit" class="btn btn-primary px-4" value="Save Changes"
+                        <input type="submit" class="btn btn-primary px-4" value="Enregistrer les modifications"
                         />
                     </div>
                 </div>
