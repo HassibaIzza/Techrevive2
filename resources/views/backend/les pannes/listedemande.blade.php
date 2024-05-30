@@ -12,11 +12,11 @@
                   <thead>
                       <tr>
                         
-                          <th>marque </th>
-                          <th>Nom de la panne</th>
-                          <th>Catégorie</th>
-                          <th>Détails de rendez vous</th>
-                          <th>Actions</th>
+                              <th>marque </th>
+                              <th>Catégorie</th>
+                              <th>Nom de la panne</th>
+                              <th>Détails de rendez vous</th>
+                              <th>Actions</th>
                           <
                       </tr>
                   </thead>
@@ -25,8 +25,8 @@
                             <tr>
                               
                                 <td>{{ $rdv->nom_marque}}</td>
-                                <td>{{ $rdv->catégorie }}</td>
-                                <td>{{ $rdv->panne }}</td>
+                                <td>{{ $rdv->nom_catégorie }}</td>
+                                <td>{{ $rdv->nom_panne }}</td>
                                 
                                 <td>
                                   <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
