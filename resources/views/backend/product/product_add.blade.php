@@ -11,14 +11,14 @@
 
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Produit</div>
+        <div class="breadcrumb-title pe-3">Annonces</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">Produit</li>
-                    <li class="breadcrumb-item active" aria-current="page">Ajouter nouveau produit</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter un nouveau produit</li>
                 </ol>
             </nav>
         </div>
@@ -47,7 +47,7 @@
 
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputProductDescription" class="form-label">Court Description</label>
+                                    <label for="inputProductDescription" class="form-label">Courte description</label>
                                     <textarea name="product_short_description" class="form-control" id="inputProductDescription"
                                               rows="3" required></textarea>
                                     <small style="color: #e20000" class="error"
@@ -55,7 +55,7 @@
 
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputProductLongDescription" class="form-label">Description Détailler</label>
+                                    <label for="inputProductLongDescription" class="form-label">Description détaillé</label>
                                     <textarea id="mytextarea"
                                               name="product_long_description"> </textarea>
                                     <small style="color: #e20000" class="error"
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="inputProductQuantity" class="form-label">Product Quantity</label>
+                                    <label for="inputProductQuantity" class="form-label"> Quantité </label>
                                     <input name="product_quantity" type="number" min="0" class="form-control"
                                            id="inputProductQuantity" required>
                                     <small style="color: #e20000" class="error" id="product_quantity-error"></small>
@@ -167,7 +167,7 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <input type="submit" class="btn btn-primary" value="Save Product" />
+                                        <input type="submit" class="btn btn-primary" value="Enregistrer" />
                                     </div>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@
         <script>
             tinymce.init({
                 selector: '#mytextarea',
-                apiKey: 'dqc852mk44lbcldyv5ikw3e7uhrl50wh4p502dbihnagdz1t', 
+                apiKey: 'dqc852mk44lbcldyv5ikw3e7uhrl50wh4p502dbihnagdz1t',
             });
         </script>
     <script src="{{asset('backend_assets')}}/plugins/input-tags/js/tagsinput.js"></script>

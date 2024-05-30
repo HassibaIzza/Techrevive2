@@ -17,7 +17,7 @@ use App\Models\Typep;
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Entré une panne Fréquent</li>
+                    <li class="breadcrumb-item active" aria-current="page">Enter une panne Fréquent</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@ use App\Models\Typep;
     <!--end breadcrumb -->
     <div class="card">
         <div class="card-body">
-            <h4 class="d-flex align-items-center mb-3">Entré une panne Fréquent</h4>
+            <h4 class="d-flex align-items-center mb-3">Entrer une panne Fréquent</h4>
             <br>
             <form id="brand_form" action="{{route('panne.create')}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -35,7 +35,7 @@ use App\Models\Typep;
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="name" type="text" class="form-control" required autofocus/>
-                    <small style="color: #e20000" class="error">{{ $errors->first('name') }}</small>                    
+                    <small style="color: #e20000" class="error">{{ $errors->first('name') }}</small>
                     </div>
                 </div>@php $categorie = Typep::all(); @endphp
 
@@ -50,7 +50,7 @@ use App\Models\Typep;
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
-                    <small style="color: #e20000" class="error">{{ $errors->first('name') }}</small>                    
+                    <small style="color: #e20000" class="error">{{ $errors->first('name') }}</small>
                     </div>
                 </div>
                 <div class="row">
@@ -104,7 +104,7 @@ use App\Models\Typep;
         }).then((result) => {
           if (result.isConfirmed) {
             // Optional: Redirect or reload page on success
-            window.location.reload(); 
+            window.location.reload();
           }
         });
       },

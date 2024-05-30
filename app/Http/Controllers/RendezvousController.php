@@ -31,7 +31,7 @@ public function store(Request $request)
         'short_description.required' => 'La description courte est obligatoire.',
     ]);
 
-    // Récupérer l'ID du client depuis le formulaire
+    // Récupérer l'ID depuis le formulaire
     $Id = $request->input('id');
 
     if ($Id) {
@@ -43,7 +43,8 @@ public function store(Request $request)
         }
 
         // Récupérer le client par son ID
-        $client = User::find($Id);
+        //$client = User::find($Id);
+        $client = User::find($rendezVous->client_id);
 
 
         // Mettre à jour les champs du rendez-vous

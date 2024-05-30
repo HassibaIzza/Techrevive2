@@ -22,7 +22,11 @@ use Illuminate\View\View;
 
 class EmailController extends Controller
 {
+    public function creerDemande()
+    {
 
+    return view('email');
+    }
 
     public function create()
     {
@@ -94,9 +98,9 @@ class EmailController extends Controller
     $rendezVous = new RendezVous();
     $rendezVous->mail = $request->email;
     $rendezVous->marque = $request->marque;
-    $rendezVous->catégorie = $typepName; //  
-    $rendezVous->panne = $typepanneName; //  
-    $rendezVous->problème = $request->content; //  
+    $rendezVous->catégorie = $typepName; //
+    $rendezVous->panne = $typepanneName; //
+    $rendezVous->problème = $request->content; //
     $rendezVous->nom = $request->name;
     $rendezVous->sujet = $request->adresse;
     $rendezVous->client_id = $client_id ;
@@ -118,22 +122,22 @@ class EmailController extends Controller
           $owner = User::find($marque->owner_id);
           if ($owner) {
             $details = "Une nouvelle demande de service a été soumise ";
-            $url = route('listepannes', ['id' => $marque->id]);              
+            $url = route('listepannes', ['id' => $marque->id]);
             $owner->notify(new BrandOwnerNotification($details, $url));
           }
       }
 
       return back()->with(['message' => 'Email envoyer et notification dispatcher!']);
-            
 
-       
+
+
         //return back()->with(['message' => 'Message envoyé avec succés!']);
-         
-    
+
+
     }
 
 
-    public function sendContact(Request $request) 
+    public function sendContact(Request $request)
     {
       $request->validate([
         'name' => 'required',
@@ -148,12 +152,12 @@ class EmailController extends Controller
       ];
       $gmail = 'hassibaizza827@gmail.com' ;
       Mail::send('EmailContact-Template', $data, function ($message) use ($data, $gmail) {
-        $message->to($gmail) 
+        $message->to($gmail)
           ->subject('Nouveau Contact');
       });
 
       return back()->with(['message' => 'Email envoyer avec succées !']);
 
     }
-    
+
 }

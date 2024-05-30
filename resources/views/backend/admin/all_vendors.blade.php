@@ -1,19 +1,19 @@
-@php 
+@php
 use App\MyHelpers;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 @endphp
 @extends('backend.layouts.app')
 @section('PageTitle', 'Vendors')
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Vendor</div>
+        <div class="breadcrumb-title pe-3">Utilisateurs</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="dashboard"><i class="bx bx-home-alt"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">User List</li>
+                    <li class="breadcrumb-item active" aria-current="page">Liste des utilisateurs</li>
                 </ol>
             </nav>
         </div>
@@ -28,11 +28,11 @@ use Illuminate\Support\Facades\Auth;
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Joined Date</th>
-                        <th>Status</th>
-                        <th>View Details</th>
-                        <th>Activate</th>
-                        <th>Delete</th>
+                        <th>Date d'inscription</th>
+                        <th>Statut</th>
+                        <th>Détails</th>
+                        <th>Activer</th>
+                        <th>Supprimer</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,16 +44,16 @@ use Illuminate\Support\Facades\Auth;
                             {{--                            <td>{{$item->status}}</td>--}}
                             <td>
                                 @if($item->status)
-                                    <div class="badge rounded-pill bg-light-success text-success w-100">active</div>
+                                    <div class="badge rounded-pill bg-light-success text-success w-100">Actif</div>
                                 @else
-                                    <div class="badge rounded-pill bg-light-danger text-danger w-100">Not active</div>
+                                    <div class="badge rounded-pill bg-light-danger text-danger w-100">Inactif</div>
                                 @endif
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->id}}">View
-                                    Details
+                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->id}}">Voir les détails
+
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleVerticallycenteredModal-{{$item->id}}" tabindex="-1"
@@ -61,41 +61,41 @@ use Illuminate\Support\Facades\Auth;
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">User Details</h5>
+                                                <h5 class="modal-title">Détails de l'utilisateur</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                        aria-label="Fermer"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <img src="{{url('uploads/images/profile/' . $item->photo)}}"
                                                      class="card-img-top" style="max-width: 300px; margin-left:
                                                          10px">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Name : <span style="font-weight:
+                                                    <h5 class="card-title">Nom : <span style="font-weight:
                                                          lighter">{{$item->name}}</span>
                                                     </h5>
                                                     <h5 class="card-title">Email : <span style="font-weight:
                                                          lighter">{{$item->email}}</span>
                                                     </h5>
-                                                    <h5 class="card-title">Username : <span style="font-weight:
+                                                    <h5 class="card-title">Nom d'utilisateur : <span style="font-weight:
                                                          lighter">{{$item->username}}</span>
                                                     </h5>
-                                                    <h5 class="card-title">Address : <span style="font-weight:
+                                                    <h5 class="card-title">Addresse : <span style="font-weight:
                                                          lighter">{{$item->address ?  : 'No address
                                                          '}}</span>
                                                     </h5>
-                                                    <h5 class="card-title">Phone Number : <span style="font-weight:
+                                                    <h5 class="card-title">Numéro de téléphone : <span style="font-weight:
                                                          lighter">{{$item->phone_number ? : 'No phone number'}}</span>
                                                     </h5>
-                                                    <h5 class="card-title">User Role : <span style="font-weight:
+                                                    <h5 class="card-title">Role : <span style="font-weight:
                                                         lighter">{{$item->role
                                                         ? : 'No phone number'}}</span>
                                                    </h5>
-                                                    <h5 class="card-title">Status : <span style="font-weight:
+                                                    <h5 class="card-title">Statut : <span style="font-weight:
                                                          lighter">
                                                             @if($item->status)
-                                                                <span style="color: lime">active</span>
+                                                                <span style="color: lime">Actif</span>
                                                             @else
-                                                                <span style="color: red">Not active</span>
+                                                                <span style="color: red">Inactif</span>
                                                             @endif
                                                         </span>
                                                     </h5>
@@ -103,7 +103,7 @@ use Illuminate\Support\Facades\Auth;
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
+                                                    Fermer
                                                 </button>
                                             </div>
                                         </div>
@@ -120,11 +120,11 @@ use Illuminate\Support\Facades\Auth;
                                         @if($item->status)
                                             <input name="de_activate" class="btn
                                             btn-outline-danger" type="submit"
-                                                   value="De-Active">
+                                                   value="Désactiver">
                                         @else
                                             <input name="activate" class="btn
-                                            btn-outline-success" type="submit"
-                                                   value=" Activate ">
+                                            btn-outline-success" type="submit" style=" width: 110px;"
+                                                   value=" Activer ">
                                         @endif
 
                                     </div>

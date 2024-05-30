@@ -6,13 +6,13 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">SubCategory</div>
+        <div class="breadcrumb-title pe-3">Sous-catégories</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">SubCategory List</li>
+                    <li class="breadcrumb-item active" aria-current="page"> List des sous-catégories</li>
                 </ol>
             </nav>
         </div>
@@ -24,15 +24,15 @@
             <div class="table-responsive">
                 <div class="ms-auto" style="margin-bottom: 20px">
                     <a href="add_sub_category" class="btn btn-primary radius-30 mt-2 mt-lg-0">
-                        <i class="bx bxs-plus-square"></i>Add New SubCategory</a></div>
+                        <i class="bx bxs-plus-square"></i>Ajouter une Sous catégorie</a></div>
 
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>SubCategory Name</th>
-                        <th>SubCategory Slug</th>
-                        <th>Related Category</th>
-                        <th>View Details</th>
+                        <th>Nom de la Sous-Catégorie</th>
+                        <th>Slug de la Sous-Catégorie</th>
+                        <th>Catégorie Associée</th>
+                        <th>Voir les Détails</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -45,8 +45,8 @@
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->sub_category_id}}">View
-                                    Details
+                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->sub_category_id}}">Voir les
+                                    Détails
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleVerticallycenteredModal-{{$item->sub_category_id}}"
@@ -55,7 +55,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">SubCategory Details</h5>
+                                                <h5 class="modal-title">Détails de la Sous-Catégorie</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -64,16 +64,13 @@
                                                      class="card-img-top" style="max-width: 300px; margin-left:
                                                          10px">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">SubCategory Name : <span style="font-weight:
-                                                         lighter">{{$item->sub_category_name}}</span></h5>
-                                                    <h5 class="card-title">SubCategory Slug : <span style="font-weight:
-                                                         lighter">{{$item->sub_category_slug}}</span></h5>
-                                                    <h5 class="card-title">Category Name : <span style="font-weight:
-                                                         lighter">{{$item->category_name}}</span></h5>
+                                                    <h5 class="card-title">Nom de la Sous-Catégorie : <span style="font-weight: lighter">{{ $item->sub_category_name }}</span></h5>
+                                                    <h5 class="card-title">Slug de la Sous-Catégorie : <span style="font-weight: lighter">{{ $item->sub_category_slug }}</span></h5>
+                                                    <h5 class="card-title">Nom de la Catégorie : <span style="font-weight: lighter">{{ $item->category_name }}</span></h5>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +88,7 @@
                                         <div class="modal-dialog modal-fullscreen">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Edit SubCategory</h5>
+                                                    <h5 class="modal-title">Éditer la Sous-Catégorie</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -106,7 +103,7 @@
                                                                        hidden />
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">SubCategory Name</h6>
+                                                                        <h6 class="mb-0">Nom de la Sous-Catégorie</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="sub_category_name" type="text"
@@ -119,12 +116,12 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Related Category</h6>
+                                                                        <h6 class="mb-0">Catégorie Associée</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
 
                                                                         <select name="category_id" class="form-select" id="inputProductType">
-                                                                            <option>Choose Category</option>
+                                                                            <option>Choisir une catégorie</option>
                                                                             @foreach($categories as $category)
                                                                                 <option
                                                                                     value="{{$category->category_id}}"
@@ -144,7 +141,7 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">SubCategory Image</h6>
+                                                                        <h6 class="mb-0">Image</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="sub_category_image"
@@ -164,7 +161,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-3"></div>
                                                                     <div class="col-sm-9 text-secondary">
-                                                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes"
+                                                                        <input type="submit" class="btn btn-primary px-4" value="Enregistre les modifications"
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -173,7 +170,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,10 +192,10 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel</button>
+                                                                data-bs-dismiss="modal">Annuler</button>
                                                         <button onclick="window.location.replace
                                                         ('remove_sub_category/{{$item->sub_category_id}}');"
-                                                                class="btn btn-dark">Confirm</button>
+                                                                class="btn btn-dark">Confirmer</button>
                                                     </div>
                                                 </div>
                                             </div>

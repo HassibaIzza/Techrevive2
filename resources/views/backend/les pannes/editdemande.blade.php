@@ -9,7 +9,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('demandes.update', $rendezvous->id) }}" method="POST">
+    <form action="{{ route('demandes.update', $rendezvous->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -39,12 +39,12 @@
                 <select name="panne" id="panne" class="form-control" required>
                     <option value="">Sélectionner une panne</option>
                     @foreach ($pannes as $panne)
-                        <option value="{{ $panne->name }}" @if ($rendezvous->panne == $panne->id) selected @endif>{{ $panne->name }}</option>
+                        <option value="{{ $panne->id }}" @if ($rendezvous->panne == $panne->id) selected @endif>{{ $panne->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
-                <label for="problème" class="form-label">Détails de la panne</label>
+                <label for="probleme" class="form-label">Détails de la panne</label>
                 <textarea class="form-control" id="problème" name="problème" required>{{ $rendezvous->problème }}</textarea>
             </div>
             <button type="submit" class="btn btn-primary">Mettre à jour</button>
@@ -65,8 +65,8 @@
                     success: function(data) {
                         $('#catégorie').empty();
                         $('#catégorie').append('<option value="">Sélectionner une catégorie</option>'); 
-                        $.each(data.typep, function(key, value) {
-                            $('#catégorie').append('<option value="'+ value +'">'+ value +'</option>');
+                        $.each(data.categories, function(key, value) {
+                            $('#catégorie').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                         });
                     }
                 });
@@ -77,17 +77,17 @@
         });
 
         $('#catégorie').change(function() {
-            var typepID = $(this).val();
-            if (typepID) {
+            var categorieID = $(this).val();
+            if (categorieID) {
                 $.ajax({
-                    url: '/fetch-cities/' + typepID,
+                    url: '/fetch-cities/' + categorieID,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
                         $('#panne').empty();
                         $('#panne').append('<option value="">Sélectionner une panne</option>'); 
-                        $.each(data.typepannes, function(key, value) {
-                            $('#panne').append('<option value="'+ value +'">'+ value +'</option>');
+                        $.each(data.pannes, function(key, value) {
+                            $('#panne').append('<option value="'+ value.id +'">'+ value.name +'</option>');
                         });
                     }
                 });
