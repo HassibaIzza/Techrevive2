@@ -31,7 +31,7 @@ $brands = BrandModel::all();
         </div>
     </div>
 
-   
+
 </section>
 
 <div class="container">
@@ -57,7 +57,8 @@ $brands = BrandModel::all();
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a></li>                            
                             <li><a href="{{ route('view-details', ['product_id' => $product->product_id]) }}"><i class="fa fa-info-circle"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"  id="cart-icon-{{ $product->product_id }}" onclick="addToCart({{ $product->product_id }})"></i></a></li>                            
+
                         </ul>
                     </div>
                     <div class="featured__item__text">
@@ -77,6 +78,7 @@ $brands = BrandModel::all();
 @endsection
 
 @section('ajaxsection')
+
 
 @endsection
 

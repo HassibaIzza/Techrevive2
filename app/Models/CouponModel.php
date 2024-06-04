@@ -12,4 +12,5 @@ class CouponModel extends Model
     protected $primaryKey = 'coupon_id';
     protected $guarded = [];
     public $timestamps = false;
+
 }

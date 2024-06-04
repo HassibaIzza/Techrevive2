@@ -2,6 +2,7 @@
 @php
 $user = Auth::user();
         $favoriteCount = $user->favorites()->count();
+        $cartCount = $user->panier()->count();
 @endphp
 @endif
 <!DOCTYPE html>
@@ -48,10 +49,10 @@ $user = Auth::user();
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span></span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a></li>
+                <li><a href="{{ route('show.favorite') }}"><i class="fa fa-heart"></i> <span id="favorite-count">@if(Auth::user()) {{$favoriteCount}} @endif</span></a></li>
+                <li><a href="{{route('cart.view')}}"><i class="fa fa-shopping-bag"></i> <span id="cart-count">@if(Auth::user()) {{$cartCount}} @endif</span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price"><span></span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -64,18 +65,18 @@ $user = Auth::user();
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                <a href="/register"><i class="fa fa-user"></i>Connecter</a>
+                <a href="{{ url('/login') }}"><i class="fa fa-user"></i>Connecter</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Accuiel</a></li>
+                <li class="active"><a href="./index.html">Accueil</a></li>
                 <li><a href="/boutique">boutique</a></li>
                 <li><a href="#">Réparation</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./shop-details.html">Réparer</a></li>
-                        <li><a href="./shoping-cart.html">Contacter Réparateur</a></li>
-                        <li><a href="/email">Contacter SAV</a></li>
+                        <li><a href="{{route('reparateurs.index')}}">Contacter Réparateur</a></li>
+                        <li><a href="{{route('send.email')}}">Contacter SAV</a></li>
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
@@ -150,11 +151,11 @@ $user = Auth::user();
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="./index.html">Accueil</a></li>
-                            <li><a href="{{route('boutique')}}">Boutique</a></li>
+                            <li class=""><a href="{{route('boutique')}}">Boutique</a></li>
                             <li><a href="#">Réparer</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Réparer</a></li>
-                                    <li><a href="">Contacter Répateur</a></li>
+                                    <li><a href="{{route('reparateurs.index')}}">Contacter Répateur</a></li>
                                     <li><a href="{{route('send.email')}}">Contacter SAV</a></li>
                                 </ul>
                             </li>
@@ -166,10 +167,10 @@ $user = Auth::user();
                 <div class="col-lg-3 ">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="fff"><i class="fa fa-heart"></i> <span>@if(Auth::user()) {{$favoriteCount}} @endif</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>0</span></a></li>
+                            <li><a href="{{ route('show.favorite') }}"><i class="fa fa-heart" ></i> <span id="favorite-count">@if(Auth::user()) {{$favoriteCount}} @endif</span></a></li>
+                            <li><a href="{{route('cart.view')}}"><i class="fa fa-shopping-bag" id="cart-count"></i> <span>@if(Auth::user()) {{$cartCount}} @endif</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        <div class="header__cart__price"><span></span></div>
                     </div>
                 </div>
             </div>
@@ -291,9 +292,13 @@ $user = Auth::user();
                         const icon = $('#favorite-icon-' + productId);
                         if (icon.hasClass('fa-heart')) {
                         icon.removeClass('fa-heart').removeClass('favorite').addClass('fa-heart-o');
+                        $('#favorite-count').text(response.favoriteCount);
                         } else {
                             icon.removeClass('fa-heart-o').addClass('fa-heart').addClass('favorite');
+                            $('#favorite-count').text(response.favoriteCount);
                         }
+                         // Mise à jour du nombre de favoris
+                    $('#favorite-count').text(response.favoriteCount);
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -308,6 +313,47 @@ $user = Auth::user();
                     icon: 'error',
                     title: 'Error',
                     text: 'Vous devez connectez pour ajouter cette article dans vos favoris !  ' 
+                });
+                console.error('Status:', status);
+                console.error('Response Text:', xhr.responseText);
+                }
+            });
+        }
+
+        function addToCart(productId) {
+            $.ajax({
+                url: "{{ route('add-to-cart') }}", 
+                method: 'POST',
+                data: { product_id: productId },
+                dataType: 'JSON',
+                success: function(response) {
+                    console.log('Success:', response);
+                    if(response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showDenyButton: false,
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
+                        });
+    
+                        // Mise à jour de l'icône du panier en temps réel
+                        $('#cart-count').text(response.cartCount);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'un probléme est survenu !'
+                        });
+                    }
+        
+                },
+                error: function(xhr, status, error) {
+                console.error('Error:', xhr);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'vous devez connectez pour pouvoir ajouter aux panier! ' 
                 });
                 console.error('Status:', status);
                 console.error('Response Text:', xhr.responseText);

@@ -47,13 +47,22 @@ Route::middleware(['auth', 'auth.role:vendor'])
         Route::post('activate_product', 'productActivate')->name('product-activate');
 
     });
-
+    //favorites routes 
     Route::get('product/{product_id}', [ProductController::class, 'show'])->name('view-details');
     Route::post('/favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
-    Route::post('/mesfavorite', [ProductController::class, 'showFavorite'])->name('show.favorite');
+    Route::get('/favorites', [ProductController::class, 'showFavorite'])->name('show.favorite')->middleware('auth');
+    /*Route::get('remove_favoris/{id}', 'favorisRemove')
+            ->whereNumber('id')
+            ->name('favoris-remove');*/
+
+    //panier routes 
+    Route::post('/add-to-cart', [ProductController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('/cart', [ProductController::class, 'viewCart'])->name('cart.view');
+    Route::delete('/cart', [ProductController::class, 'removeItem'])->name('panier.remove');
+    Route::post('/update-cart-quantities', [ProductController::class, 'updateQuantities'])->name('cart.updateQuantities');
 
 
 
-
+    
 
     

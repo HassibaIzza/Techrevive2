@@ -39,5 +39,9 @@ Route::middleware(['auth'])
     ->name('admin-')
     ->controller(CouponController::class)->group(function (){
         Route::get('coupons', 'getAllCoupons')->name('coupon');
-        Route::get('remove_coupon/{id}', 'couponRemove')->name('coupon-remove')->whereNumber('id');
+        Route::view('add_coupon', 'backend.coupon.coupon_add')->name('coupon-add');
+        Route::post('create_coupon', 'couponCreate')->name('coupon-create');
+        
     });
+
+    Route::post('/apply-promo', [CouponController::class, 'applyPromo'])->name('apply.promo');

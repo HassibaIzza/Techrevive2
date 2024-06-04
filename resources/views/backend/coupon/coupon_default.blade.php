@@ -4,13 +4,13 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Coupon</div>
+        <div class="breadcrumb-title pe-3">promotion</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Coupon List</li>
+                    <li class="breadcrumb-item active" aria-current="page">List de promotion</li>
                 </ol>
             </nav>
         </div>
@@ -23,16 +23,16 @@
                 @if(Auth::user()->role == "vendor")
                     <div class="ms-auto" style="margin-bottom: 20px">
                         <a href="add_coupon" class="btn btn-primary radius-30 mt-2 mt-lg-0">
-                            <i class="bx bxs-plus-square"></i>Add New Coupon</a></div>
+                            <i class="bx bxs-plus-square"></i>Ajouter Nouveau promotion</a></div>
                 @endif
 
 
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Coupon Code</th>
-                        <th>Discount</th>
-                        <th>Expiration Date</th>
+                        <th>Code promotion</th>
+                        <th>Réduit</th>
+                        <th> Date d'Expiration</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -53,8 +53,7 @@
                             <td>
                                 <div class="d-flex order-actions">
                                     @if(Auth::user()->role == "vendor")
-                                        <a href="" class="" data-bs-toggle="modal"
-                                           data-bs-target="#exampleFullScreenModal-{{$item->coupon_id}}"><i class='bx
+                                        <a href="" class="" data-bs-toggle="modal" data-bs-target="#exampleFullScreenModal-{{$item->coupon_id}}"><i class='bx
                                        bxs-edit'></i></a>
 
                                     @endif
@@ -66,7 +65,7 @@
                                         <div class="modal-dialog modal-fullscreen">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Coupon</h5>
+                                                    <h5 class="modal-title">Modifier Poromotion</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                 </div>
@@ -78,7 +77,7 @@
                                                                 <input name="coupon_id" value="{{$item->coupon_id}}" hidden/>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Coupon Code</h6>
+                                                                        <h6 class="mb-0">Code promotion</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="coupon_code" type="text"
@@ -91,7 +90,7 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Discount %</h6>
+                                                                        <h6 class="mb-0">Réduit %</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="discount_amount" type="text"
@@ -104,7 +103,7 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Expiration Date</h6>
+                                                                        <h6 class="mb-0">Date d'Expiration</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input type="datetime-local"
@@ -132,7 +131,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close
+                                                            data-bs-dismiss="modal">Fermer
                                                     </button>
                                                 </div>
                                             </div>
@@ -150,7 +149,7 @@
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-white">Sure ?</h5>
+                                                        <h5 class="modal-title text-white">Surement ?</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
@@ -160,7 +159,7 @@
                                                         </button>
                                                         <button onclick="window.location.replace
                                                         ('remove_coupon/{{$item->coupon_id}}');"
-                                                                class="btn btn-dark">Confirm
+                                                                class="btn btn-dark">Confirmer
                                                         </button>
                                                     </div>
                                                 </div>

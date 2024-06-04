@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script src="{{asset('backend_assets')}}\tinymce\js\tinymce\tinymce.min.js"> </script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @include('backend.includes.favicon')
     @include('backend.includes.plugins')
     @yield('plugins')

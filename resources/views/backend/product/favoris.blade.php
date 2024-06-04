@@ -5,7 +5,7 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Products</div>
+        <div class="breadcrumb-title pe-3">Produits</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -22,10 +22,11 @@
         <div class="card-body">
             <div class="table-responsive">
                 
-                @endif
+                
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
+                        <th>Photo</th>
                         <th>Product Name</th>
                         <th>Product Price</th>
                         
@@ -33,45 +34,43 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($favoris as $item)
+                    @foreach($favoriteProducts as $favorite)
                         <tr>
-                            <td>{{$item->product_name}}</td>
-                            <td>{{$item->product_price}}</td>
-                           
-                            
-                            <td>
+                            <td><img src="{{ asset('uploads/images/product/' . $favorite->product->product_thumbnail ) }}" alt="{{ $favorite->product->product_name }}" width="100px"/></td>
+                            <td>{{$favorite->product->product_name}}</td>
+                            <td>{{$favorite->product->product_price}}</td>
+                        <td>
                                 <div class="d-flex order-actions">
-                                    @if(Auth::user()->role == "vendor")
-                                        <a href="edit_product/{{$item->product_id}}"><i class='bx bxs-edit'></i>
-                                        </a>
-                                    @endif
-
-
+                                    <a href="{{route('view-details', ['product_id' => $favorite->product->product_id])}}"><i class="fa fa-info-circle" aria-hidden="true" ></i>
+                                    </a>
                                     <a href="" class="ms-3" data-bs-toggle="modal"
-                                    data-bs-target="#exampleDangerModal-{{$item->product_id}}">
+                                    data-bs-target="#exampleDangerModal-{{$favorite->product_id}}">
 
                                         <i class='bx bxs-trash'></i>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleDangerModal-{{$item->product_id}}"
+                                        <div class="modal fade" id="exampleDangerModal-{{$favorite->product_id}}"
                                              tabindex="-1"
                                              style="display: none;" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
-                                                    
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-white">Surement ?</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel
+                                                                data-bs-dismiss="modal">Annuler
                                                         </button>
                                                         <button onclick="window.location.replace
-                                                        ('remove_product/{{$item->product_id}}');"
-                                                                class="btn btn-dark">Confirm
+                                                        ('remove_product/{{$favorite->product_id}}');"
+                                                                class="btn btn-dark">Confirmer
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </a>
-
 
                                 </div>
                             </td>

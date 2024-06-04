@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
+    public function panier()
+    {
+        return $this->hasMany(Panier::class);
+    }
+
     public function marques()
     {
         return $this->hasMany(Marque::class, 'owner_id');

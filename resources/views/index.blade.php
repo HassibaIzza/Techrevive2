@@ -63,7 +63,7 @@ $brands = BrandModel::all();
                             <form action="#">
                                 <div class="hero__search__categories">
                                     tous les produits 
-                                    <span class="arrow_carrot-down"></span>
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
                                 </div>
                                 <input type="text" placeholder="de quoi avez-vous besion ?">
                                 <button type="submit" class="site-btn">Recherche</button>
@@ -158,7 +158,7 @@ $brands = BrandModel::all();
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a></li>                            
                                     <li><a href="{{ route('view-details', ['product_id' => $product->product_id]) }}"><i class="fa fa-info-circle"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-shopping-cart"  id="cart-icon-{{ $product->product_id }}" onclick="addToCart({{ $product->product_id }})"></i></a></li>                            
                                 </ul>
                             </div>
                             <div class="featured__item__text">

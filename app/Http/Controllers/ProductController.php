@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isNull;
 use App\Models\Favorite;
+use App\Models\Panier;
 use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
@@ -38,10 +39,128 @@ class ProductController extends Controller
        return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
     }
 
+    /*****************************************modifier produit dans le panier ************************************ */
+    public function updateQuantities(Request $request)
+{
+    $user = Auth::user();
+    $quantities = $request->input('quantities');
+
+    $items = [];
+    $total = 0;
+
+    foreach ($quantities as $quantityData) {
+        $productId = $quantityData['product_id'];
+        $newQuantity = $quantityData['quantity'];
+
+        $panier = Panier::where('user_id', $user->id)
+                        ->where('product_id', $productId)
+                        ->first();
+
+        if ($panier) {
+            $panier->quantity = $newQuantity;
+            $panier->save();
+            $newPrice = $panier->product->product_price * $newQuantity;
+
+            $items[] = [
+                'product_id' => $productId,
+                'new_price' => $newPrice
+            ];
+
+            $total += $newPrice;
+        }
+    }
+
+    return response()->json([
+        'success' => true,
+        'items' => $items,
+        'new_total' => $total
+    ]);
+}
+
+
+
+
+
+
+    /********************************ajouter les produit aux panier **********************************/
+    public function addToCart(Request $request)
+    {
+        $product_id = $request->input('product_id');
+        $quantity = $request->input('quantity', 1);
+
+        $user_id = Auth::check() ? Auth::id() : null;
+
+        $Panier = Panier::where('product_id', $product_id)
+                            ->where('user_id', $user_id)
+                            ->first();
+
+        if ($Panier) {
+            $Panier->quantity += $quantity;
+            $Panier->save();
+        } else {
+            Panier::create([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'quantity' => $quantity
+            ]);
+        }
+        $cartCount = Panier::where('user_id', $user_id)->count();
+        return response()->json(['success' => true, 'message' => 'Produit ajouté au panier','cartCount'=>$cartCount]);
+    }
+
+    /*****************************************afficher les produit aux panier*********************************/
+    public function viewCart()
+    {
+        $user_id = Auth::check() ? Auth::id() : null;
+
+        $Paniers = Panier::where('user_id', $user_id)->with('product')->get();
+
+        $total = 0;
+        foreach ($Paniers as $panier) {
+            $total += $panier->product->product_price * $panier->quantity;
+        }
+
+        return view('backend.product.panier', compact('Paniers','total'));
+
+    }
+    /******************************supprimer un produit aux panier **************************************************/
+    public function removeItem(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|integer|exists:product,product_id',
+        ]);
+    
+        $productId = $request->input('product_id');
+        $user = Auth::user();
+        
+        // Assuming you have a Panier model for the cart items
+        $panier = Panier::where('user_id', $user->id)->where('product_id', $productId)->first();
+        
+        if ($panier) {
+            $panier->delete();
+        }
+    
+        // Calculate new total
+        $Paniers = Panier::where('user_id', $user->id)->with('product')->get();
+        $total = 0;
+        foreach ($Paniers as $panier) {
+            $total += $panier->product->product_price * $panier->quantity;
+        }
+    
+        return response()->json([
+            'success' => true,
+            'new_total' => $total
+        ]);
+    }
+
+    /******************afficher les produit aux favoris *****************************/
     public function showFavorite(){
         
         $user = Auth::user();
-        $favoriteProducts = User::favorites()->with('product.images')->get();
+        // Récupérer les produits favoris avec des relations valides
+        $favoriteProducts = $user->favorites()->with('product.images')->get()->filter(function($favorite) {
+            return $favorite->product !== null;
+        });
 
         $products = ProductModel::with('images')->get();
 
@@ -50,10 +169,11 @@ class ProductController extends Controller
             $product->is_favorite = $product->isFavorite();
         });
 
-
-    return view('backend.product.favoris', compact('favoris'));
+        return view('backend.product.favoris', compact('favoriteProducts','products'));
     }
 
+
+    /******************************ajouter aux favoris **************************************/
     public function toggleFavorite(Request $request)
     {
         Log::info('toggleFavorite called', ['request' => $request->all()]);
@@ -73,12 +193,13 @@ class ProductController extends Controller
                 'user_id' => $user->id,
                 'product_id' => $productId,
             ]);
-            
+            $favoriteCount = Favorite::where('user_id', $user->id)->count();
             Log::info('Product added to favorites', ['user_id' => $user->id, 'product_id' => $productId]);
-            return response()->json(['success' => true, 'message' => 'Produit ajouter aux Favoris']);        }
+            return response()->json(['success' => true, 'message' => 'Produit ajouter aux Favoris', 'favoriteCount' => $favoriteCount]);        }
     }
 
 
+    //afficher les produit aux favoris 
     public function show($product_id)
     {
         $product = ProductModel::with('images')->findOrFail($product_id);

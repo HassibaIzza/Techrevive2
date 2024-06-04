@@ -11,16 +11,16 @@ class CouponInsertedNotification extends Notification
 {
     use Queueable;
     private $shopName;
-    protected $url;
+    
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($shopName, $url)
+    public function __construct($shopName)
     {
         $this->shopName = $shopName;
-        $this->url = $url; 
+        
 
     }
 
@@ -60,7 +60,7 @@ class CouponInsertedNotification extends Notification
         return [
             'title' => 'New Coupon',
             'message' => $this->shopName . ' Created a new coupon.',
-            'url' => $this->url,
+            
             'icon' => 'bx-check-square'
         ];
     }

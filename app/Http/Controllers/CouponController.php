@@ -6,6 +6,8 @@ use App\Http\Controllers\User\VendorController;
 use App\Http\Requests\CouponRequest;
 use App\Models\CouponModel;
 use App\Models\User;
+use App\Models\Panier;
+use App\Models\product\ProductModel;
 use App\Notifications\CouponInsertedNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -15,6 +17,51 @@ use Illuminate\Support\Facades\Notification;
 
 class CouponController extends Controller
 {
+
+    /*******************************apply promo**************************************************** */
+    public function applyPromo(Request $request)
+{
+    $request->validate([
+        'code' => 'required|string',
+    ]);
+
+    $code = $request->input('code');
+    $coupon = $this->getDiscountForCode($code);
+    $discount = $coupon->discount_amount;
+    $vendorid = $coupon->VendorId; 
+
+    $user = Auth::user();
+    $Paniers = Panier::where('user_id', $user->id)->with('product')->get();
+
+    $total = 0;
+
+    foreach ($Paniers as $panier) {
+        $product = ProductModel::find($panier->product_id);
+        $itemTotal = $product->product_price * $panier->quantity;
+
+        if ($product->vendor_id == $vendorid) {
+            $itemTotal -= ($itemTotal * ($discount / 100));
+        }
+        $total += $itemTotal ;
+    }
+
+    
+
+    return response()->json(['success','total' => $total , 'itemTotal'=>$itemTotal]);
+    
+}
+
+    /*****************************************récupérer le code promotion ************************************ */
+    private function getDiscountForCode($code)
+{
+    $coupon = CouponModel::where('coupon_code', $code)->first();
+
+    if ($coupon) {
+        return $coupon;
+    }
+
+    return 0; // No discount
+}
     public function getAllCoupons(){
         if (Auth::user()->role == 'admin')
             $data = CouponModel::all();
@@ -39,8 +86,7 @@ class CouponController extends Controller
             // notify the admins
             $admins = User::where('role', 'admin')->get();
             $shopName = DB::table('vendor_shop')->where('user_id', Auth::id())->get('shop_name')[0]->shop_name;
-            $url = route('coupon');
-            Notification::send($admins, new CouponInsertedNotification($shopName,$url));
+            Notification::send($admins, new CouponInsertedNotification($shopName));
             return response(['msg' => 'Coupon is created successfully.'], 200);
         }
 

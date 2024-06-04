@@ -51,14 +51,18 @@ use App\Models\product\ProductImagesModel;
                     </div>
                     <div class="product__details__price"> {{$product->product_price}} DZD </div>
                     <p>{{ $product->product_short_description }}</p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
+                    <form action="{{route('add-to-cart')}}" method="POST">
+                        @csrf <!-- Token CSRF pour sécuriser le formulaire -->
+                        <input type="hidden" name="product_id" value="{{ $product->product_id }}"> <!-- ID du produit -->
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="" name="quantity" value="1" min="1"> <!-- Champ pour la quantité -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="primary-btn">ADD TO CARD</a>                
+                        <button type="submit" class="primary-btn">Ajouter au panier</button> <!-- Bouton de soumission -->
+                    </form>
                     <a href="#" class="heart-icon"><i class="fa {{ $product->is_favorite ? 'fa-heart favorite' : 'fa-heart-o' }}" id="favorite-icon-{{ $product->product_id }}" onclick="toggleFavorite({{ $product->product_id }})"></i></a>
                     <ul>
                         <li><b>Disponibilité</b> <span> {{$product->product_quantity}}</span></li>

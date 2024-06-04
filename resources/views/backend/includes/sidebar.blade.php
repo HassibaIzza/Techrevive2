@@ -117,12 +117,12 @@
                 <a class="has-arrow" style="cursor: pointer">
                     <div class="parent-icon"><i class='lni lni-wallet'></i>
                     </div>
-                    <div class="menu-title">Coupons</div>
+                    <div class="menu-title">promotion</div>
                 </a>
                 <ul>
-                    <li> <a href="{{route('vendor-coupon')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                    <li> <a href="{{route($role .'-coupon')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
-                    <li> <a href="{{route('vendor-coupon-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Coupon</a>
+                    <li> <a href="{{route($role .'-coupon-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter promotion</a>
                     </li>
                 </ul>
             </li>

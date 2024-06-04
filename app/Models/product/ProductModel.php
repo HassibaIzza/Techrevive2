@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Favorite;
+use App\Models\Panier;
 
 
 class ProductModel extends Model
@@ -25,6 +26,11 @@ class ProductModel extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class, 'product_id', 'product_id');
+    }
+
+    public function panier()
+    {
+        return $this->hasMany(Panier::class, 'product_id', 'product_id');
     }
 
 
