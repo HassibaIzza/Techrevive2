@@ -30,9 +30,12 @@ $brands = BrandModel::all();
 
 
 
+
+
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
+      
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <div class="hero__categories">
@@ -202,6 +205,7 @@ $brands = BrandModel::all();
         </div>
     </div> -->
     <!-- Banner End -->
+    
 
     <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
@@ -404,7 +408,80 @@ $brands = BrandModel::all();
                 </div>
             </div>
         </div>
+
+        <style>
+        
+    
+          #chatbot-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #ffffff;
+            border: 1px solid #1625f8;
+            padding: 15px;
+            width: 500px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+          
+        
+          #chatbot-box img {
+            width: 50px;
+            height: 50px;
+          }
+    
+
+
+        
+          #chatbot-message {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+        
+          #chatbot-launch-button {
+            background-color: #3b2ef3;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+          
+            text-align: center;
+            width: 100%;
+          }
+        
+          #chatbot-launch-button:hover {
+            background-color: #2a1fb3;
+          }
+        
+          #chatbot-iframe {
+            display: none;
+            width: 100%;
+            height: 400px;
+            border: none;
+            margin-top: 10px;
+            
+          }
+        </style>
+        
+        <div id="chatbot-box">
+          <img src="/img/logo.jpg" alt="Chatbot Icon">
+          <div id="chatbot-message">Besoin d'aide? Parlez avec notre assistant virtuel!</div>
+          <button id="chatbot-launch-button"> oui Lancer une discussion</button>
+          <iframe id="chatbot-iframe" src="/chatbot1"></iframe>
+        </div>
+        
+        <script>
+          document.getElementById('chatbot-launch-button').addEventListener('click', function() {
+            var iframe = document.getElementById('chatbot-iframe');
+            iframe.style.display = 'block';
+          });
+        </script>
+        
     </section>
+  
+    
     <!-- Latest Product Section End -->
     
     
@@ -412,3 +489,4 @@ $brands = BrandModel::all();
     
 
 
+Segment e Clients, Propositions de Valeur, Canaux
