@@ -169,6 +169,21 @@
                 </ul>
 
             </li>
+            <!--pour la fiche de réparation-->
+            <li>
+                <a >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                    </div>
+                    <div class="menu-title">Fiche de réparation</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('liste-etat') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                    </li>
+                    
+                </ul>
+
+            </li>
+            <!--fin-->
 
             @endif
         </ul>

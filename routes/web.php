@@ -7,7 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\listeReparateurController;
 use App\Http\Controllers\RendezvousController;
 use App\Http\Controllers\PanneController;
-
+use App\Http\Controllers\EtatController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
 use App\Http\Controllers\User\ReparateurController;
@@ -29,16 +29,20 @@ use App\Http\Controllers\cvController;
 |
 */
 
-/*chatbot*/
+ 
 
 
 
 
 
+/*route pour le fichier pdf*/
+/*Route::get('/pannes/{id}/download', [PanneController::class, 'download'])->name('pannes.download')*/;
+Route::get('/pannes/{id}/download-pdf', [EtatController::class,'downloadPdf'])->name('pannes.downloadPdf');
 
-
-
-
+/*fin route pour le fichier pdf*/
+/*route pour la fiche de réparation*/
+Route::post('/pannes/{id}/fill-form',  [EtatController::class,'fillForm'])->name('pannes.fillForm');
+/*fin*/
 Route::get('/reparateur1/{id}', [CvController::class, 'showProfile'])->name('reparateur.showProfile');
 
 
@@ -56,11 +60,6 @@ Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('dem
 Route::get('/demandes', [DemandeController::class, 'index'])->name('demandes.index');
 Route::get('/demandes/{id}/edit', [DemandeController::class, 'edit'])->name('demandes.edit');
 Route::put('/demandes/{id}', [DemandeController::class, 'update'])->name('demandes.update');
- 
-
- 
- 
-
 Route::get('/fetch-states/{marqueID}', [DemandeController::class, 'fetchStates']);
 Route::get('/fetch-cities/{typepID}', [DemandeController::class, 'fetchCities']);
 
@@ -69,16 +68,18 @@ Route::delete('/demandes/{id}', [DemandeController::class, 'destroy'])->name('de
 Route::resource('demandes', DemandeController::class);
 /*fin demandes des clients*/
 
-
+/*chatbot*/
 
 Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
   });
   Route::post('/get-message', [ChatbotController::class, 'getMessage'])->name('get-message');
-
+/*fin_chatbot */
 
   Route::get('/liste-des-pannes', [PanneController::class, 'index'])->name('listepannes');
-/*fin_chatbot */
+  /*liste_etat*/
+  Route::get('/liste-etat', [EtatController::class, 'index'])->name('liste-etat');
+ /*fin liste_etat*/
 
 /*réparateurs*/
 Route::get('/reparateur-product', 'ProductController@reparateurProduct')->name('reparateur-product');
@@ -155,6 +156,10 @@ Route::post('/rendezvous', [RendezvousController::class, 'store'])->name('rendez
 
 /*fin*/
 Route::get('/products', [ProductController::class, 'index']);
+
+/*Etat de réparation*/
+Route::patch('/pannes/update-status/{id}', [PanneController::class, 'updateStatus'])->name('pannes.updateStatus');
+/*fin Etat de réparation*/
 
 
 

@@ -39,15 +39,7 @@
 </div>
 <!-- End Breadcrumb -->
 
-<div class="mb-3">
-    <label for="categorieFilter" class="form-label">Filtrer par catégorie</label>
-    <select class="form-select" id="categorieFilter">
-        <option value="">Toutes les catégories</option>
-        @foreach($categories as $categorie)
-            <option value="{{ $categorie }}">{{ $categorie }}</option>
-        @endforeach
-    </select>
-</div>
+ 
 
 <div class="card">
     <div class="card-body">
@@ -55,12 +47,12 @@
             <table id="data_table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Nom de client</th>
-                        <th>Nom de la panne</th>
-                        <th>Catégorie</th>
-                        <th>Status</th>
-                        <th>Détails de la panne</th>
-                        <th>Actions</th>
+                         <th>Nom de client</th>
+                         <th>Catégorie</th>
+                         <th>Détails de la panne</th>
+                         <th>Status</th>
+                         <th>fiche de réparation</th>
+                         <th>Télecharger fiche de réparation</th>
                         
                     </tr>
                 </thead>
@@ -68,21 +60,10 @@
                     @foreach($rendezvous as $panne)
                     <tr>
                          
-                            <td>{{ $panne->nom }}</td>
-                            <td>{{ $panne->nom_panne }}</td>
-                            <td>{{ $panne->nom_catégorie }}</td>
-                            <td>
-    <form action="{{ route('pannes.updateStatus', $panne->id) }}" method="post">
-        @csrf
-        @method('patch')
-        <select name="status" class="status-select {{ $panne->status == 1 ? 'status-en-cours' : ($panne->status == 2 ? 'status-termine' : 'status-attente') }}" style="border-radius: 30px;" onchange="this.form.submit()">
-            @foreach(\App\Models\RendezVous::getStatusOptions() as $value => $label)
-                <option value="{{ $value }}" {{ $panne->status == $value ? 'selected' : '' }}>{{ $label }}</option>
-            @endforeach
-        </select>
-    </form>
-</td>
-                            <td>
+                             <td>{{ $panne->nom }}</td>
+                             <td>{{ $panne->nom_catégorie }}</td>
+                              
+                             <td>
                                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4" data-bs-toggle="modal" data-bs-target="#exampleVerticallycenteredModal-{{ $panne->id }}">Voir les détails</button>
                                 <div class="modal fade" id="exampleVerticallycenteredModal-{{ $panne->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -94,6 +75,7 @@
                                             <div class="card-body">
                                                 <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{ $panne->nom_panne }}</span></h5>
                                                 <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{ $panne->nom_catégorie }}</span></h5>
+                                                <h5 class="card-title">Rendez-vous donné : <span style="font-weight: lighter">{{ $panne->date_rendez_vous }}</span></h5>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -102,13 +84,90 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-    @if ($panne->date_rendez_vous)
-        <button type="button" class="btn btn-success btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})">Rendez-vous</button>
-    @else
-        <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})">Rendez-vous</button>
+                            <td> 
+                                 @php
+                                    $statusText = '';
+                                    $statusClass = '';
+                                    if ($panne->status == 0) {
+                                        $statusText = 'En attente';
+                                        $statusClass = 'badge bg-danger';
+                                    } elseif ($panne->status == 1) {
+                                        $statusText = 'En cours';
+                                        $statusClass = 'badge bg-warning';
+                                    } elseif ($panne->status == 2) {
+                                        $statusText = 'Terminé';
+                                        $statusClass = 'badge bg-success';
+                                    }
+                                @endphp
+                                <span class="{{ $statusClass }}">{{ $statusText }}</span>
+                            </td>
+
+ <td>
+    @if ($panne->status == 2)
+        <button type="button" class="btn btn-primary btn-sm radius-30 px-4" data-bs-toggle="modal" data-bs-target="#remplirFicheModal-{{ $panne->id }}">Remplir</button>
+        <div class="modal fade" id="remplirFicheModal-{{ $panne->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Remplir la fiche de réparation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('pannes.fillForm', $panne->id) }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="prix">Prix de la réparation</label>
+                                <input type="text" class="form-control" id="prix" name="prix" required>
+                            </div>
+                             
+                            <div class="mb-3">
+                                <label for="modele">Modèle de l'appareil</label>
+                                <input type="text" class="form-control" id="modele" name="modele" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
+    @php
+                                    $statusText = '';
+                                    $statusClass = '';
+                                     
+                                        $statusText = 'Pas encore';
+                                        $statusClass = 'badge bg-danger';
+                                    
+                                     
+                                @endphp
+                                <span class="{{ $statusClass }}">{{ $statusText }}</span>
+    
     @endif
-</td>
+</td> 
+ <td>
+    @if ($panne->status == 2) 
+        <!-- Autres actions... -->
+         <a href="{{ route('pannes.downloadPdf', $panne->id) }}" class="btn btn-primary btn-sm radius-30 px-4">Télécharger</a>
+         @else
+    @php
+                                    $statusText = '';
+                                    $statusClass = '';
+                                     
+                                        $statusText = 'Pas encore';
+                                        $statusClass = 'badge bg-danger';
+                                    
+                                     
+                                @endphp
+                                <span class="{{ $statusClass }}">{{ $statusText }}</span>
+    
+     
+         @endif
+</td> 
+
+
                         </tr>
                     @endforeach
                 </tbody>
