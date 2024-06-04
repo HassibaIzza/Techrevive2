@@ -169,7 +169,7 @@ ol {
 	right: 0;
 	height: 4px;
 	width: 80px;
-	background: #87CEEB;
+	background: #0c0c0c;
 	content: "";
 	margin: 0 auto;
 }
@@ -791,12 +791,12 @@ ol {
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 4px;
-	color: #87CEEB;
+	color: #0d0d0e;
 }
 
 .hero__text h2 {
 	font-size: 46px;
-	color: #252525;
+	color: #87CEEB;
 	line-height: 52px;
 	font-weight: 700;
 	margin: 10px 0;

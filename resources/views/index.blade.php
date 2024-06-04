@@ -43,13 +43,13 @@ $brands = BrandModel::all();
                         <ul>
                             <li><a href="#">Enie</a></li>
                             <li><a href="#">Iris</a></li>
-                            <li><a href="#">maxwell</a></li>
+                          
                             <li><a href="#">Condor</a></li>
                             <li><a href="#">Brandt</a></li>
                             <li><a href="#">Géant</a></li>
                             <li><a href="#">Stream</a></li>
                             <li><a href="#">beko</a></li>
-                            <li><a href="#">Bosch</a></li>
+                            
                             <li><a href="#">Starlight</a></li>
                             <li><a href="#">LG</a></li>
                            
@@ -79,13 +79,22 @@ $brands = BrandModel::all();
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="img/dell-ultrafine.jpg">
-                        <div class="hero__text">
-                            <span>Grand Marques</span>
-                            <h2>Réparation <br />Achat </h2>
-                            <p>Service de réparation en ligne gratuit </p>
-                            <a href="#" class="primary-btn">Achetez!</a>
-                        </div>
+                    <div class="hero__item set-bg" data-setbg="img/nr.jfif">
+                      <div class="hero__text" style="position: relative;">
+                          <div style="background: rgba(0, 0, 0, 0.5); padding: 20px; display: inline-block; text-align: left;">
+                              <span style="color: #87CEEB; font-size: 24px;">TechRevive</span>
+                              <h2 style="font-family: Arial, sans-serif; color: white;">
+                                  <span style="color: #87CEEB; font-size: 36px;">É</span>conomisez<br />protégez, réparez
+                              </h2>
+                              <a href="#" class="primary-btn">Achetez!</a>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  
+                  
+                  </div>
+                  
                     </div>
                 </div>
             </div>

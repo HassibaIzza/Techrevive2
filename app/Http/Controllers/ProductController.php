@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
 
-    
+
     private const PRODUCT_AVAILABLE_OFFERS = [
         'hot_deal',
         'featured_product',
@@ -152,6 +152,24 @@ class ProductController extends Controller
             'new_total' => $total
         ]);
     }
+
+    /*****************************supprimer produit aux favoris ****************************************** */
+    public function favorisRemove(Request $request)
+{
+        $productId = $request->id;
+        
+        try {
+            $favoris = Favorite::findOrFail($productId);
+            if ($favoris->delete()){
+
+                return redirect('/favorites')->with('success', 'Removed Successfully.');
+            }
+            else return redirect('/favorites')->with('error', 'Failed to remove this product.');
+        }catch (ModelNotFoundException $exception){
+            return redirect('favorites')->with('error', 'Failed to remove this product.');
+
+        }
+}
 
     /******************afficher les produit aux favoris *****************************/
     public function showFavorite(){

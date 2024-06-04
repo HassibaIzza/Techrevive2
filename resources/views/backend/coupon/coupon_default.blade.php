@@ -45,9 +45,9 @@
                             <td>{{MyHelpers::getDiffOfDate($item->expiration_date) }}</td>
                             <td>
                                 @if($item->coupon_status)
-                                    <div class="badge rounded-pill bg-light-success text-success w-100">active</div>
+                                    <div class="badge rounded-pill bg-light-success text-success w-100">actif</div>
                                 @else
-                                    <div class="badge rounded-pill bg-light-danger text-danger w-100">Not active</div>
+                                    <div class="badge rounded-pill bg-light-danger text-danger w-100">Inactif</div>
                                 @endif
                             </td>
                             <td>
@@ -90,7 +90,7 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Réduit %</h6>
+                                                                        <h6 class="mb-0">Réduction %</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="discount_amount" type="text"
@@ -155,7 +155,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel
+                                                                data-bs-dismiss="modal">Annuler
                                                         </button>
                                                         <button onclick="window.location.replace
                                                         ('remove_coupon/{{$item->coupon_id}}');"

@@ -6,7 +6,8 @@
     $role = Auth::user()->role;
 
 
-  // Récupérer le nom de la marque
+  // Récupérer cat
+
 
   // Récupérer la marque de l'utilisateur connecté
 // Récupérer l'ID de l'utilisateur connecté
@@ -27,6 +28,29 @@ if ($userMarque) {
 
 @endphp
 
+<style>
+  /* Style de base pour la liste déroulante */
+.form-select {
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* Style lorsque le curseur passe sur la liste déroulante */
+.form-select:hover {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .25rem rgba(57, 96, 226, 0.25);
+}
+
+  </style>
+
 @extends('backend.layouts.app')
 
 @section('PageTitle', " $marque ")
@@ -45,7 +69,15 @@ if ($userMarque) {
         </div>
     </div>
     <!-- End Breadcrumb -->
-
+    <div class="mb-3">
+      <label for="categorie" class="form-label"></label>
+      <select class="form-select" id="categorie" onchange="filterByCategorie(this.value)">
+          <option value="">Toutes les catégories</option>
+          @foreach($categories as $categorie)
+              <option value="{{ $categorie }}">{{ $categorie }}</option>
+          @endforeach
+      </select>
+  </div>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -115,6 +147,8 @@ if ($userMarque) {
         @endforeach
         </tbody>
         </table>
+      
+      
         </div>
         </div>
     </div>
@@ -135,5 +169,41 @@ if ($userMarque) {
         window.location = "{{ route('rendezvous') }}?id=" + id;
     }
 </script>
+<script>
+  function filterByCategorie(categorie) {
+      // Récupérer toutes les lignes du tableau
+      var rows = document.querySelectorAll('#data_table tbody tr');
+
+      // Parcourir toutes les lignes
+      rows.forEach(function(row) {
+          // Récupérer la colonne contenant la catégorie
+          var categorieCell = row.querySelector('td:nth-child(3)');
+
+          // Récupérer le texte de la cellule de la catégorie
+          var rowCategorie = categorieCell.textContent.trim();
+
+          // Afficher ou masquer la ligne en fonction de la catégorie sélectionnée
+          if (categorie === '' || rowCategorie === categorie) {
+              row.style.display = 'table-row';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  }
+</script>
+@endsection
+Ce script JavaScript permet de filtrer les lignes du tableau en fonction de la catégorie sélectionnée dans la liste déroulante.
+
+Assure-toi d'ajouter ce script dans la section @section('js') de ta vue pour qu'il soit inclus dans le rendu final.
+
+Avec ces modifications, tu auras une liste déroulante qui affichera toutes les catégories disponibles et filtrera les résultats du tableau en fonction de la catégorie sélectionnée.
+
+
+
+
+
+
+
+
 
 @endsection

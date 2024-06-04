@@ -13,8 +13,8 @@
                 <div class="breadcrumb__text">
                     <h2>TEchRevive Contact</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">Home</a>
-                        <span>Contacter-Nous</span>
+                        <a href="./index.html">Accueil</a>
+                        <span>Contactez-Nous</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="col-lg-3 col-md-3 col-sm-6 text-center">
                 <div class="contact__widget">
                     <span ><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                    <h4>Addresse</h4>
+                    <h4>Adresse</h4>
                     <p>Chemin des crètes ex INES Mostaganem </p>
                 </div>
             </div>
@@ -61,14 +61,14 @@
 
 {{-- map begin  --}}
 <div class="map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3231.3129681737673!2d0.08378927560808067!3d35.91483875637394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12820209fe20c56b%3A0x5e8633c2989ef5fd!2sFacult%C3%A9%20des%20sciences%20exactes%20et%20de%20l&#39;informatique%20Universit%C3%A9%20de%20Mostaganem%20-%20Site%202%20-%20Zaghloul!5e0!3m2!1sfr!2sdz!4v1716560776728!5m2!1sfr!2sdz" 
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3231.3129681737673!2d0.08378927560808067!3d35.91483875637394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12820209fe20c56b%3A0x5e8633c2989ef5fd!2sFacult%C3%A9%20des%20sciences%20exactes%20et%20de%20l&#39;informatique%20Universit%C3%A9%20de%20Mostaganem%20-%20Site%202%20-%20Zaghloul!5e0!3m2!1sfr!2sdz!4v1716560776728!5m2!1sfr!2sdz"
     width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     <div class="map-inside">
         <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
         <div class="inside-widget">
             <h4>Mostaganem</h4>
             <ul>
-                <li>Phone: +213783195323</li>
+                <li>Téléphone: +213783195323</li>
                 <li>Add: Chemin des crètes ex INES Mostaganem</li>
             </ul>
         </div>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="col-lg-12 text-center">
                     <textarea name="content" placeholder="message"></textarea>
-                    <button type="submit" class="site-btn">Envoyer MESSAGE</button>
+                    <button type="submit" class="site-btn">Envoyer message</button>
                 </div>
             </div>
             @if($errors->any())

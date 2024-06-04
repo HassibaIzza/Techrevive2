@@ -1,5 +1,5 @@
 @php use App\MyHelpers;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 @endphp
 
 @php
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
             </div>
             <div class="search-bar flex-grow-1">
                 <div class="position-relative search-bar-box">
-                    <input type="text" class="form-control search-control" placeholder="Type to search..."> <span
+                    <input type="text" class="form-control search-control" placeholder="Tapez pour rechercher..."> <span
                         class="position-absolute top-50 search-show translate-middle-y"><i
                             class='bx bx-search'></i></span>
                     <span class="position-absolute top-50 search-close translate-middle-y"><i
@@ -57,17 +57,17 @@ use Illuminate\Support\Facades\Auth;
                                             <div class="notify bg-light-primary text-primary"><i
                                                     class="bx {{$notification->data['icon']}}"></i>
                                             </div>
-                                            
+
                                             <div class="flex-grow-1">
-                                                
+
                                                 <h6 class="msg-name">{{ $notification->data['title']  }}<span
                                                         class="msg-time
                                                 float-end">{{MyHelpers::getDiffOfDate($notification->created_at)
                                                 }}</span></h6>
                                                 <p class="msg-info">{{$notification->data['message']}}</p>
-                                                
+
                                             </div>
-                                            
+
                                         </div>
                                     </a>
 
@@ -105,7 +105,7 @@ use Illuminate\Support\Facades\Auth;
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                        <a class="dropdown-item" href="profile"><i class="bx bx-user"></i><span>Profile</span></a>
+                        <a class="dropdown-item" href="profile"><i class="bx bx-user"></i><span>Profil</span></a>
                     </li>
 
                     <li>
@@ -116,7 +116,7 @@ use Illuminate\Support\Facades\Auth;
                             @csrf
                             <button href="{{route('logout')}}" class="dropdown-item" onclick="event.preventDefault();
                                                this.closest('form').submit();">
-                                <i class='bx bx-log-out-circle'></i><span>Logout</span>
+                                <i class='bx bx-log-out-circle'></i><span>Déconnecter</span>
                             </button>
                         </form>
                     </li>

@@ -27,8 +27,8 @@
                     <thead>
                     <tr>
                         <th>Photo</th>
-                        <th>Product Name</th>
-                        <th>Product Price</th>
+                        <th>Nome de Produit</th>
+                        <th>Prix de Produit</th>
                         
                         <th>Actions</th>
                     </tr>
@@ -44,27 +44,27 @@
                                     <a href="{{route('view-details', ['product_id' => $favorite->product->product_id])}}"><i class="fa fa-info-circle" aria-hidden="true" ></i>
                                     </a>
                                     <a href="" class="ms-3" data-bs-toggle="modal"
-                                    data-bs-target="#exampleDangerModal-{{$favorite->product_id}}">
+                                    data-bs-target="#exampleDangerModal-{{$favorite->id}}">
 
                                         <i class='bx bxs-trash'></i>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="exampleDangerModal-{{$favorite->product_id}}"
+                                        <div class="modal fade" id="exampleDangerModal-{{$favorite->id}}"
                                              tabindex="-1"
                                              style="display: none;" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-white">Surement ?</h5>
+                                                        <h5 class="modal-title text-white">Sure ?</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Annuler
+                                                                data-bs-dismiss="modal">Cancel
                                                         </button>
                                                         <button onclick="window.location.replace
-                                                        ('remove_product/{{$favorite->product_id}}');"
-                                                                class="btn btn-dark">Confirmer
+                                                        ('remove_favoris/{{$favorite->id}}');"
+                                                                class="btn btn-dark">Confirm
                                                         </button>
                                                     </div>
                                                 </div>
@@ -101,15 +101,15 @@
         $(document).ready(function () {
             $('form.activate_form').on('submit', function (event) {
                 event.preventDefault();
-    
+
                 console.log('Form submitted');  // Ajoutez ceci pour déboguer
-    
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-    
+
                 $.ajax({
                         url: "{{route('vendor-product-activate')}}",
                         method: 'POST',

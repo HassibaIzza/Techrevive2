@@ -54,11 +54,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <div class="card-body">
         <h4 class="d-flex align-items-center mb-3">Ajouter un rendez-vous</h4>
 
-      
-         
+
+
         <form id="brand_form" action="{{ route('rendezvous.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
         <input type="hidden" name="id" value="{{ $Id }}">
+         
         @csrf
             <div class="row mb-3">
               <div class="col-sm-3">
@@ -73,7 +74,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
             <div class="row mb-3">
               <div class="col-sm-3">
-                <h6 class="mb-0">{{ __('Short Description') }}</h6>
+                <h6 class="mb-0">{{ __("Plus d'information") }}</h6>
               </div>
               <div class="col-sm-9 text-secondary">
                 <textarea name="short_description" class="form-control" id="inputShortDescription" rows="3" required>{{ old('short_description') }}</textarea>

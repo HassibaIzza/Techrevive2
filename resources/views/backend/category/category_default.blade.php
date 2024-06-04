@@ -6,13 +6,13 @@
 @section('content')
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">Category</div>
+        <div class="breadcrumb-title pe-3">Catégorie</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Category List</li>
+                    <li class="breadcrumb-item active" aria-current="page"> List des catégories </li>
                 </ol>
             </nav>
         </div>
@@ -24,14 +24,14 @@
             <div class="table-responsive">
                 <div class="ms-auto" style="margin-bottom: 20px">
                     <a href="add_category" class="btn btn-primary radius-30 mt-2 mt-lg-0">
-                        <i class="bx bxs-plus-square"></i>Add New Category</a></div>
+                        <i class="bx bxs-plus-square"></i>Ajouter une catégorie</a></div>
 
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Category Name</th>
-                        <th>Category Slug</th>
-                        <th>View Details</th>
+                        <th>Nom de la catégorie</th>
+                        <th>Slug de la catégorie</th>
+                        <th>Voir les détails</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -43,8 +43,8 @@
                             <td>
                                 <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
                                         data-bs-toggle="modal"
-                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->category_id}}">View
-                                    Details
+                                        data-bs-target="#exampleVerticallycenteredModal-{{$item->category_id}}">Voir les
+                                    Détails
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleVerticallycenteredModal-{{$item->category_id}}"
@@ -53,7 +53,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Category Details</h5>
+                                                <h5 class="modal-title"> Détails de la catégorie</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -61,14 +61,14 @@
                                                      class="card-img-top" style="max-width: 300px; margin-left:
                                                          10px">
                                                 <div class="card-body">
-                                                    <h5 class="card-title">Category Name : <span style="font-weight:
+                                                    <h5 class="card-title">Nom de la catégorie : <span style="font-weight:
                                                          lighter">{{$item->category_name}}</span></h5>
-                                                    <h5 class="card-title">Category Slug : <span style="font-weight:
+                                                    <h5 class="card-title"> Slug de la catégorie : <span style="font-weight:
                                                          lighter">{{$item->category_slug}}</span></h5>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@
                                         <div class="modal-dialog modal-fullscreen">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">Edit Category</h5>
+                                                    <h5 class="modal-title">Modifier la catégorie</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -100,7 +100,7 @@
                                                                        hidden />
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Category Name</h6>
+                                                                        <h6 class="mb-0"> Nom de la catégorie</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="category_name" type="text"
@@ -113,7 +113,7 @@
                                                                 </div>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
-                                                                        <h6 class="mb-0">Category Image</h6>
+                                                                        <h6 class="mb-0">Image</h6>
                                                                     </div>
                                                                     <div class="col-sm-9 text-secondary">
                                                                         <input name="category_image"
@@ -133,7 +133,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-3"></div>
                                                                     <div class="col-sm-9 text-secondary">
-                                                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes"
+                                                                        <input type="submit" class="btn btn-primary px-4" value="Enregistrer les modifications"
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -142,7 +142,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,15 +159,15 @@
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-white">Sure ?</h5>
+                                                        <h5 class="modal-title text-white">Voulez vous la supprimer  ?</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel</button>
+                                                                data-bs-dismiss="modal">Annuler</button>
                                                         <button onclick="window.location.replace
                                                         ('remove_category/{{$item->category_id}}');"
-                                                                class="btn btn-dark">Confirm</button>
+                                                                class="btn btn-dark">Confirmer</button>
                                                     </div>
                                                 </div>
                                             </div>
