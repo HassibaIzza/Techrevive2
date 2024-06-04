@@ -74,7 +74,11 @@ Route::resource('demandes', DemandeController::class);
 Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
   });
+
+
   Route::post('/get-message', [ChatbotController::class, 'getMessage'])->name('get-message');
+  Route::get('/get-queries', [ChatbotController::class, 'getQueries'])->name('get-queries');
+  
 
 
   Route::get('/liste-des-pannes', [PanneController::class, 'index'])->name('listepannes');
