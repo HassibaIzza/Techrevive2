@@ -4,228 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechRevive Chatbot</title>
-    <link rel="stylesheet" href="{{ asset('css/chatstyle.css') }}">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .wrapper {
+            width: 400px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-right: 10px;
+        }
+        .inbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: #f2f2f2;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #333;
+            margin-right: 10px;
+        }
+        .msg-header {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f2f2f2;
+            position: relative;
+        }
+        .user-inbox .msg-header {
+            background: #d1e7dd;
+        }
+        .bot-inbox .icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        .query-button {
+            background: #e7e7e7;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            display: block;
+            width: fit-content;
+        }
+        .query-button:hover {
+            background: #ccc;
+        }
+    </style>
 </head>
-<style>
-  
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-html,body{
-    display: grid;
-    height: 100%;
-    place-items: center;
-}
-
-::selection{
-    color: #fff;
-    background: #007bff;
-}
-
-::-webkit-scrollbar{
-    width: 3px;
-    border-radius: 25px;
-}
-::-webkit-scrollbar-track{
-    background: #f1f1f1;
-}
-::-webkit-scrollbar-thumb{
-    background: #ddd;
-}
-::-webkit-scrollbar-thumb:hover{
-    background: #ccc;
-}
-
-.wrapper{
-    width: 370px;
-    background: #fff;
-    border-radius: 5px;
-    border: 1px solid lightgrey;
-    border-top: 0px;
-}
-.wrapper .title{
-    background: #007bff;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 60px;
-    text-align: center;
-    border-bottom: 1px solid #2c06b4;
-    border-radius: 5px 5px 0 0;
-}
-.wrapper .form{
-    padding: 20px 15px;
-    min-height: 400px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-.wrapper .form .inbox{
-    width: 100%;
-    display: flex;
-    align-items: baseline;
-}
-.wrapper .form .user-inbox{
-    justify-content: flex-end;
-    margin: 13px 0;
-}
-.wrapper .form .inbox .icon{
-    height: 40px;
-    width: 40px;
-    color: #fff;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 50%;
-    font-size: 18px;
-    background: #007bff;
-}
-
-.wrapper .form .user-inbox{
-    justify-content: flex-end;
-    margin: 13px 0;
-
-
-}
-.wrapper .form .inbox .msg-header{
-    max-width: 53%;
-    margin-left: 10px;
-}
-.form .inbox .msg-header p{
-    color: #fff;
-    background: #007bff;
-    border-radius: 10px;
-    padding: 8px 10px;
-    font-size: 14px;
-    word-break: break-all;
-}
-.form .user-inbox .msg-header p{
-    color: #333;
-    background: #efefef;
-}
-
-.wrapper .typing-field{
-    display: flex;
-    height: 60px;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    background: #efefef;
-    border-top: 1px solid #d9d9d9;
-    border-radius: 0 0 5px 5px;
-}
-.wrapper .typing-field .input-data{
-    height: 40px;
-    width: 335px;
-    position: relative;
-}
-.wrapper .typing-field .input-data input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: 1px solid transparent;
-    padding: 0 80px 0 15px;
-    border-radius: 3px;
-    font-size: 15px;
-    background: #fff;
-    transition: all 0.3s ease;
-}
-.typing-field .input-data input:focus{
-    border-color: rgba(9, 119, 245, 0.8);
-}
-.input-data input::placeholder{
-    color: #999999;
-    transition: all 0.3s ease;
-}
-.input-data input:focus::placeholder{
-    color: #bfbfbf;
-}
-.wrapper .typing-field .input-data button{
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    height: 30px;
-    width: 65px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    opacity: 0;
-    pointer-events: none;
-    border-radius: 3px;
-    background: #007bff;
-    border: 1px solid #007bff;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
-}
-.wrapper .typing-field .input-data input:valid ~ button{
-    opacity: 1;
-    pointer-events: auto;
-}
-.typing-field .input-data button:hover{
-    background: #007bff;
-}
-  </style>
 <body>
+
     <div class="wrapper">
-      <form action="{{ route('get-message') }}" method="POST">
-        @csrf
-        <div class="title">TechRevive Chatbot</div>
+        <div class="title">
+            <img src="{{ asset('img/logo.jpg') }}" alt="Logo" style="width: 30px; height: 30px; vertical-align: middle;">
+            TechRevive Chatbot
+        </div>
         <div class="form">
             <div class="bot-inbox inbox">
                 <div class="icon">
-                    <i class="fas fa-user"></i>
+                    <img src="{{ asset('img/logo.jpg') }}" alt="Logo">
                 </div>
                 <div class="msg-header">
-                    <p>👋 Hello there, how can I help you?</p>
+                    <p>👋 salut  Posez vos questions et obtenez de l'aide instantanément</p>
                 </div>
             </div>
         </div>
-        <div class="typing-field">
-            <div class="input-data">
-                <input id="data" type="text" placeholder="Type something here.." required>
-                <button id="send-btn">Envoyer</button>
-            </div>
-        </div>
-      </form>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-  $(document).ready(function(){
-    $("#send-btn").on("click", function(){
-        var value = $("#data").val();
-        var messageHTML = '<div class="user-inbox inbox"><div class="msg-header"><p>'+ value +'</p></div></div>';
-        $(".form").append(messageHTML);
-        $("#data").val('');
-        
-        // AJAX code
-        $.ajax({
-            url: '{{ route("get-message") }}',
-            type: 'POST',
-            data: { 
-                text: value,
-                _token: '{{ csrf_token() }}' // Ajoutez le jeton CSRF ici
-            },
-            success: function(result){
-                var replyHTML = '<div class="bot-inbox inbox"><div class="icon"><i class="fas fa-user"></i></div><div class="msg-header"><p>'+ result.reply +'</p></div></div>';
-                $(".form").append(replyHTML);
-                $(".form").scrollTop($(".form")[0].scrollHeight);
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX Error:", error);
-            }
+        $(document).ready(function(){
+            // Charger les queries disponibles
+            $.ajax({
+                url: '{{ route("get-queries") }}',
+                type: 'GET',
+                success: function(result){
+                    result.queries.forEach(function(query){
+                        var queryHTML = '<div class="bot-inbox inbox"><div class="icon"><img src="{{ asset('img/logo.jpg') }}" alt="Logo"></div><div class="msg-header"><button class="query-button">'+ query +'</button></div></div>';
+                        $(".form").append(queryHTML);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                }
+            });
+
+            $(document).on("click", ".query-button", function(){
+                var value = $(this).text();
+                var messageHTML = '<div class="user-inbox inbox"><div class="msg-header"><p>'+ value +'</p></div></div>';
+                $(".form").append(messageHTML);
+
+                // AJAX code
+                $.ajax({
+                    url: '{{ route("get-message") }}',
+                    type: 'POST',
+                    data: { 
+                        text: value,
+                        _token: '{{ csrf_token() }}' // Ajoutez le jeton CSRF ici
+                    },
+                    success: function(result){
+                        var replyHTML = '<div class="bot-inbox inbox"><div class="icon"><img src="{{ asset('img/logo.jpg') }}" alt="Logo"></div><div class="msg-header"><p>'+ result.reply +'</p></div></div>';
+                        $(".form").append(replyHTML);
+                        $(".form").scrollTop($(".form")[0].scrollHeight);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error:", error);
+                    }
+                });
+            });
         });
-    });
-});
-
-
-            
-        
-        
     </script>
 </body>
 </html>

@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
-class PanneController extends Controller
+class EtatController extends Controller
 {
   public function index()
   {
       // Récupérer l'ID de l'utilisateur connecté
-    $userId = Auth::id();
-
+      $userId = Auth::id();
+  
       // Récupérer le rôle de l'utilisateur connecté
-    $role = Auth::user()->role;
-
+      $role = Auth::user()->role;
+  
       // Récupérer la marque de l'utilisateur connecté
       $userMarque = Marque::where('owner_id', $userId)->first();
   
@@ -58,27 +58,53 @@ class PanneController extends Controller
         }
   
       // Passer les données à la vue
-      return view('backend.les pannes.listepannes', compact('rendezvous', 'marque', 'role', 'categories'));
+      return view('backend.les pannes.liste-etat', compact('rendezvous', 'marque', 'role', 'categories'));
   }
   
 
   //pour l'état de réparation
-  public function updateStatus(Request $request, $id)
+  
+
+public function fillForm(Request $request, $id)
 {
     $request->validate([
-        'status' => 'required|integer|in:0,1,2'
+        
+        'prix' => 'required|numeric',
+         
+        'modele' => 'required|string',
     ]);
 
     $rendezvous = RendezVous::findOrFail($id);
-    $rendezvous->status = $request->input('status');
+    
+    $rendezvous->prix = $request->input('prix');
+    
+    $rendezvous->modele = $request->input('modele');
+     
     $rendezvous->save();
 
-    return redirect()->back()->with('success', 'Status de réparation mis à jour avec succès.');
+    return redirect()->back()->with('success', 'Fiche de réparation remplie avec succès.');
 }
 
- 
-
 //pour télécharger le fichier pdf
- 
+public function downloadPdf($id)
+    {
+        $rendezvous = RendezVous::findOrFail($id);
+
+        // Générer le contenu de la fiche de réparation au format HTML
+        $panne = RendezVous::findOrFail($id);
+        $typep = Typep::find($panne->catégorie);
+        $panne->nom_catégorie = $typep ? $typep->name : $panne->catégorie;
+        $typepanne = Typepanne::find($panne->panne);
+        $panne->nom_panne = $typepanne ? $typepanne->name : $panne->panne;
+        $marque = Marque::find($panne->marque);
+          $panne->nom_marque = $marque ? $marque->name : 'Marque inconnue';
+
+          // Ajouter la date de génération
+        $date_generation = now()->format('d-m-Y');
+    
+        $pdf = PDF::loadView('backend.les pannes.pdf', compact('panne', 'date_generation'));
+    
+        return $pdf->download('Détails_Réparation_De_' . $panne->nom . '.pdf');
+    }
 
 }
