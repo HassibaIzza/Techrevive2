@@ -56,10 +56,10 @@ Route::get('/demandes-recentes', [demandeController::class, 'index'])->name('dem
 Route::get('/demandes', [DemandeController::class, 'index'])->name('demandes.index');
 Route::get('/demandes/{id}/edit', [DemandeController::class, 'edit'])->name('demandes.edit');
 Route::put('/demandes/{id}', [DemandeController::class, 'update'])->name('demandes.update');
- 
 
- 
- 
+
+
+
 
 Route::get('/fetch-states/{marqueID}', [DemandeController::class, 'fetchStates']);
 Route::get('/fetch-cities/{typepID}', [DemandeController::class, 'fetchCities']);
@@ -155,6 +155,7 @@ Route::post('/rendezvous', [RendezvousController::class, 'store'])->name('rendez
 
 /*fin*/
 Route::get('/products', [ProductController::class, 'index']);
+
 
 
 

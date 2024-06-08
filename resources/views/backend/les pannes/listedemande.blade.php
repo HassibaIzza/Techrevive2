@@ -5,6 +5,7 @@
 @section('content')
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Demandes récentes</div>
+
 </div>
 
 
@@ -13,6 +14,16 @@
     <div class="card">
       <div class="card-body">
           <div class="table-responsive">
+            <div class="ms-auto" style="margin-bottom: 20px">
+
+
+                <a href="{{route('send.email')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0">
+                    <i class="bx bxs-plus-square"></i> Ajouter une nouvelle demande
+
+                </a>
+            </div>
+
+
               <table id="data_table" class="table table-striped table-bordered">
                   <thead>
                       <tr>
@@ -22,7 +33,7 @@
                               <th>Nom de la panne</th>
                               <th>Détails de rendez vous</th>
                               <th>Actions</th>
-                          <
+
                       </tr>
                   </thead>
                     <tbody>
@@ -46,18 +57,18 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">date de rend vous</h5>
+                                                <h5 class="modal-title">date de rendez-vous</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="card-body">
-                                                <h5 class="card-title">date de rendez vous : <span style="font-weight: lighter">{{$rdv->date_rendez_vous}}</span></h5>
+                                                <h5 class="card-title">date de rendez-vous : <span style="font-weight: lighter">{{$rdv->date_rendez_vous}}</span></h5>
                                                 <h5 class="card-title"> note: <span style="font-weight: lighter">{{$rdv->short_desc}}</span></h5>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
+                                                Fermer
                                             </button>
                                         </div>
                                     </div>

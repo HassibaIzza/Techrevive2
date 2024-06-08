@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
 
-    
+
     private const PRODUCT_AVAILABLE_OFFERS = [
         'hot_deal',
         'featured_product',
@@ -39,7 +39,7 @@ class ProductController extends Controller
     }
 
     public function showFavorite(){
-        
+
         $user = Auth::user();
         $favoriteProducts = User::favorites()->with('product.images')->get();
 
@@ -73,9 +73,9 @@ class ProductController extends Controller
                 'user_id' => $user->id,
                 'product_id' => $productId,
             ]);
-            
+
             Log::info('Product added to favorites', ['user_id' => $user->id, 'product_id' => $productId]);
-            return response()->json(['success' => true, 'message' => 'Produit ajouter aux Favoris']);        }
+            return response()->json(['success' => true, 'message' => 'Produit ajouté aux Favoris']);        }
     }
 
 
@@ -88,7 +88,7 @@ class ProductController extends Controller
         return view('backend.boutique.view-details', compact('product'));
     }
 
-    
+
 
     /**
      * @return View
@@ -105,39 +105,39 @@ class ProductController extends Controller
     public function productCreate(ProductRequest $request) {
         $data = $request->validated();
         \Log::info('Product data validated', $data);
-    
+
         // Handling the product thumbnail
         $data['product_thumbnail'] = MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
         \Log::info('Product thumbnail uploaded', ['thumbnail' => $data['product_thumbnail']]);
-    
+
         // Handling the vendor id
         $data['vendor_id'] = $this->getVendorId();
-    
+
         // Handling the product slug
         $data['product_slug'] = $this->getProductSlug($data['product_name']);
-    
+
         // Status of the product
         $data['product_status'] = $request->get('product_status') ? 1 : 0;
-    
+
         // Inserting the product
         if ($data['product_images']) unset($data['product_images']);
-    
+
         try {
             $insertedProductId = ProductModel::insertGetId($data);
         } catch(\Exception $e) {
             return redirect('add_product')->with('error', 'Failed to add this product: ' . $e->getMessage());
         }
-    
+
         if ($insertedProductId) {
             // Handling the product images
             if ($request->file('product_images')) {
                 \Log::info('Handling multiple product images', $request->file('product_images'));
                 $this->handleProductMultiImages($request->file('product_images'), $insertedProductId);
             }
-    
+
             // Handling the product offers
             $this->handleProductOffers($request, $insertedProductId);
-    
+
             return response(['msg' => 'Produit Ajouter Avec Succées.'], 200);
         } else {
             return redirect('add_product')->with('error', 'Un Probléme lors de l\'ajout de cette produit , Reésseyer.');
@@ -335,7 +335,7 @@ class ProductController extends Controller
 
         try {
             ProductModel::findOrFail($product_id)->update(['product_status' => 1]);
-            return response()->json(['success' => true, 'message' => 'produit activer avec succées ']);       
+            return response()->json(['success' => true, 'message' => 'produit activer avec succées ']);
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }
@@ -347,7 +347,7 @@ class ProductController extends Controller
     public function productDeActivate(int $productId){
         try {
             ProductModel::findOrFail($productId)->update(['product_status' => 0]);
-            return response()->json(['success' => true, 'message' => 'produit deactiver avec succées ']);       
+            return response()->json(['success' => true, 'message' => 'produit deactiver avec succées ']);
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }

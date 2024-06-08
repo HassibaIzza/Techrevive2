@@ -128,12 +128,23 @@
             </li>
         @endif
         @if($role === 'client')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('demandes.recentes') }}">
-                <i class="fas fa-list-alt"></i> Demandes récentes
+        <li>
+            <a >
+                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                </div>
+                <div class="menu-title">Demandes récentes</div>
             </a>
+            <ul>
+                <li> <a href="{{ route('demandes.recentes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                </li>
+
+            </ul>
+
         </li>
         @endif
+
+
+
 
         @if($status && $role === 'Fabricant')
         <li>
