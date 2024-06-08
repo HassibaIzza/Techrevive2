@@ -10,6 +10,7 @@ class RendezVous extends Model
 
     protected $fillable = [
         'id',
+        'status',
         'mail',
         'marque',
         'catégorie',
@@ -23,6 +24,19 @@ class RendezVous extends Model
         'short_desc'
 
     ];
+
+    const STATUS_EN_ATTENTE = 0;
+    const STATUS_EN_COURS = 1;
+    const STATUS_REPARATION_TERMINEE = 2;
+
+    public static function getStatusOptions()
+    {
+        return [
+            self::STATUS_EN_ATTENTE => 'En attente',
+            self::STATUS_EN_COURS => 'En cours',
+            self::STATUS_REPARATION_TERMINEE => 'Réparation terminée',
+        ];
+    }
 
     // Spécifiez la colonne utilisée pour la relation avec la marque
     public function marque()

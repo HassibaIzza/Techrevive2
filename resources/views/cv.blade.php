@@ -477,7 +477,7 @@ header {
       <header>
           <!-- Logo -->
           <div class="brandLogo">
-              <figure><img src="{{ asset('public\img\logo.png') }}" alt="logo" width="200px" height="200px"></figure>
+              <figure><img src="{{ asset('img\logo.jpg') }}" alt="logo" width="200px" height="200px"></figure>
           </div>
       </header>
 

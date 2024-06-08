@@ -30,9 +30,12 @@ $brands = BrandModel::all();
 
 
 
+
+
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
+      
             <div class="row">
                 <div class="col-lg-3 col-md-12">
                     <div class="hero__categories">
@@ -43,13 +46,13 @@ $brands = BrandModel::all();
                         <ul>
                             <li><a href="#">Enie</a></li>
                             <li><a href="#">Iris</a></li>
-                            <li><a href="#">maxwell</a></li>
+                          
                             <li><a href="#">Condor</a></li>
                             <li><a href="#">Brandt</a></li>
                             <li><a href="#">Géant</a></li>
                             <li><a href="#">Stream</a></li>
                             <li><a href="#">beko</a></li>
-                            <li><a href="#">Bosch</a></li>
+                            
                             <li><a href="#">Starlight</a></li>
                             <li><a href="#">LG</a></li>
                            
@@ -79,13 +82,22 @@ $brands = BrandModel::all();
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="img/dell-ultrafine.jpg">
-                        <div class="hero__text">
-                            <span>Grand Marques</span>
-                            <h2>Réparation <br />Achat </h2>
-                            <p>Service de réparation en ligne gratuit </p>
-                            <a href="#" class="primary-btn">Achetez!</a>
-                        </div>
+                    <div class="hero__item set-bg" data-setbg="img/nr.jfif">
+                      <div class="hero__text" style="position: relative;">
+                          <div style="background: rgba(0, 0, 0, 0.5); padding: 20px; display: inline-block; text-align: left;">
+                              <span style="color: #87CEEB; font-size: 24px;">TechRevive</span>
+                              <h2 style="font-family: Arial, sans-serif; color: white;">
+                                  <span style="color: #87CEEB; font-size: 36px;">É</span>conomisez<br />protégez, réparez
+                              </h2>
+                              <a href="#" class="primary-btn">Achetez!</a>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  
+                  
+                  </div>
+                  
                     </div>
                 </div>
             </div>
@@ -193,6 +205,7 @@ $brands = BrandModel::all();
         </div>
     </div> -->
     <!-- Banner End -->
+    
 
     <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
@@ -395,7 +408,80 @@ $brands = BrandModel::all();
                 </div>
             </div>
         </div>
+
+        <style>
+        
+    
+          #chatbot-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background-color: #ffffff;
+            border: 1px solid #1625f8;
+            padding: 15px;
+            width: 500px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+          
+        
+          #chatbot-box img {
+            width: 50px;
+            height: 50px;
+          }
+    
+
+
+        
+          #chatbot-message {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+        
+          #chatbot-launch-button {
+            background-color: #3b2ef3;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+          
+            text-align: center;
+            width: 100%;
+          }
+        
+          #chatbot-launch-button:hover {
+            background-color: #2a1fb3;
+          }
+        
+          #chatbot-iframe {
+            display: none;
+            width: 100%;
+            height: 400px;
+            border: none;
+            margin-top: 10px;
+            
+          }
+        </style>
+        
+        <div id="chatbot-box">
+          <img src="/img/logo.jpg" alt="Chatbot Icon">
+          <div id="chatbot-message">Besoin d'aide? Parlez avec notre assistant virtuel!</div>
+          <button id="chatbot-launch-button"> oui Lancer une discussion</button>
+          <iframe id="chatbot-iframe" src="/chatbot1"></iframe>
+        </div>
+        
+        <script>
+          document.getElementById('chatbot-launch-button').addEventListener('click', function() {
+            var iframe = document.getElementById('chatbot-iframe');
+            iframe.style.display = 'block';
+          });
+        </script>
+        
     </section>
+  
+    
     <!-- Latest Product Section End -->
     
     
@@ -403,3 +489,4 @@ $brands = BrandModel::all();
     
 
 
+Segment e Clients, Propositions de Valeur, Canaux

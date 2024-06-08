@@ -67,7 +67,7 @@ Liste des Réparateurs
     <!-- Liste des réparateurs -->
     <ul class="reparateurs-list">
         @foreach ($reparateurs as $reparateur)
-        <span class="stars">★★★★★</span>
+        
             <li class="reparateur-item">
                 <div class="profile-icon">
                     <!-- Afficher la photo de profil -->
@@ -80,6 +80,9 @@ Liste des Réparateurs
                 <div class="reparateur-details">
                     <!-- Afficher le nom du réparateur -->
                     <h4>  {{ $reparateur->name }}</h4>
+                    <span class="stars">
+                      ★★★★☆
+                  </span>
                     <h6> {{ $reparateur->service_type }}</h6>
                     <a href="{{ route('reparateur.showProfile', ['id' => $reparateur->id]) }}" class="reparateur-link">
                       Voir le C.V 
