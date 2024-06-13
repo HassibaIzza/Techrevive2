@@ -11,6 +11,8 @@ use App\Http\Controllers\PanneController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
 use App\Http\Controllers\User\ReparateurController;
+use App\Http\Controllers\CommentController;
+
 
 
 
@@ -33,11 +35,14 @@ use App\Http\Controllers\cvController;
 
 
 
+// routes/web.php
+Route::get('/reparateur/{id}/comments', [CommentController::class, 'showComments'])->name('comments.show');
 
 
 
 
 
+Route::post('/comments/store', [CvController::class, 'store']);
 
 Route::get('/reparateur1/{id}', [CvController::class, 'showProfile'])->name('reparateur.showProfile');
 
@@ -69,7 +74,7 @@ Route::delete('/demandes/{id}', [DemandeController::class, 'destroy'])->name('de
 Route::resource('demandes', DemandeController::class);
 /*fin demandes des clients*/
 
-
+Route::post('/comments/store', [CvController::class, 'storeComment'])->name('comments.store');
 
 Route::get('/chatbot1', function () {
     return view('chatbot.chatbot');
