@@ -489,4 +489,4 @@ $brands = BrandModel::all();
     
 
 
-Segment e Clients, Propositions de Valeur, Canaux
+

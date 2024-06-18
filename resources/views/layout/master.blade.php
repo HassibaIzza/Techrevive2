@@ -13,7 +13,7 @@ $user = Auth::user();
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{asset('backend_assets')}}/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="{{asset('backend_assets')}}/images/favicon-32x32.jpg" type="image/png" />
 
     <title>@yield('title', 'Unknown Page')</title>
 

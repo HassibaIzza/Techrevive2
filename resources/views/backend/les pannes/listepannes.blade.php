@@ -5,205 +5,179 @@
     // Récupérer le rôle de l'utilisateur connecté
     $role = Auth::user()->role;
 
+    // Récupérer l'ID de l'utilisateur connecté
+    $userId = Auth::id();
 
-  // Récupérer cat
+    // Récupérer la marque de l'utilisateur connecté en fonction de son ID
+    $userMarque = Marque::where('owner_id', $userId)->first();
 
-
-  // Récupérer la marque de l'utilisateur connecté
-// Récupérer l'ID de l'utilisateur connecté
-$userId = Auth::id();
-
-// Récupérer la marque de l'utilisateur connecté en fonction de son ID
-$userMarque = Marque::where('owner_id', $userId)->first();
-
-// Vérifier si la marque a été trouvée
-if ($userMarque) {
-    $marque = $userMarque->name;
-} else {
-    $marque = 'Marque inconnue';
-}
-
-
-
-
+    // Vérifier si la marque a été trouvée
+    if ($userMarque) {
+        $marque = $userMarque->name;
+    } else {
+        $marque = 'Marque inconnue';
+    }
 @endphp
 
-<style>
-  /* Style de base pour la liste déroulante */
-.form-select {
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-/* Style lorsque le curseur passe sur la liste déroulante */
-.form-select:hover {
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(57, 96, 226, 0.25);
-}
-
-  </style>
 
 @extends('backend.layouts.app')
 
-@section('PageTitle', " $marque ")
+@section('PageTitle', "$marque")
 
 @section('content')
-    <!-- Breadcrumb -->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3"> Liste des Pannes {{ $marque }}</div>
-        <div class="ps-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0 p-0">
-                    <li class="breadcrumb-item"><a href="{{ route($role . '-profile') }}"><i class="bx bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $marque }}</li>
-                </ol>
-            </nav>
-        </div>
+<!-- Breadcrumb -->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Liste des Pannes {{ $marque }}</div>
+    <div class="ps-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 p-0">
+                <li class="breadcrumb-item"><a href="{{ route($role . '-profile') }}"><i class="bx bx-home-alt"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $marque }}</li>
+            </ol>
+        </nav>
     </div>
-    <!-- End Breadcrumb -->
-    <div class="mb-3">
-      <label for="categorie" class="form-label"></label>
-      <select class="form-select" id="categorie" onchange="filterByCategorie(this.value)">
-          <option value="">Toutes les catégories</option>
-          @foreach($categories as $categorie)
-              <option value="{{ $categorie }}">{{ $categorie }}</option>
-          @endforeach
-      </select>
-  </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="data_table" class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Nom de client </th>
-                            <th>Nom de la panne</th>
-                            <th>Catégorie</th>
-                            <th>Détails de la panne</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($rendezvous as $panne)
-                            <tr>
-                             
-                                <td>{{ $panne->nom }}</td>
-                                <td>{{ $panne->panne }}</td>
-                                <td>{{ $panne->catégorie }}</td>
-                                 
-                                
-                                <td>
-                                  <button type="button" class="btn btn-primary btn-sm radius-30 px-4"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#exampleVerticallycenteredModal-{{$panne->id}}">voir les détailles
+</div>
+<!-- End Breadcrumb -->
 
-                                  </button>
-                                  <!-- Modal -->
-                                  <div class="modal fade" id="exampleVerticallycenteredModal-{{$panne->id}}"
-                                       tabindex="-1"
-                                       aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <h5 class="modal-title"> Détails de la panne</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                          aria-label="Close"></button>
-                                              </div>
-                                              <div class="card-body">
-                                                  <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{$panne->panne}}</span></h5>
-                                                  <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{$panne->problème}}</span></h5>
-                                              </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                  Close
-                                              </button>
-                                          </div>
-                                      </div>
-                                  </div>
-
-
-                        </td>
-
-
-
-
-                          <td>
-                          <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})" data-bs-toggle="modal" data-bs-target="rendezvousModal-{{ $panne->id }}">
-        Rendez-vous
-</button>
-
-</td>
-
-        </tr>
+<div class="mb-3">
+    <label for="categorieFilter" class="form-label">Filtrer par catégorie</label>
+    <select class="form-select" id="categorieFilter">
+        <option value="">Toutes les catégories</option>
+        @foreach($categories as $categorie)
+            <option value="{{ $categorie }}">{{ $categorie }}</option>
         @endforeach
-        </tbody>
-        </table>
-      
-      
-        </div>
+    </select>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="data_table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom de client</th>
+                        <th>Nom de la panne</th>
+                        <th>Catégorie</th>
+                        <th>Status</th>
+                        <th>Détails de la panne</th>
+                        <th>Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($rendezvous as $panne)
+                    <tr>
+
+                            <td>{{ $panne->nom }}</td>
+                            <td>{{ $panne->nom_panne }}</td>
+                            <td>{{ $panne->nom_catégorie }}</td>
+                            <td>
+    <form action="{{ route('pannes.updateStatus', $panne->id) }}" method="post">
+        @csrf
+        @method('patch')
+        <select name="status" class="status-select {{ $panne->status == 1 ? 'status-en-cours' : ($panne->status == 2 ? 'status-termine' : 'status-attente') }}" style="border-radius: 30px;" onchange="this.form.submit()">
+            @foreach(\App\Models\RendezVous::getStatusOptions() as $value => $label)
+                <option value="{{ $value }}" {{ $panne->status == $value ? 'selected' : '' }}>{{ $label }}</option>
+            @endforeach
+        </select>
+    </form>
+</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm radius-30 px-4" data-bs-toggle="modal" data-bs-target="#exampleVerticallycenteredModal-{{ $panne->id }}">Voir les détails</button>
+                                <div class="modal fade" id="exampleVerticallycenteredModal-{{ $panne->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Détails de la panne</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title">Nom de la panne : <span style="font-weight: lighter">{{ $panne->nom_panne }}</span></h5>
+                                                <h5 class="card-title">Problème posé : <span style="font-weight: lighter">{{ $panne->nom_catégorie }}</span></h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+    @if ($panne->date_rendez_vous)
+        <button type="button" class="btn btn-success btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})">Rendez-vous</button>
+    @else
+        <button type="button" class="btn btn-primary btn-sm radius-30 px-4" onclick="redirectToRendezvous({{ $panne->id }})">Rendez-vous</button>
+    @endif
+</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 @endsection
 
-@section('plugins')
-    <!-- Ajoutez ici les liens vers les fichiers CSS des plugins -->
-@endsection
+@section('css')
+<style>
 
-@section('AjaxScript')
-    <!-- Ajoutez ici les scripts JavaScript pour les fonctionnalités Ajax -->
+
+
+    .status-select {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 14px;
+    }
+    .status-select option {
+        background-color: #007bff;
+        color: black;
+
+
+    }
+
+    .status-en-cours {
+    /*background-color:   #ffc107;*/
+    color: white;
+}
+
+.status-termine {
+    background-color: green;
+    color: white;
+}
+.status-attente {
+    background-color: red;
+    color: white;
+}
+</style>
 @endsection
 
 @section('js')
-    <!-- Ajoutez ici vos scripts JavaScript personnalisés -->
-    <script>
-    function redirectToRendezvous(id) {
-        window.location = "{{ route('rendezvous') }}?id=" + id;
-    }
-</script>
 <script>
-  function filterByCategorie(categorie) {
-      // Récupérer toutes les lignes du tableau
-      var rows = document.querySelectorAll('#data_table tbody tr');
+function redirectToRendezvous(id) {
+    window.location = "{{ route('rendezvous') }}?id=" + id;
+}
 
-      // Parcourir toutes les lignes
-      rows.forEach(function(row) {
-          // Récupérer la colonne contenant la catégorie
-          var categorieCell = row.querySelector('td:nth-child(3)');
-
-          // Récupérer le texte de la cellule de la catégorie
-          var rowCategorie = categorieCell.textContent.trim();
-
-          // Afficher ou masquer la ligne en fonction de la catégorie sélectionnée
-          if (categorie === '' || rowCategorie === categorie) {
-              row.style.display = 'table-row';
-          } else {
-              row.style.display = 'none';
-          }
-      });
-  }
+function filterByCategorie(categorie) {
+    var rows = document.querySelectorAll('#data_table tbody tr');
+    rows.forEach(function(row) {
+        var categorieCell = row.querySelector('td:nth-child(3)');
+        var rowCategorie = categorieCell.textContent.trim();
+        if (categorie === '' || rowCategorie === categorie) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var filterSelect = document.getElementById('categorieFilter');
+    filterSelect.addEventListener('change', function() {
+        filterByCategorie(this.value);
+    });
+});
 </script>
 @endsection
-Ce script JavaScript permet de filtrer les lignes du tableau en fonction de la catégorie sélectionnée dans la liste déroulante.
 
-Assure-toi d'ajouter ce script dans la section @section('js') de ta vue pour qu'il soit inclus dans le rendu final.
-
-Avec ces modifications, tu auras une liste déroulante qui affichera toutes les catégories disponibles et filtrera les résultats du tableau en fonction de la catégorie sélectionnée.
-
-
-
-
-
-
-
-
-
-@endsection

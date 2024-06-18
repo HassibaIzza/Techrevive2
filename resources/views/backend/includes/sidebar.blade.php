@@ -8,7 +8,7 @@
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
-            <img src="{{asset('backend_assets')}}/images/logo-icon.png" class="logo-icon" alt="logo icon">
+            <img src="{{asset('backend_assets')}}/images/logo-icon.jpg" class="logo-icon" alt="logo icon">
         </div>
         <div>
             <a href="./index.html" class="navbar-brand" id="logo" style="font-family: 'Merriweather', serif"><span id="span1">T</span>Ech<span>Revive</span>
@@ -65,7 +65,7 @@
                     <li> <a href="{{route('brand-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Marque</a>
                     </li>
                 </ul>
-
+                
             </li>
             <li>
                 <a >
@@ -128,12 +128,23 @@
             </li>
         @endif
         @if($role === 'client')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('demandes.recentes') }}">
-                <i class="fas fa-list-alt"></i> Demandes récentes
+        <li>
+            <a >
+                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                </div>
+                <div class="menu-title">Demandes récentes</div>
             </a>
+            <ul>
+                <li> <a href="{{ route('demandes.recentes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                </li>
+
+            </ul>
+
         </li>
         @endif
+
+
+
 
         @if($status && $role === 'Fabricant')
         <li>
@@ -169,6 +180,21 @@
                 </ul>
 
             </li>
+            <!--pour la fiche de réparation-->
+            <li>
+                <a >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                    </div>
+                    <div class="menu-title">Fiche de réparation</div>
+                </a>
+                <ul>
+                    <li> <a href="{{ route('liste-etat') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                    </li>
+                    
+                </ul>
+
+            </li>
+            <!--fin-->
 
             @endif
         </ul>

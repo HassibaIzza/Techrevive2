@@ -46,8 +46,7 @@ use Illuminate\Support\Facades\Auth;
                                 <div class="msg-header">
                                     <p class="msg-header-title">Notifications</p>
 
-                                    <p id="mark-as-read" class="msg-header-clear ms-auto" >Marks all as
-                                        read</p>
+                                    <p id="mark-as-read" class="msg-header-clear ms-auto" >Marquer tout comme lu</p>
                                 </div>
                             </a>
                             <div class="header-notifications-list">

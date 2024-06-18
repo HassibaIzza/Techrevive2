@@ -12,7 +12,7 @@ class Typepanne extends Model
     // Définir les attributs fillable
     public $timestamps = false;
     protected $fillable = [
-    
+
         'name',
         'typep_id' ,
         'user_id' // Ajoutez d'autres attributs au besoin
@@ -28,5 +28,5 @@ class Typepanne extends Model
     {
         return $this->hasMany(User::class);
     }
-    
+
 }

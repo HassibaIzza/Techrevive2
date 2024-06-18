@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\EtatController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\listeReparateurController;
@@ -33,6 +33,7 @@ use App\Http\Controllers\cvController;
 
 /*chatbot*/
 
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 // routes/web.php
@@ -62,6 +63,19 @@ Route::get('/demandes', [DemandeController::class, 'index'])->name('demandes.ind
 Route::get('/demandes/{id}/edit', [DemandeController::class, 'edit'])->name('demandes.edit');
 Route::put('/demandes/{id}', [DemandeController::class, 'update'])->name('demandes.update');
  
+/*Etat de réparation*/
+Route::patch('/pannes/update-status/{id}', [PanneController::class, 'updateStatus'])->name('pannes.updateStatus');
+/*fin Etat de réparation*/
+/*liste_etat*/
+Route::get('/liste-etat', [EtatController::class, 'index'])->name('liste-etat');
+/*fin liste_etat*/
+/*route pour la fiche de réparation*/
+Route::post('/pannes/{id}/fill-form',  [EtatController::class,'fillForm'])->name('pannes.fillForm');
+/*fin*/
+/*Route::get('/pannes/{id}/download', [PanneController::class, 'download'])->name('pannes.download')*/;
+Route::get('/pannes/{id}/download-pdf', [EtatController::class,'downloadPdf'])->name('pannes.downloadPdf');
+
+/*fin route pour le fichier pdf*/
 
  
  
