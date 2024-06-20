@@ -17,26 +17,15 @@ class AdminController extends UserController
      * Update the info of the admin
      * @param AdminInfoRequest $request
      */
-    public function updateInfo(AdminInfoRequest $request){
-        // validation
-        $data = $request->validated();
-
-        // update info in db
-        $userId = Auth::id();
-        try {
-            if(User::findOrFail($userId)->update($data))
-                return response(['msg' => "Your Info is updated successfully"], 200);
-        }catch (ModelNotFoundException $exception){
-            toastr()->error('Failed to save changes, try again.');
-            return redirect()->route('admin-profile');
-        }
-    }
+    
 
     public function userRemove(Request $request){
         try {
             
-            $user = User::findOrFail($request->vendor_id);
-            MyHelpers::deleteImageFromStorage($user->photo , 'uploads/images/profile/');
+            $user = User::findOrFail($request->id);
+            if ($user->photo) {
+                MyHelpers::deleteImageFromStorage($user->photo, 'uploads/images/profile/');
+            }
             if ($user->delete())
                 return redirect()->route('admin-vendor-list')->with('success', 'Successfully removed.');
             else
@@ -52,17 +41,18 @@ class AdminController extends UserController
         // check whether activate or de-activate
         if ($request->current_status == "1"){
             return $this->vendorDeActivate($user_id);
+            return response(['msg' => 'utilisateur activé avec succées.'], 200);
         }
 
         try {
             $vendor = User::findOrFail($user_id);
             $vendor->update(['status' => 1]);
-
+            return response(['msg' => 'utilisateur activer avec succées .'], 200);
             // notify the vendor
             $url = route('/');
             Notification::send($vendor, new VendorActivated($url));
 
-            return response(['msg' => 'user now is activated.'], 200);
+            
         }catch (ModelNotFoundException $exception){
             return redirect()->route('admin-vendor-list')->with('error', 'Failed to activate this user, try again');
         }
@@ -71,7 +61,7 @@ class AdminController extends UserController
 
         try {
             User::findOrFail($user_id)->update(['status' => 0]);
-            return response(['msg' => 'user now is disabled.'], 200);
+            return response(['msg' => 'Utilisateur désactiver avec succées.'], 200);
         }catch (ModelNotFoundException $exception){
             return redirect()->route('admin-vendor-list')->with('error', 'Failed to activate this user, try again');
         }

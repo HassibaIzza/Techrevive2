@@ -14,7 +14,7 @@ class VendorController extends UserController
      * To handle the request of updating info of a vendor
      * @param VendorInfoRequest $request
      */
-    public function updateInfo(VendorInfoRequest $request){
+    public function updateVENDORInfo(VendorInfoRequest $request){
         // validation
         $data = $request->validated();
 

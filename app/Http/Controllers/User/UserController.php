@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -52,35 +54,64 @@ class UserController extends Controller
         }
     }
 
+    // Modifier les informations utilisateurs
+    public function updateInfo(Request $request)
+    {
+         // Assuming you want to update the authenticated user's info
+         // preparing some needed data
+            $request->validate([
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
+            'username' => ['required', 'string', 'max:100', Rule::unique('users')->ignore(Auth::id())],
+            'phone_number' => ['nullable', 'string', 'size:10'],
+            'address' => ['nullable', 'string', 'max:200'],
+        ],[
+            'phone_number.size' => 'le numéro de téléphone doit etre égale à 10 caractére ',
+            'email.required'=>'l\'address mail est Obligatoire ',
+            'username.required'=>'le nom d\'utilisateur est obligatoire ',
+            
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->phone_number = $request->input('phone_number');
+        $user->address = $request->input('address');
+        if($user->save()){
+                return redirect()->back()->with('success', 'Profil mis à jour avec succès');
+        }else{
+            return redirect()->back()->with('error', 'Informations invalide');
+        }
+
+    }
+
+
     /**
      * To update the password of any user.
      * @param Request $request
      */
-    public function updatePassword(Request $request){
-        // validation
-        $rules = [
-            'password' => ['required', 'current_password'],
-            'new_password' => [
-                'required',
-                'confirmed',
-                Password::min(8) // Longueur minimale de 8 caractères
-                    ->mixedCase() // Doit contenir des majuscules et des minuscules
-                    ->numbers() // Doit contenir des chiffres
-                    ->symbols() // Doit contenir des symboles
-                    ->uncompromised(), 'different:password' // Vérifie si le mot de passe a été exposé dans des fuites de données (nécessite une connexion internet)
-            ],
-            'confirm_password' => ['required', 'same:new_password']
-        ];
-        $data = $request->validate($rules);
-
-
-        // updating the password
-        User::find(Auth::id())->update([
-            'password' => Hash::make($data['new_password'])
+    public function updatePassword(Request $request)
+    {
+        // Validation des champs
+        $request->validate([
+            'password' => ['required', 'string', 'min:8'],
+            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        return response(['msg' => 'Updated Successfully'], 200);
-    }
 
+        $user = Auth::user();
+
+        // Vérification de l'ancien mot de passe
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['password' => 'Le mot de passe actuel est incorrect.']);
+        }
+
+        // Mise à jour du mot de passe
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Mot de passe mis à jour avec succès.');
+    }
 
 
 }

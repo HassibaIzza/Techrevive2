@@ -49,22 +49,22 @@
                                         <i class='bx bxs-trash'></i>
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleDangerModal-{{$favorite->id}}"
-                                             tabindex="-1"
-                                             style="display: none;" aria-hidden="true">
+                                            tabindex="-1"
+                                            style="display: none;" aria-hidden="true">
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content bg-danger">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-white">Sure ?</h5>
+                                                        <h5 class="modal-title text-white">Surement ?</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">Cancel
+                                                                data-bs-dismiss="modal">annuler
                                                         </button>
                                                         <button onclick="window.location.replace
                                                         ('remove_favoris/{{$favorite->id}}');"
-                                                                class="btn btn-dark">Confirm
+                                                                class="btn btn-dark">Confirmer
                                                         </button>
                                                     </div>
                                                 </div>

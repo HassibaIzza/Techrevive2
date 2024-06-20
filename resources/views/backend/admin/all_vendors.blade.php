@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
                 <table id="data_table" class="table table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Nom</th>
                         <th>Email</th>
                         <th>Date d'inscription</th>
                         <th>Statut</th>
@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Auth;
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleVerticallycenteredModal-{{$item->id}}" tabindex="-1"
-                                     aria-hidden="true">
+                                    aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -131,13 +131,28 @@ use Illuminate\Support\Facades\Auth;
                                 </form>
                             </td>
                             <td>
-                                <div class="d-flex order-actions">
-                                    <a href="" class="ms-3" data-bs-toggle="modal"
-                                       data-bs-target="#exampleDangerModal-{{$item->id}}">
-
-                                        <i class='bx bxs-trash'></i>
-                                    </a>
+                                <a href="" class="ms-3" data-bs-toggle="modal"
+                                data-bs-target="#exampleDangerModal-{{$item->id}}">
+                                <i class='bx bxs-trash'></i>
+                            </a>
+                            <div class="modal fade" id="exampleDangerModal-{{$item->id}}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-white">Surement ?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                                            <form id="delete-form-{{$item->id}}" action="{{ route('vendor-remove', $item->id) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('POST') <!-- Laravel utilise POST pour supprimer ici -->
+                                            </form>
+                                            <button onclick="document.getElementById('delete-form-{{$item->id}}').submit();" class="btn btn-dark">Confirmer</button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
                             </td>
                         </tr>
 

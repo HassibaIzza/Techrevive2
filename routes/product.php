@@ -62,7 +62,8 @@ Route::middleware(['auth', 'auth.role:vendor'])
     Route::post('/update-cart-quantities', [ProductController::class, 'updateQuantities'])->name('cart.updateQuantities');
 
 
-
-    
-
-    
+    //routes pour la recherche 
+    Route::get('/filter-products', [ProductController::class, 'filterProduct'])->name('filter.products');
+    //filtrage 
+    Route::get('/', [ProductController::class, 'showNewProducts']);
+    Route::get('/filter-products-by-brand', 'ProductController@filterProductsByBrand')->name('filter-products-by-brand');

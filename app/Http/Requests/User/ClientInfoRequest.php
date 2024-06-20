@@ -29,7 +29,7 @@ class ClientInfoRequest extends FormRequest
             'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
             'username' => ['required', 'string', 'max:100', Rule::unique('users')->ignore(Auth::id())],
-            'phone_number' => ['nullable', 'string', 'max:20'],
+            'phone_number' => ['nullable', 'string', 'max:10'],
             'address' => ['nullable', 'string', 'max:200'],
         ];
     }

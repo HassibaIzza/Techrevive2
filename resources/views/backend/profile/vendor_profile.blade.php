@@ -73,18 +73,18 @@
                 <div class="col-lg-8">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="d-flex align-items-center mb-3">User Info</h4>
+                            <h4 class="d-flex align-items-center mb-3">Info Utilisateur</h4>
                             <br>
                             <form id="info_form" action="{{route('vendor-profile-info-update')}}" method="POST"
-                                  enctype="multipart/form-data">
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Full Name</h6>
+                                        <h6 class="mb-0">Nom Complet</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="name" type="text" class="form-control" value="{{$data->name}}"
-                                               required autofocus/>
+                                            required autofocus/>
                                         <small style="color: #e20000" class="error" id="name-error"></small>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Username</h6>
+                                        <h6 class="mb-0">Nom d'utlisateur</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="username" type="text" class="form-control"
@@ -110,17 +110,17 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Shop Name</h6>
+                                        <h6 class="mb-0">Nome Boutique</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="shop_name" type="text" class="form-control"
-                                               value="{{$data->shop_name}}" />
+                                            value="{{$data->shop_name}}" />
                                         <small style="color: #e20000" class="error" id="shop_name-error"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Joined Date</h6>
+                                        <h6 class="mb-0">Date Réjoint</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
 
@@ -130,22 +130,21 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Shop Description</h6>
+                                        <h6 class="mb-0">Description Boutique</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <textarea id="mytextarea"
-                                                  name="shop_description">{{$data->shop_description
-                                                  }}</textarea>
+                                                name="shop_description" >{{$data->shop_description}}</textarea>
                                         <small style="color: #e20000" class="error" id="username-error"></small>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0">Phone</h6>
+                                        <h6 class="mb-0">TélePhone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="phone_number" type="text" class="form-control"
-                                               value="{{$data->phone_number}}" placeholder="Your phone number"/>
+                                            value="{{$data->phone_number}}" placeholder="Your phone number"/>
                                         <small style="color: #e20000" class="error" id="phone_number-error"></small>
                                     </div>
                                 </div>
@@ -155,8 +154,8 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input name="address" type="text"
-                                               class="form-control"
-                                               value="{{$data->address}}" placeholder="Your address"/>
+                                            class="form-control"
+                                            value="{{$data->address}}" placeholder="Your address"/>
                                         <small style="color: #e20000" class="error" id="address-error"></small>
                                     </div>
                                 </div>
@@ -167,6 +166,19 @@
                                         />
                                     </div>
                                 </div>
+                                @if(session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                            </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <p>{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
                             </form>
                         </div>
                     </div>
@@ -174,14 +186,14 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="d-flex align-items-center mb-3">Change Password</h4>
+                                    <h4 class="d-flex align-items-center mb-3">Modifier Mot De Passe </h4>
                                     <br>
                                     <form id="password_form" action="{{route('vendor-profile-password-update')}}"
                                           method="POST">
                                         @csrf
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Current Password</h6></br>
+                                                <h6 class="mb-0">Actuelle</h6></br>
                                             </div>
                                             <div class="input-group" id="show_hide_password">
                                                 <input name="password" autocomplete="current-password"
@@ -193,7 +205,7 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">New Password</h6></br>
+                                                <h6 class="mb-0">Nouveau</h6></br>
                                             </div>
                                             <div class="input-group" id="show_hide_password">
                                                 <input name="new_password" autocomplete="current-password"
@@ -205,22 +217,35 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
-                                                <h6 class="mb-0">Confirm Password</h6></br>
+                                                <h6 class="mb-0">Confirmer</h6></br>
                                             </div>
                                             <div class="input-group" id="show_hide_password">
-                                                <input name="confirm_password" autocomplete="current-password"
+                                                <input name="new_password_confirmation" autocomplete="current-password"
                                                        type="password" class="form-control border-end-0"
                                                        id="inputChoosePassword" placeholder="Enter Password"
                                                        required> <a	href="javascript:;"
-                                                                       class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
+                                                                class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="submit" class="btn btn-primary px-4" value="Save"/>
+                                                <input type="submit" class="btn btn-primary px-4" value="Savegarder"/>
                                             </div>
                                         </div>
+                                        @if(session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
+
+                                        @if($errors->any())
+                                            <div class="alert alert-danger">
+                                                @foreach($errors->all() as $error)
+                                                    <p>{{ $error }}</p>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     </form>
                                 </div>
                             </div>
@@ -239,98 +264,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#info_form').on('submit', function (event) {
-                event.preventDefault();
-                // remove errors if the conditions are true
-                $('#info_form *').filter(':input.is-invalid').each(function () {
-                    this.classList.remove('is-invalid');
-                });
-                $('#info_form *').filter('.error').each(function () {
-                    this.innerHTML = '';
-                });
-                $.ajax({
-                    url: "{{route('vendor-profile-info-update')}}",
-                    method: 'POST',
-                    data: new FormData(this),
-                    dataType: 'JSON',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        // remove errors if the conditions are true
-                        $('#info_form *').filter(':input.is-invalid').each(function () {
-                            this.classList.remove('is-invalid');
-                        });
-                        $('#info_form *').filter('.error').each(function () {
-                            this.innerHTML = '';
-                        });
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.msg,
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            window.location.reload();
-                        });
-                    },
-                    error: function (response) {
-                        var res = $.parseJSON(response.responseText);
-                        $.each(res.errors, function (key, err) {
-                            $('#' + key + '-error').text(err[0]);
-                            $('#' + key).addClass('is-invalid');
-                        });
-                    }
-                });
-            });
-        });
-        $(document).ready(function () {
-            $('#password_form').on('submit', function (event) {
-                event.preventDefault();
-                // remove errors if the conditions are true
-                $('#password_form *').filter(':input.is-invalid').each(function () {
-                    this.classList.remove('is-invalid');
-                });
-                $('#password_form *').filter('.error').each(function () {
-                    this.innerHTML = '';
-                });
-                $.ajax({
-                    url: "{{route('vendor-profile-password-update')}}",
-                    method: 'POST',
-                    data: new FormData(this),
-                    dataType: 'JSON',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (response) {
-                        // remove errors if the conditions are true
-                        $('#password_form *').filter(':input.is-invalid').each(function () {
-                            this.classList.remove('is-invalid');
-                        });
-                        $('#password_form *').filter('.error').each(function () {
-                            this.innerHTML = '';
-                        });
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.msg,
-                            showDenyButton: false,
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            // window.location.reload();
-                        });
-                    },
-                    error: function (response) {
-                        var res = $.parseJSON(response.responseText);
-                        $.each(res.errors, function (key, err) {
-                            $('#' + key + '-error').text(err[0]);
-                            $('#' + key).addClass('is-invalid');
-                        });
-                    }
-                });
-            });
-        });
+
+      
         $(document).ready(function () {
             $('#profile_image').on('submit', function (event) {
                 event.preventDefault();
@@ -378,22 +313,7 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function () {
-            $("#show_hide_password a").on('click', function (event) {
-                event.preventDefault();
-                if ($('#show_hide_password input').attr("type") == "text") {
-                    $('#show_hide_password input').attr('type', 'password');
-                    $('#show_hide_password i').addClass("bx-hide");
-                    $('#show_hide_password i').removeClass("bx-show");
-                } else if ($('#show_hide_password input').attr("type") == "password") {
-                    $('#show_hide_password input').attr('type', 'text');
-                    $('#show_hide_password i').removeClass("bx-hide");
-                    $('#show_hide_password i').addClass("bx-show");
-                }
-            });
-        });
-    </script>
+    
 @endsection
 
 @section('js')

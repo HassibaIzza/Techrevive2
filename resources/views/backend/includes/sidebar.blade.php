@@ -4,7 +4,6 @@
     $status = Auth::user()->status;
 @endphp
 
-
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
         <div>
@@ -48,29 +47,24 @@
         @endif
 
         @if($status && $role != 'Fabricant' && $role != 'client' && $role != 'reparateur')
-            <li>
-                <a class="has-arrow" style="cursor: pointer">
-                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
-                    </div>
-                    <div class="menu-title">Marques</div>
-                </a>
-                <ul>
-                    @if($role === 'admin')
-                    <li> <a href="{{route('brand')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
-                    </li>
-                    @endif
-                    <li> <a href="{{route('brand-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Marque</a>
-                    </li>
-                </ul>
-
-            </li>
-            <li>
-                <a >
-                    <div class="parent-icon"><i class='lni lni-folder'></i>
-                    </div>
+        <li class="menu-item">
+            <a class="has-arrow menu-link" style="cursor: pointer">
+                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
+                <div class="menu-title">Marques</div>
+            </a>
+            <ul class="submenu">
+                @if($role === 'admin')
+                <li><a href="{{route('brand')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a></li>
+                @endif
+                <li><a href="{{route('brand-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Marque</a></li>
+            </ul>
+        </li>
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
                     <div class="menu-title">Catégories</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     @if($role === 'admin')
                     <li> <a href="{{route('category')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
@@ -79,13 +73,12 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a >
-                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
-                    </div>
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
                     <div class="menu-title">Sous Catégories</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     @if($role === 'admin')
                     <li> <a href="{{route('sub-category')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
@@ -95,13 +88,12 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a >
-                    <div class="parent-icon"><i class='lni lni-graph'></i>
-                    </div>
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
                     <div class="menu-title">Annonces</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     <li> <a href="{{route($role . '-product')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
 
@@ -110,13 +102,12 @@
                     </li>
                 </ul>
             </li>
-            <li>
-                <a >
-                    <div class="parent-icon"><i class='lni lni-wallet'></i>
-                    </div>
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
+                    <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
                     <div class="menu-title">promotion</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     <li> <a href="{{route($role .'-coupon')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
                     <li> <a href="{{route($role .'-coupon-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter promotion</a>
@@ -125,40 +116,47 @@
             </li>
         @endif
         @if($role === 'client')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('demandes.recentes') }}">
-                <i class="fas fa-list-alt"></i> Demandes récentes
+        <li class="menu-item">
+            <a class="has-arrow menu-link" style="cursor: pointer" >
+                <div class="parent-icon"><i class="fas fa-list-alt"></i></div>
+                <div class="menu-title">demmandes recentes</div>
+
             </a>
+            <ul class="submenu">
+                <li> <a href="{{ route('demandes.recentes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
+                </li>
+                <li> <a href=""><i class="bx bx-right-arrow-alt"></i>Ajouter une demande</a>
+                </li>
+            </ul>
         </li>
         @endif
 
         @if($status && $role === 'Fabricant')
-        <li>
-            <a >
-                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
-                </div>
-                <div class="menu-title">Marque</div>
+        <li class="menu-item">
+            <a class="has-arrow menu-link" style="cursor: pointer" >
+                <div class="parent-icon"><i class='lni lni-checkmark-circle'></i></div>
+                
+                <div class="menu-title">Marques</div>
             </a>
-            <ul>
+            <ul class="submenu">
                 <li> <a href="{{route('marques.show')}}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                 </li>
                 <li> <a href="{{route('marque-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter Marque</a>
                 </li>
             </ul>
-
         </li>
         @endif
 
         <li>
         <ul>
             @if($status && $role === 'Fabricant')
-            <li>
-                <a >
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
                     <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                     </div>
                     <div class="menu-title">Liste des pannes</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     <li> <a href="{{ route('listepannes') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
                     <li> <a href="{{route('pannes-add')}}"><i class="bx bx-right-arrow-alt"></i>Ajouter panne fréquente</a>
@@ -167,13 +165,13 @@
 
             </li>
             <!--pour la fiche de réparation-->
-            <li>
-                <a >
+            <li class="menu-item">
+                <a class="has-arrow menu-link" style="cursor: pointer" >
                     <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                     </div>
                     <div class="menu-title">Fiche de réparation</div>
                 </a>
-                <ul>
+                <ul class="submenu">
                     <li> <a href="{{ route('liste-etat') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                     </li>
                     
@@ -188,13 +186,13 @@
         <li>
             <ul>
                 @if($status)
-                <li>
-                    <a >
+                <li class="menu-item">
+                    <a class="has-arrow menu-link" style="cursor: pointer" >
                         <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
                         </div>
                         <div class="menu-title">Mes Favoris</div>
                     </a>
-                    <ul>
+                    <ul class="submenu">
                         <li> <a href="{{ route('show.favorite') }}"><i class="bx bx-right-arrow-alt"></i>Afficher tous</a>
                         </li>
 
@@ -204,11 +202,42 @@
 
                 @endif
             </ul>
+            <li>
+                <ul>
+                    @if($status)
+                    <li class="menu-item">
+                        <a class="has-arrow menu-link" style="cursor: pointer" >
+                            <div class="parent-icon"><i class='lni lni-checkmark-circle'></i>
+                            </div>
+                            <div class="menu-title">Blogs</div>
+                        </a>
+                        <ul class="submenu">
+                            <li> <a href="{{ route('blogs.create') }}"><i class="bx bx-right-arrow-alt"></i>Ecrire un Article</a>
+                            </li>
+    
+                        </ul>
+    
+                    </li>
+    
+                    @endif
+                </ul>
+            </li>
         </li>
     </ul>
 
     <!--end navigation-->
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.menu-link').on('click', function() {
+            $(this).parent('.menu-item').toggleClass('open');
+            $(this).next('.submenu').slideToggle();
+        });
+    });
+</script>
 
 <script>
     const submenuItems = document.querySelectorAll('.has-submenu');

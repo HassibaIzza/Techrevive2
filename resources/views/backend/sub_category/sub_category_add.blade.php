@@ -7,13 +7,13 @@
 
     <!--breadcrumb -->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">SubCategory</div>
+        <div class="breadcrumb-title pe-3">Sous-Categorie</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
                     <li class="breadcrumb-item"><a href="{{route($role . '-profile')}}"><i class="bx
                     bx-home-alt"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Add new sub Category</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ajouter sous-categorie</li>
                 </ol>
             </nav>
         </div>
@@ -21,13 +21,13 @@
     <!--end breadcrumb -->
     <div class="card">
         <div class="card-body">
-            <h4 class="d-flex align-items-center mb-3">Add sub_category</h4>
+            <h4 class="d-flex align-items-center mb-3">Ajouter sous_categorie</h4>
             <br>
             <form id="sub_category_form" action="sub_category_create" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">SubCategory Name</h6>
+                        <h6 class="mb-0">Nome sous-categorie</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="sub_category_name" type="text" class="form-control"
@@ -37,11 +37,11 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Category</h6>
+                        <h6 class="mb-0">Categorie</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <select name="category_id" class="form-select" id="inputProductType">
-                            <option>Choose Category</option>
+                            <option>Choisir Categorie</option>
                             @foreach($categories as $item)
                                 <option value="{{$item->category_id}}">{{$item->category_name}}</option>
                             @endforeach
@@ -51,7 +51,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">SubCategory Image</h6>
+                        <h6 class="mb-0">Image sous-categorie</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input name="sub_category_image" id="sub_category_image" class="form-control" type="file" >
@@ -59,7 +59,7 @@
 
                         <div>
                             <img class="card-img-top"
-                                 style="max-width: 250px; margin-top: 20px" id="show_image">
+                                style="max-width: 250px; margin-top: 20px" id="show_image">
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,8 @@ use App\Http\Controllers\PanneController;
 use App\Http\Controllers\EtatController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\demandeController;
+use App\Http\Controllers\User\AdminController;
+
 use App\Http\Controllers\User\ReparateurController;
 
 
@@ -33,6 +35,7 @@ use App\Http\Controllers\cvController;
 
 
 
+Route::post('remove_vendor/{id}', [AdminController::class, 'userRemove'])->name('vendor-remove');
 
 
 /*route pour le fichier pdf*/
@@ -76,13 +79,9 @@ Route::get('/chatbot1', function () {
 
 
   Route::post('/get-message', [ChatbotController::class, 'getMessage'])->name('get-message');
-<<<<<<< HEAD
-/*fin_chatbot */
-=======
   Route::get('/get-queries', [ChatbotController::class, 'getQueries'])->name('get-queries');
   
 
->>>>>>> f53fe323ebd69d67ad75360780eb7cc5b57d861f
 
   Route::get('/liste-des-pannes', [PanneController::class, 'index'])->name('listepannes');
   /*liste_etat*/
@@ -151,6 +150,10 @@ Route::get('/contactUs', function () {
 })->name('contactUs');
 
 
+/****************************************Recherche******************************************** */
+Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+
 
 
 /*Routes_rendez-vous*/
@@ -191,6 +194,6 @@ require_once __DIR__.'/reparateur.php';
 require_once __DIR__.'/client.php';
 require_once __DIR__.'/fabricant.php';
 require_once __DIR__.'/pannes.php';
-
+require_once __DIR__.'/blog.php';
 
 

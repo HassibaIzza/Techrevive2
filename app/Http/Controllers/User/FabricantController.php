@@ -15,5 +15,7 @@ class FabricantController extends UserController
      * To handle the request of updating info of a client
      * @param FabricantInfoRequest $request
      */
+
+     
     
 }

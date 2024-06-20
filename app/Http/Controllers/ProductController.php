@@ -12,6 +12,7 @@ use App\Models\product\ProductOffersModel;
 use App\Models\SubCategoryModel;
 use App\Models\User;
 use App\MyHelpers;
+use Egulias\EmailValidator\Parser\Comment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,75 @@ class ProductController extends Controller
      * @return int
      */
     private function getVendorId(): int{
-       return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
+        return  DB::table('get_vendor_data')->where('id', '=', Auth::id())->get('vendor_id')[0]->vendor_id;
+    }    
+
+    /****************************************afficher les nouveaux produits ********************************* */
+
+    public function showNewProducts()
+{
+    // Suppose que vous avez un champ 'created_at' pour identifier les nouveaux produits
+    $newProducts = ProductModel::orderBy('created_at', 'desc')->take(6)->get();
+    return view('index', compact('newProducts'));
+}
+
+    /********************************************filter product prix-marque-category  ***************************************** */
+    public function filterProduct(Request $request)
+    {
+        $selectedBrand = $request->input('brand');
+        $selectedCategory = $request->input('category');
+        // Nettoyer les valeurs pour s'assurer qu'elles ne contiennent que des chiffres
+        $minPrice = preg_replace('[^0-9]', '', $request->input('min_price'));
+        $maxPrice = preg_replace('[^0-9]', '', $request->input('max_price'));
+
+        // Vous pouvez également ajouter une validation supplémentaire si nécessaire
+        $request->validate([
+            'min_price' => 'required|numeric|min:0',
+            'max_price' => 'required|numeric|min:0',
+        ]);
+    
+    $query = ProductModel::query();
+    $query->whereBetween('product_price', [$minPrice, $maxPrice]);
+    if ($selectedBrand) {
+        $query->where('brand_id', $selectedBrand);
+    }
+
+    if ($selectedCategory) {
+        $query->whereHas('category', function($q) use ($selectedCategory) {
+            $q->where('category_id', $selectedCategory);
+        });
+    }
+
+    $products = $query->where('product_status', true)->with('images')->get();
+    $productCount = $products->count();
+    $products->each(function ($product) {
+        $product->is_favorite = $product->isFavorite();
+    });
+
+    return view('backend.boutique.product-list', compact('products', 'productCount'));
+
+        
+    }
+
+/*************************************recherche mot clé *********************************************************** */
+
+    public function search(Request $request)
+    {
+        $query = trim($request->input('query'));
+
+        // Normaliser les caractères pour gérer les accents
+        $normalizedQuery = str_replace(
+            ['à', 'â', 'ä', 'é', 'è', 'ê', 'ë', 'î', 'ï', 'ô', 'ö', 'ù', 'û', 'ü', 'ÿ', 'ç'],
+            ['a', 'a', 'a', 'e', 'e', 'e', 'e', 'i', 'i', 'o', 'o', 'u', 'u', 'u', 'y', 'c'],
+            $query
+        );
+
+        // Effectuer la recherche dans les produits
+        $products = ProductModel::whereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(product_name, 'à', 'a'), 'â', 'a'), 'ä', 'a'), 'é', 'e'), 'è', 'e'), 'ê', 'e'), 'ë', 'e'), 'î', 'i'), 'ï', 'i'), 'ô', 'o'), 'ö', 'o'), 'ù', 'u'), 'û', 'u'), 'ü', 'u'), 'ÿ', 'y'), 'ç', 'c')) LIKE ?", ["%$normalizedQuery%"])
+            ->orWhereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(product_short_description, 'à', 'a'), 'â', 'a'), 'ä', 'a'), 'é', 'e'), 'è', 'e'), 'ê', 'e'), 'ë', 'e'), 'î', 'i'), 'ï', 'i'), 'ô', 'o'), 'ö', 'o'), 'ù', 'u'), 'û', 'u'), 'ü', 'u'), 'ÿ', 'y'), 'ç', 'c')) LIKE ?", ["%$normalizedQuery%"])
+            ->get();
+
+        return view('backend.boutique.searchResult', compact('products', 'query'));
     }
 
     /*****************************************modifier produit dans le panier ************************************ */
@@ -154,22 +223,19 @@ class ProductController extends Controller
     }
 
     /*****************************supprimer produit aux favoris ****************************************** */
-    public function favorisRemove(Request $request)
-{
-        $productId = $request->id;
-        
+    public function userRemove(Request $request, $id) {
         try {
-            $favoris = Favorite::findOrFail($productId);
-            if ($favoris->delete()){
-
-                return redirect('/favorites')->with('success', 'Removed Successfully.');
+            $user = User::findOrFail($id);
+            MyHelpers::deleteImageFromStorage($user->photo, 'uploads/images/profile/');
+            if ($user->delete()) {
+                return redirect()->route('admin-vendor-list')->with('success', 'Successfully removed.');
+            } else {
+                return redirect()->route('admin-vendor-list')->with('error', 'Failed to remove this user.');
             }
-            else return redirect('/favorites')->with('error', 'Failed to remove this product.');
-        }catch (ModelNotFoundException $exception){
-            return redirect('favorites')->with('error', 'Failed to remove this product.');
-
+        } catch (ModelNotFoundException $exception) {
+            return redirect()->route('admin-vendor-list')->with('error', 'Failed to remove this user.');
         }
-}
+    }
 
     /******************afficher les produit aux favoris *****************************/
     public function showFavorite(){
@@ -470,11 +536,12 @@ class ProductController extends Controller
         // check whether activate or de-activate
         if ($request->current_status == "1"){
             return $this->productDeActivate($product_id);
+            return redirect()->route('vendor-product')->with('success', 'produit désactiver avec succées.');  
         }
 
         try {
             ProductModel::findOrFail($product_id)->update(['product_status' => 1]);
-            return response()->json(['success' => true, 'message' => 'produit activer avec succées ']);       
+            return redirect()->route('vendor-product')->with('success', 'produit Activer avec succées.');
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }
@@ -486,7 +553,7 @@ class ProductController extends Controller
     public function productDeActivate(int $productId){
         try {
             ProductModel::findOrFail($productId)->update(['product_status' => 0]);
-            return response()->json(['success' => true, 'message' => 'produit deactiver avec succées ']);       
+            return redirect()->route('vendor-product')->with('success', 'produit désactiver avec succées .');   
         }catch (ModelNotFoundException $exception){
             return redirect()->route('vendor-product')->with('error', 'Failed to activate this product, try again');
         }

@@ -14,7 +14,7 @@
 use App\Models\Product\ProductModel;
 use App\Http\Controllers\ProductController;
 use App\Models\BrandModel;
-$products = ProductModel::with('images')->get();
+$products = ProductModel::with('images')->paginate(8);
 $products->each(function ($product) {
             $product->is_favorite = $product->isFavorite();
         });
@@ -46,16 +46,13 @@ $brands = BrandModel::all();
                         <ul>
                             <li><a href="#">Enie</a></li>
                             <li><a href="#">Iris</a></li>
-                          
                             <li><a href="#">Condor</a></li>
                             <li><a href="#">Brandt</a></li>
                             <li><a href="#">Géant</a></li>
                             <li><a href="#">Stream</a></li>
                             <li><a href="#">beko</a></li>
-                            
                             <li><a href="#">Starlight</a></li>
                             <li><a href="#">LG</a></li>
-                           
                             
                         </ul>
                     </div>
@@ -63,13 +60,13 @@ $brands = BrandModel::all();
                 <div class="col-lg-9 ">
                     <div class="hero__search ">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form action="{{ route('search') }}" method="GET">
                                 <div class="hero__search__categories">
-                                    tous les produits 
+                                    Tous Categories
                                     <i class="fa fa-caret-down" aria-hidden="true"></i>
                                 </div>
-                                <input type="text" placeholder="de quoi avez-vous besion ?">
-                                <button type="submit" class="site-btn">Recherche</button>
+                                <input type="text" name="query" placeholder="vous cherchez à quoi?">
+                                <button type="submit" class="site-btn">Recherchez</button>
                             </form>
                         </div>
                         <div class="hero__search__phone ">
@@ -89,7 +86,7 @@ $brands = BrandModel::all();
                               <h2 style="font-family: Arial, sans-serif; color: white;">
                                   <span style="color: #87CEEB; font-size: 36px;">É</span>conomisez<br />protégez, réparez
                               </h2>
-                              <a href="#" class="primary-btn">Achetez!</a>
+                              <a href="{{route('boutique')}}" class="primary-btn">Achetez!</a>
                           </div>
                       </div>
                   </div>
@@ -213,68 +210,26 @@ $brands = BrandModel::all();
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>Nouveaux Produit</h4>
+                        <h4>Nouveaux Produits</h4>
                         <div class="latest-product__slider owl-carousel">
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/CONDOR-600.jpg" alt="">
+                            @foreach($newProducts->chunk(3) as $productChunk)
+                                    <div class="latest-prdouct__slider__item">
+                                        @foreach($productChunk as $product)
+                                            <a href="{{ route('view-details', ['product_id' => $product->product_id]) }}" class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="{{ asset('uploads/images/product/' . $product->product_thumbnail) }}" alt="{{ $product->product_name }}">
+                                                </div>
+                                                <div class="latest-product__item__text">
+                                                    <h6>{{ $product->product_name }}</h6>
+                                                    <span>{{ number_format($product->product_price, 2) }} din DZD</span>
+                                                </div>
+                                            </a>
+                                        @endforeach
                                     </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Réfrigirateur Condor 600L Blanc</h6>
-                                        <span>60 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/MACHINE_A_lAVER.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>machine a laver Condor 8kg Silver 1400 Tr/s</h6>
-                                        <span>60 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/55E2G.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Iris Téléviseur LED 55 "55E2G"</h6>
-                                        <span>24 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/CONDOR-600.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>Réfrigirateur Condor 600L Blanc</h6>
-                                        <span>60 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/MACHINE_A_lAVER.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>machine a laver Condor 8kg Silver 1400 Tr/s</h6>
-                                        <span>60 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="img/featured/machine.png" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>machine a laver Condor 8kg Silver 1400 Tr/s</h6>
-                                        <span>60 000,00 din DZD</span>
-                                    </div>
-                                </a>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
+                    
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
@@ -286,7 +241,7 @@ $brands = BrandModel::all();
                                         <img src="img/featured/réfrcondor.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Condor Régrigirateur CRF-NT49ZH05G NO FROST 360L Silver</h6>
+                                        <h6>Condor Réfrigirateur CRF-NT49ZH05G NO FROST 360L Silver</h6>
                                         <span>70 000,00 din dZD</span>
                                     </div>
                                 </a>
@@ -489,4 +444,4 @@ $brands = BrandModel::all();
     
 
 
-Segment e Clients, Propositions de Valeur, Canaux
+

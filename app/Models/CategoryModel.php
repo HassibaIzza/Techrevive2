@@ -13,4 +13,10 @@ class CategoryModel extends Model
     protected $table = 'category';
     public $timestamps = false;
     protected $primaryKey = 'category_id';
+
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategoryModel::class);
+    }
+
 }

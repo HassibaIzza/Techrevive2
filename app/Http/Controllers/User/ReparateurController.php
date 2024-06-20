@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class Reparateurcontroller extends UserController
 {
@@ -21,24 +22,31 @@ class Reparateurcontroller extends UserController
     
     
 
-     public function updateInfo(ReparateurInfoRequest $request)
+     public function updateRepInfo(Request $request)
      {
-       $validatedData = $request->validated();
-     
-       $userId = Auth::user(); // Assuming you're using Auth::user() to get the logged-in user
-     
-       $user = User::findOrFail($userId);
-       $user->fill($validatedData);
-  // Fill user model with validated data
-     
-       if ($user->save()) {
-         Log::info('User updated successfully.');
-         return redirect()->route('reparateur-profile')->with('success', 'Your info is updated successfully.');
-       } else {
-         // Handle saving errors (e.g., log specific errors)
-         Log::error('Failed to save user data: ' . $user->getErrors());
-         return redirect()->route('reparateur-profile')->with('error', 'Failed to save changes, try again.');
-       }
+       // Assuming you want to update the authenticated user's info
+         // preparing some needed data
+         $request->validate([
+          'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
+          'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
+          'username' => ['required', 'string', 'max:100', Rule::unique('users')->ignore(Auth::id())],
+          
+      ],[
+          'email.required'=>'l\'address mail est Obligatoire ',
+          'username.required'=>'le nom d\'utilisateur est obligatoire ',
+          
+      ]);
+
+      $user = Auth::user();
+      $user->name = $request->input('name');
+      $user->email = $request->input('email');
+      $user->username = $request->input('username');
+      if($user->save()){
+              return redirect()->back()->with('success', 'informations mis à jour avec succès');
+      }else{
+          return redirect()->back()->with('error', 'Informations invalide');
+      }
+
      }
 
      public function store(Request $request)

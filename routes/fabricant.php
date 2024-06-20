@@ -11,9 +11,9 @@ Route::middleware(['auth', 'auth.role:Fabricant'])
 
         // profile
         Route::view('profile', 'backend.profile.fabricant_profile')->name('profile');
-        Route::post('profile/update_info', 'updateInfo')->name('profile-info-update');
+        Route::post('profile/update', 'updateInfo')->name('profile-info-update');
         Route::post('profile/update_image', 'updateImage')->name('profile-image-update');
-        Route::post('profile/update_password', 'updatePassword')->name('profile-password-update');
+        Route::post('Fabricant/profile/update_password', 'updatePassword')->name('profile-password-update');
 
       // fallback
         Route::fallback(function (){

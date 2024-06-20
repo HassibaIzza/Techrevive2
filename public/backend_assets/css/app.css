@@ -6,6 +6,16 @@ Email: codervent@gmail.com
 File: app.css
 */
 
+
+
+.submenu {
+    display: none;
+}
+
+.menu-item.open .submenu {
+    display: block;
+}
+
 @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap);
 body {
 	font-size: 14px;
@@ -32,11 +42,11 @@ a {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	background: #fff;
+	background: #ffffff;
 	border-right: 0 solid #e4e4e4;
 	z-index: 11;
 	box-shadow: 0 .3rem .8rem rgba(0, 0, 0, .12)!important;
-	transition: all .2s ease-out
+	transition: width 0.3s ease;
 }
 
 .sidebar-header {
@@ -65,7 +75,13 @@ a {
 	letter-spacing: 1px;
 	color: #0d6efd
 }
-
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
 .toggle-icon {
 	font-size: 22px;
 	cursor: pointer;

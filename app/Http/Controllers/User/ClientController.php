@@ -7,6 +7,10 @@ use App\MyHelpers;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
+
 
 class ClientController extends UserController
 {
@@ -18,30 +22,38 @@ class ClientController extends UserController
     
     
 
-    public function updateInfo(ClientInfoRequest $request)
+    public function updateInfo(Request $request)
     {
-        $data = $request->validated();
- 
          // Assuming you want to update the authenticated user's info
-
          // preparing some needed data
-        $userId = Auth::id();
-        $userData = [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'phone_number' => $data['phone_number'],
-            'address' => $data['address']
-        ];
+            $request->validate([
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s\-]+$/u'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
+            'username' => ['required', 'string', 'max:100', Rule::unique('users')->ignore(Auth::id())],
+            'phone_number' => ['nullable', 'string', 'size:10'],
+            'address' => ['nullable', 'string', 'max:200'],
+        ],[
+            'phone_number.size' => 'le numéro de téléphone doit etre égale à 10 caractére ',
+            'email.required'=>'l\'address mail est Obligatoire ',
+            'username.required'=>'le nom d\'utilisateur est obligatoire ',
+            
+        ]);
 
-
-        if ($this->updateUserData($userId, $userData) )
-            return response(['msg' => "Your Info is updated successfully"], 200);
-        else{
-            toastr()->error('Failed to save changes, try again.');
-            return redirect()->route('client-profile');
+        $user = Auth::user();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->phone_number = $request->input('phone_number');
+        $user->address = $request->input('address');
+        if($user->save()){
+                return redirect()->back()->with('success', 'Profil mis à jour avec succès');
+        }else{
+            return redirect()->back()->with('error', 'Informations invalide');
         }
+
     }
+
+    
 
     private function updateUserData(int $userId, Array $data): bool{
         return User::findOrFail($userId)->update($data);

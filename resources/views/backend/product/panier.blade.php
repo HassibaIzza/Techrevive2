@@ -1,4 +1,8 @@
-@php use App\Http\Controllers\ProductController;use Illuminate\Support\Facades\Auth; $role = Auth::user()->role;@endphp
+@php use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
+@endphp
+
+
 
 @extends('layout.master')
 @section('title')
@@ -44,6 +48,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(Auth::user())
+                                
                             @foreach($Paniers as $panier)
                             <tr data-product-id="{{ $panier->product_id }}">
                                 <td class="shoping__cart__item">
@@ -68,6 +74,7 @@
                                 </td>
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -99,8 +106,9 @@
                 <div class="shoping__checkout">
                     <h5>Total du panier</h5>
                     <ul>
-                        <li>Sous-Total <span id="totalPanier" >{{$total}} DA</span></li>
-                        <li>Total <span id="total-price">{{$total}} DA</span></li>
+                        <li>Sous-Total <span id="totalPanier" >@if (Auth::user())                            
+                        {{$total}} DA @endif</span></li>
+                        <li>Total <span id="total-price">@if (Auth::user())  {{$total}} DA @endif</span></li>
                     </ul>
                     <a href="#" class="primary-btn">procéder au paiement</a>
                 </div>
@@ -108,6 +116,7 @@
         </div>
     </div>
 </section>
+
 <!-- Shoping Cart Section End -->
 
 

@@ -1360,6 +1360,8 @@ text-shadow: none;
 /*----------------------------------------*/
 
 
+/********************************************* **********************************/
+
 
 .color-indigator-item {
 	width: 1.2rem;
@@ -2120,12 +2122,12 @@ ol {
 	text-transform: uppercase;
 	font-weight: 700;
 	letter-spacing: 4px;
-	color: #87CEEB;
+	color: #0d0d0e;
 }
 
 .hero__text h2 {
 	font-size: 46px;
-	color: #252525;
+	color: #87CEEB;
 	line-height: 52px;
 	font-weight: 700;
 	margin: 10px 0;
@@ -2585,7 +2587,7 @@ ol {
 }
 
 .sidebar__item__color.sidebar__item__color--green label:after {
-	background: #3CC032;
+	background: #249BC8;
 }
 
 .sidebar__item__color label {
@@ -2708,8 +2710,8 @@ ol {
 }
 
 .product__item__pic__hover li:hover a {
-	background: #7fad39;
-	border-color: #7fad39;
+	background: #249BC8;
+	border-color: #249BC8;
 }
 
 .product__item__pic__hover li:hover a i {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\product\ProductModel ; 
 
 class CouponModel extends Model
 {
@@ -13,4 +14,10 @@ class CouponModel extends Model
     protected $guarded = [];
     public $timestamps = false;
 
+    public function product()
+    {
+        return $this->belongsTo(ProductModel::class, 'vendor_id', 'VendorId');
+    }
+
 }
+

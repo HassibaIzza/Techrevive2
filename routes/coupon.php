@@ -41,6 +41,7 @@ Route::middleware(['auth'])
         Route::get('coupons', 'getAllCoupons')->name('coupon');
         Route::view('add_coupon', 'backend.coupon.coupon_add')->name('coupon-add');
         Route::post('create_coupon', 'couponCreate')->name('coupon-create');
+        Route::get('remove_coupon/{id}', 'couponRemove')->name('coupon-remove')->whereNumber('id');
         
     });
 

@@ -14,7 +14,7 @@ $user = Auth::user();
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{asset('backend_assets')}}/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="{{asset('backend_assets')}}/images/" type="image/png" />
 
     <title>@yield('title', 'Unknown Page')</title>
 
@@ -26,8 +26,9 @@ $user = Auth::user();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js?v=20240321"></script>
-
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -55,17 +56,9 @@ $user = Auth::user();
             <div class="header__cart__price"><span></span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
-                <div>Francais</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
+            
             <div class="header__top__right__auth">
-                <a href="{{ url('/login') }}"><i class="fa fa-user"></i>Connecter</a>
+                <a href="{{ url('/login') }}"><i class="fa fa-user"></i>Se Connecter</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -79,7 +72,7 @@ $user = Auth::user();
                         <li><a href="{{route('send.email')}}">Contacter SAV</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="{{route('blogs.index')}}">Blog</a></li>
                 <li><a href="{{route('contactUs')}}">Contact</a></li>
             </ul>
         </nav>
@@ -109,7 +102,7 @@ $user = Auth::user();
                             <ul>
                                 <li><i class="fa fa-envelope"></i> techrevive@gmail.com</li>
                                 <li> Appareils reconditionnés testés    </li>
-                                <li>  36 mois de garantie TEchRevive </li>
+                    
                             </ul>
                         </div>
                     </div>
@@ -121,17 +114,13 @@ $user = Auth::user();
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>Francais</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
+                            
                             <div class="header__top__right__auth">
-                                <a href="{{ url('/login') }}"><i class="fa fa-user"></i>connecter</a>
+                                @if(Auth::check())
+                                    <a href="{{ route('logout') }}"><i class="fa fa-user"></i>Se Déconnecter</a>
+                                @else
+                                    <a href="{{ route('login') }}"><i class="fa fa-user"></i>Se Connecter</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -159,7 +148,7 @@ $user = Auth::user();
                                     <li><a href="{{route('send.email')}}">Contacter SAV</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="{{route('blogs.index')}}">Blog</a></li>
                             <li><a href="{{route('contactUs')}}">Contact</a></li>
                         </ul>
                     </nav>

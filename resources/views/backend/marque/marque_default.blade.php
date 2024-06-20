@@ -60,10 +60,10 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <form class="brand_form" action="update_marque" method="POST"
-                                                                  enctype="multipart/form-data">
+                                                                enctype="multipart/form-data">
                                                                 @csrf
                                                                 <input name="id" value="{{$item->id}}"
-                                                                       hidden/>
+                                                                    hidden/>
                                                                 <div class="row mb-3">
                                                                     <div class="col-sm-3">
                                                                         <h6 class="mb-0">Nome de la Marque</h6>

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Favorite;
 use App\Models\Panier;
+use App\Models\SubCategoryModel;
+use App\Models\CouponModel ; 
 
 
 class ProductModel extends Model
@@ -16,7 +18,7 @@ class ProductModel extends Model
     protected $table = 'product';
     protected $primaryKey = 'product_id';
     protected $guarded = [];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function isFavorite()
     {
@@ -42,5 +44,15 @@ class ProductModel extends Model
     public function brand()
     {
         return $this->hasMany(BrandModel::class, 'brand_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(SubCategoryModel::class, 'sub_category_id');
+    }
+
+    public function vendorCoupons()
+    {
+        return $this->hasMany(CouponModel::class, 'VendorId', 'vendor_id');
     }
 }

@@ -28,8 +28,8 @@ Route::middleware(['auth', 'auth.role:reparateur'])
         // profile
         Route::view('profile', 'backend.profile.reparateur_profile')->name('profile');
         Route::post('profile/update_image', 'updateImage')->name('profile-image-update');
-        Route::post('reparateur/profile/update_info', 'updateInfo')->name('profile-info-update');
-        Route::post('profile/update_password', 'updatePassword')->name('profile-password-update');
+        Route::post('reparateur/profile/update_info', 'updateRepInfo')->name('profile-info-update');
+        Route::post('reparateur/profile/update_password', 'updatePassword')->name('profile-password-update');
 
 
     

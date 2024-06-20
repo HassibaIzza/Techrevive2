@@ -12,4 +12,9 @@ class SubCategoryModel extends Model
     protected $guarded = [];
     public $timestamps = false;
     protected $primaryKey = 'sub_category_id';
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryModel::class, 'category_id');
+    }
 }

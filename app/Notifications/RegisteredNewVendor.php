@@ -57,8 +57,8 @@ class RegisteredNewVendor extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'New User Registered',
-            'message' => 'New user account need to be activated.',
+            'title' => 'Un Nouveau Utilisateur ',
+            'message' => 'Nouveau utilisateur attent activation.',
             'url' => $this->url, 
             'icon' => 'bx-group'
         ];

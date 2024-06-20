@@ -22,7 +22,7 @@ Route::middleware(['auth', 'auth.role:admin'])
     )->name('vendor-list');
 
     Route::post('activate_vendor', 'vendorActivate')->name('activate-vendor');
-    Route::post('remove_vendor', 'userRemove')->name('vendor-remove');
+    Route::post('remove_vendor/{id}', [AdminController::class, 'userRemove'])->name('vendor-remove');
 
 
     // fallback

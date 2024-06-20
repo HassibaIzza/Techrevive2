@@ -58,7 +58,7 @@ class CouponInsertedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'New Coupon',
+            'title' => 'Nouveau promotiom',
             'message' => $this->shopName . ' Created a new coupon.',
             
             'icon' => 'bx-check-square'
