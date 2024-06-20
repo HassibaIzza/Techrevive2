@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -63,10 +65,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Marque::class, 'owner_id');
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function reparateur()
     {
         return $this->hasOne(Reparateur::class);
     }
-
     
 }

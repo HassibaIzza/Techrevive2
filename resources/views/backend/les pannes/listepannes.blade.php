@@ -61,13 +61,13 @@
                         <th>Status</th>
                         <th>Détails de la panne</th>
                         <th>Actions</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($rendezvous as $panne)
                     <tr>
-                         
+
                             <td>{{ $panne->nom }}</td>
                             <td>{{ $panne->nom_panne }}</td>
                             <td>{{ $panne->nom_catégorie }}</td>
@@ -121,7 +121,7 @@
 @section('css')
 <style>
 
- 
+
 
     .status-select {
         background-color: #007bff;
@@ -134,7 +134,7 @@
     .status-select option {
         background-color: #007bff;
         color: black;
-    
+
 
     }
 

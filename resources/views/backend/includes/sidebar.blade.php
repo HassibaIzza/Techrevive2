@@ -131,6 +131,9 @@
         </li>
         @endif
 
+
+
+
         @if($status && $role === 'Fabricant')
         <li class="menu-item">
             <a class="has-arrow menu-link" style="cursor: pointer" >

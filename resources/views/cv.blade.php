@@ -5,11 +5,102 @@
     <!-- En-tête de la page -->
 
     <style>
+
+      .btn {
+    display: inline-block;
+    padding: 4px 4px;
+    background-color: #3490dc;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #2779bd;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.5);
+}
+
+      /* Style général */
+.commentForm {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Redimensionnement */
+    margin: 20px auto 20px 10%; /* Décalage à gauche */
+    font-family: Arial, sans-serif;
+}
+
+/* Titre du formulaire */
+.commentForm .heading {
+    font-size: 20px; /* Taille de police ajustée */
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: left; /* Alignement à gauche */
+}
+
+/* Style des champs de formulaire */
+.commentForm input[type="text"],
+.commentForm input[type="email"],
+.commentForm textarea {
+    width: 100%;
+    padding: 8px; /* Taille de padding ajustée */
+    margin: 8px 0; /* Taille de marge ajustée */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px; /* Taille de police ajustée */
+}
+
+/* Empêcher les entrées en lecture seule de recevoir des modifications de couleur de texte */
+.commentForm input[readonly] {
+    background-color: #e9e9e9;
+    color: #666;
+}
+
+/* Style du bouton */
+.commentForm button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px; /* Taille de police ajustée */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.commentForm button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Centrer le texte pour l'état de non-authentification */
+.commentForm p {
+    text-align: center;
+    font-size: 14px; /* Taille de police ajustée */
+    color: #333;
+}
+
       /* ===== =====  Poppins Google Font  ===== =====  */
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
 
 /* ===== =====>>  Universal Selector  <<===== =====  */
+
+
 * {
+
   padding: 0;
   margin: 0;
   font-size: 14px;
@@ -467,30 +558,29 @@ header {
   color: var(--f5-color);
 }
 
+
       </style>
 </head>
 
 <body>
-  <!-- Contenu de la page -->
   <div class="container">
       <!-- Entête -->
       <header>
           <!-- Logo -->
           <div class="brandLogo">
-              <figure><img src="{{ asset('img\logo.jpg') }}" alt="logo" width="200px" height="200px"></figure>
+              <figure><img src="{{ asset('img/logo.jpg') }}" alt="logo" width="200px" height="200px"></figure>
           </div>
       </header>
 
       <section class="userProfile card">
           <div class="profile">
               <figure>
-                <img src="{{ asset('uploads/images/profile/' . $user->photo) }}" alt="profile" width="250px" height="250px">
+                  <img src="{{ asset('uploads/images/profile/' . $reparateur->photo) }}" alt="profile" width="250px" height="250px">
               </figure>
               <!-- Image de profil -->
           </div>
       </section>
 
-      <!-- Section des compétences et des services -->
       <section class="work_skills card">
           <div class="skills">
               <h1 class="heading">Services proposés</h1>
@@ -505,20 +595,59 @@ header {
 
       <section class="userDetails card">
           <div class="userName">
-              <!-- Affichage des détails du réparateur -->
               <p> C.V de Réparateur </p>
               <h1>{{ $reparateur->name }}</h1>
               <p>Rôle: Réparateur</p>
               <p>Email: {{ $reparateur->email }}</p>
               <p>Adresse: {{ $reparateur->address }}</p>
               <p>Numéro de téléphone: {{ $reparateur->phone_number }}</p>
-              <p>type de service: {{ $reparateur->service_type }}
-                <p>  information +: {{ $reparateur->short_description }}
-              
-
-              <!-- Ajoutez d'autres détails si nécessaire -->
+              <p>Type de service: {{ $reparateur->service_type }}</p>
+              <p>Information +: {{ $reparateur->short_description }}</p>
           </div>
       </section>
+
+      <!-- Formulaire de commentaires -->
+      <section class="commentForm card">
+        <h1 class="heading">Laissez un commentaire</h1>
+        @if(Auth::check()) <!-- Vérifie si l'utilisateur est connecté -->
+        <form action="{{ route('comments.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="reparateur_id" value="{{ $reparateur->id }}">
+            <div>
+                <input type="text" name="name" value="{{ Auth::user()->name }}" placeholder="Votre nom" readonly>
+            </div>
+            <div>
+                <input type="email" name="email" value="{{ Auth::user()->email }}" placeholder="Votre email" readonly>
+            </div>
+            <div>
+                <textarea name="comment" rows="4" cols="50" placeholder="Votre commentaire"></textarea>
+            </div>
+            <div>
+                <button type="submit">Envoyer</button>
+            </div>
+        </form>
+        @else
+        <p>Veuillez vous connecter pour laisser un commentaire.</p>
+        @endif
+    </section>
+
+    <a href="{{ route('comments.show', $reparateur->id) }}" class="btn">
+      Voir les commentaires
+  </a>
+  
+  
+
+
+
+
+  
+
+    
+    
+
+    
+    
+  </div>
   </div>
 </body>
 

@@ -239,7 +239,7 @@ class ProductController extends Controller
 
     /******************afficher les produit aux favoris *****************************/
     public function showFavorite(){
-        
+
         $user = Auth::user();
         // Récupérer les produits favoris avec des relations valides
         $favoriteProducts = $user->favorites()->with('product.images')->get()->filter(function($favorite) {
@@ -293,7 +293,7 @@ class ProductController extends Controller
         return view('backend.boutique.view-details', compact('product'));
     }
 
-    
+
 
     /**
      * @return View
@@ -310,39 +310,39 @@ class ProductController extends Controller
     public function productCreate(ProductRequest $request) {
         $data = $request->validated();
         \Log::info('Product data validated', $data);
-    
+
         // Handling the product thumbnail
         $data['product_thumbnail'] = MyHelpers::uploadImage($request->file('product_thumbnail'), self::PRODUCT_IMAGES_PATH);
         \Log::info('Product thumbnail uploaded', ['thumbnail' => $data['product_thumbnail']]);
-    
+
         // Handling the vendor id
         $data['vendor_id'] = $this->getVendorId();
-    
+
         // Handling the product slug
         $data['product_slug'] = $this->getProductSlug($data['product_name']);
-    
+
         // Status of the product
         $data['product_status'] = $request->get('product_status') ? 1 : 0;
-    
+
         // Inserting the product
         if ($data['product_images']) unset($data['product_images']);
-    
+
         try {
             $insertedProductId = ProductModel::insertGetId($data);
         } catch(\Exception $e) {
             return redirect('add_product')->with('error', 'Failed to add this product: ' . $e->getMessage());
         }
-    
+
         if ($insertedProductId) {
             // Handling the product images
             if ($request->file('product_images')) {
                 \Log::info('Handling multiple product images', $request->file('product_images'));
                 $this->handleProductMultiImages($request->file('product_images'), $insertedProductId);
             }
-    
+
             // Handling the product offers
             $this->handleProductOffers($request, $insertedProductId);
-    
+
             return response(['msg' => 'Produit Ajouter Avec Succées.'], 200);
         } else {
             return redirect('add_product')->with('error', 'Un Probléme lors de l\'ajout de cette produit , Reésseyer.');

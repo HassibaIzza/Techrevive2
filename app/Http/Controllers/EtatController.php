@@ -29,7 +29,7 @@ class EtatController extends Controller
           $marque = $userMarque->name;
   
           // Récupérer les catégories de la même marque que l'utilisateur connecté
-          $categories = Typep::where('marque_id', $userMarque->id)->pluck('name');
+          $categories = Typep::where('Marques_id', $userMarque->id)->pluck('name');
       } else {
           $marque = 'Marque inconnue';
           $categories = [];

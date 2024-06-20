@@ -183,11 +183,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*pdf*/
-         
-            
-         
-        
-         
+
+            Barryvdh\DomPDF\ServiceProvider::class,
+
+
+
         /*
          * Package Service Providers...
          */
@@ -219,11 +219,11 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Socialite' => Laravel\Socialite\SocialiteServiceProvider::class,
         /*pdf*/
-       
-        
-        
-            
-        
+         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+
+
+
 
     ])->toArray(),
 

@@ -5,12 +5,22 @@
 @section('content')
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Demandes récentes</div>
+
 </div>
 
 <!-- Afficher les demandes de panne du client connecté -->
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
+
+            <div class="ms-auto" style="margin-bottom: 20px">
+
+
+                <a href="{{route('send.email')}}" class="btn btn-primary radius-30 mt-2 mt-lg-0">
+                    <i class="bx bxs-plus-square"></i> Ajouter une nouvelle demande
+
+                </a>
+            </div>
             <table id="data_table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -53,7 +63,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
+                                                    Fermer
                                                 </button>
                                             </div>
                                         </div>

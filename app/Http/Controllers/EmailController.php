@@ -22,16 +22,11 @@ use Illuminate\View\View;
 
 class EmailController extends Controller
 {
-    public function creerDemande()
-    {
-
-    return view('email');
-    }
 
     public function create()
     {
       $marques = \DB::table('marques')->orderBy('name', 'ASC')->get(); // Utilisez la table "marques"
-      return view('email', ['marques' => $marques]);
+      return view('gmail', ['marques' => $marques]);
     }
     public function fetchStates($marque_id = null) {
       $typep = \DB::table('typeps')->where('marque_id',$marque_id)->get();
@@ -82,39 +77,41 @@ class EmailController extends Controller
     $gmail = $marque ? $marque->gmail : '';
     $client_id = Auth::id();
         $data = [
-          'adresse' => $request->adresse,
-          'name' => $request->name,
-          'email' => $request->email,
-          'content' => $request->content,
-          'typepanne'=>$typepanneName,
-          'typep'=>$typepName,
-          'client_id'=> $client_id,
+            'adresse' => $request->adresse,
+            'name' => $request->name,
+            'email' => $request->email,
+            'content' => $request->content,
+            'typepanne' => $typepanne ? $typepanne->name : '',
+            'typep' => $typep ? $typep->name : '',
+            'client_id' => Auth::id(),
 
 
         ];
 
         echo"";
         // Créer une instance de RendezVous avec les données à enregistrer
-    $rendezVous = new RendezVous();
-    $rendezVous->mail = $request->email;
-    $rendezVous->marque = $request->marque;
-    $rendezVous->catégorie = $typepName; //
-    $rendezVous->panne = $typepanneName; //
-    $rendezVous->problème = $request->content; //
-    $rendezVous->nom = $request->name;
-    $rendezVous->sujet = $request->adresse;
-    $rendezVous->client_id = $client_id ;
-    // Enregistrer les données dans la base de données après avoir envoyé l'e-mail
-    $rendezVous->save();
+        $rendezVous = new RendezVous();
+        $rendezVous->mail = $request->email;
+
+        $rendezVous->marque = $request->marque;
+
+        $rendezVous->catégorie = $typep ? $typep->name : '';
+        $rendezVous->panne = $typepanne ? $typepanne->name : '';
+        $rendezVous->problème = $request->content;
+        $rendezVous->nom = $request->name;
+        $rendezVous->sujet = $request->adresse;
+        $rendezVous->client_id = Auth::id();
+        $rendezVous->save();
 
         /*Mail::send('email-template', $data, function($message) use ($data) {
           $message->to('hadjerjawan@gmail.com')
           ->subject($data['subject']);
         });*/
         // Envoi de l'email à l'adresse Gmail de la marque
+
         Mail::send('email-template', $data, function ($message) use ($data, $gmail) {
         $message->to($gmail) // Envoyer à l'adresse Gmail de la marque
-          ->subject('Panne d\'un appareil');
+          ->subject('Panne d\'une appareil');
   });
   //récupération de l'utilisateur propriétaire de la marque
       $marque = Marque::find($request->marque);
@@ -127,7 +124,7 @@ class EmailController extends Controller
           }
       }
 
-      return back()->with(['message' => 'Email envoyer et notification dispatcher!']);
+      return back()->with(['message' => 'Demande envoyer avec succès']);
 
 
 
